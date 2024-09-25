@@ -3,6 +3,7 @@
 #include <stdexcept>
 #include <limits>
 #include <string>
+#include <iomanip> 
 
 
 using namespace std;
@@ -64,21 +65,39 @@ double skaiciuotiGalutiniBala(const vector<double>& nd_rezultatai, double egz_ba
     return 0.4 * nd_vidurkis + 0.6 * egz_bal;
 }
 
+// Function to display the results in a table format
+void displayResults(const vector<string>& vardai, const vector<string>& pavardes, const vector<double>& galutiniaiBalai) {
+    cout << left << setw(20) << "Vardas" << setw(20) << "Pavarde" << setw(20) << "Galutinis (Vid.)" << endl;
+    cout << string(60, '-') << endl;
+
+    for (size_t i = 0; i < vardai.size(); ++i) {
+        cout << setw(20) << vardai[i] << setw(20) << pavardes[i] << setw(20) << fixed << setprecision(2) << galutiniaiBalai[i] << endl;
+    }
+}
+
 int main() {
-    string vardas, pavarde;
+    int studentCount;
 
-    cout << "Iveskite studento varda: ";
-    cin >> vardas;
-    cout << "Iveskite studento pavarde: ";
-    cin >> pavarde;
+    cout << "Kiek studentu norite ivesti? ";
+    cin >> studentCount;
 
-    vector<double> nd_rezultatai = ivestiND();
-    double egz_bal = ivestiBala("Iveskite egzamino rezultata: ");
+    vector<string> vardai(studentCount);
+    vector<string> pavardes(studentCount);
+    vector<double> galutiniaiBalai(studentCount);
 
-    double galutinis_bal = skaiciuotiGalutiniBala(nd_rezultatai, egz_bal);
+    for (int i = 0; i < studentCount; ++i) {
+        cout << "Iveskite " << i + 1 << "-ojo studento varda: ";
+        cin >> vardai[i];
+        cout << "Iveskite " << i + 1 << "-ojo studento pavarde: ";
+        cin >> pavardes[i];
 
-    cout << "Studentas: " << vardas << " " << pavarde << endl;
-    cout << "Galutinis balas: " << galutinis_bal << endl;
+        vector<double> nd_rezultatai = ivestiND();
+        double egz_bal = ivestiBala("Iveskite egzamino rezultata: ");
+        galutiniaiBalai[i] = skaiciuotiGalutiniBala(nd_rezultatai, egz_bal);
+    }
+
+    // Display results
+    displayResults(vardai, pavardes, galutiniaiBalai);
 
     return 0;
 }
