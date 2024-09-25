@@ -4,6 +4,7 @@
 #include <limits>
 #include <string>
 #include <iomanip> 
+#include <algorithm>
 
 
 using namespace std;
@@ -55,28 +56,44 @@ vector<double> ivestiND() {
     return nd_rezultatai;
 }
 
-// Funkcija apskaiciuoti galutini bala
-double skaiciuotiGalutiniBala(const vector<double>& nd_rezultatai, double egz_bal) {
+double skaiciuotiVidurki(const vector<double>& nd_rezultatai) {
     double nd_vidurkis = 0.0;
     for (double balas : nd_rezultatai) {
         nd_vidurkis += balas;
     }
-    nd_vidurkis /= nd_rezultatai.size();
-    return 0.4 * nd_vidurkis + 0.6 * egz_bal;
+    return nd_vidurkis / nd_rezultatai.size();
+}
+
+double skaiciuotiMediana(vector<double> nd_rezultatai) {
+    sort(nd_rezultatai.begin(), nd_rezultatai.end());
+    size_t size = nd_rezultatai.size();
+    if (size % 2 == 0) {
+        return (nd_rezultatai[size / 2 - 1] + nd_rezultatai[size / 2]) / 2.0;
+    }
+    else {
+        return nd_rezultatai[size / 2];
+    }
+}
+// Funkcija apskaiciuoti galutini bala
+double skaiciuotiGalutiniBala(const vector<double>& nd_rezultatai, double egz_bal, bool naudotiMediana) {
+    double galutinis_nd = naudotiMediana ? skaiciuotiMediana(nd_rezultatai) : skaiciuotiVidurki(nd_rezultatai);
+    return 0.4 * galutinis_nd + 0.6 * egz_bal;
 }
 
 // Function to display the results in a table format
-void displayResults(const vector<string>& vardai, const vector<string>& pavardes, const vector<double>& galutiniaiBalai) {
-    cout << left << setw(20) << "Vardas" << setw(20) << "Pavarde" << setw(20) << "Galutinis (Vid.)" << endl;
-    cout << string(60, '-') << endl;
+void displayResults(const vector<string>& vardai, const vector<string>& pavardes, const vector<double>& galutiniaiBalai, bool naudotiMediana) {
+    cout << left << std::setw(20) << "Vardas" << std::setw(20) << "Pavarde" << std::setw(25)
+        << (naudotiMediana ? "Galutinis (Med.)" : "Galutinis (Vid.)") << endl;
+    cout << string(65, '-') << endl;
 
     for (size_t i = 0; i < vardai.size(); ++i) {
-        cout << setw(20) << vardai[i] << setw(20) << pavardes[i] << setw(20) << fixed << setprecision(2) << galutiniaiBalai[i] << endl;
+        cout << std::setw(20) << vardai[i] << std::setw(20) << pavardes[i] << std::setw(25) << fixed << setprecision(2) << galutiniaiBalai[i] << endl;
     }
 }
 
 int main() {
     int studentCount;
+    bool naudotiMediana;
 
     cout << "Kiek studentu norite ivesti? ";
     cin >> studentCount;
@@ -84,6 +101,11 @@ int main() {
     vector<string> vardai(studentCount);
     vector<string> pavardes(studentCount);
     vector<double> galutiniaiBalai(studentCount);
+
+    char pasirinkimas;
+    cout << "Ar norite skaiciuoti galutini bala naudodami medianos skaiciavima? (y/n): ";
+    cin >> pasirinkimas;
+    naudotiMediana = (pasirinkimas == 'y' || pasirinkimas == 'Y');
 
     for (int i = 0; i < studentCount; ++i) {
         cout << "Iveskite " << i + 1 << "-ojo studento varda: ";
@@ -93,11 +115,11 @@ int main() {
 
         vector<double> nd_rezultatai = ivestiND();
         double egz_bal = ivestiBala("Iveskite egzamino rezultata: ");
-        galutiniaiBalai[i] = skaiciuotiGalutiniBala(nd_rezultatai, egz_bal);
+        galutiniaiBalai[i] = skaiciuotiGalutiniBala(nd_rezultatai, egz_bal, naudotiMediana);
     }
 
     // Display results
-    displayResults(vardai, pavardes, galutiniaiBalai);
+    displayResults(vardai, pavardes, galutiniaiBalai, naudotiMediana);
 
     return 0;
 }
