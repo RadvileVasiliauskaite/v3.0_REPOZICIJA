@@ -18,5 +18,25 @@
     <ClCompile Include="v.pradinee.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="rezultatai.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="studentas.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="data_handling.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="rezultatai.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="studentas.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="data_handling.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
