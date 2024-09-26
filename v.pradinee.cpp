@@ -3,110 +3,53 @@
 #include <stdexcept>
 #include <limits>
 #include <string>
-#include <iomanip> 
+#include <iomanip>
 #include <algorithm>
-#include <random> 
-
+#include <random>
+#include <fstream>
 
 using namespace std;
 
 double generuotiAtsitiktiniBala() {
     random_device rd;
     mt19937 gen(rd());
-    uniform_real_distribution<> dist(0.0, 10.0); // Balai tarp 0 ir 10
+    uniform_real_distribution<> dist(0.0, 10.0);
     return dist(gen);
 }
 
+void readFromFile(vector<string>& vardai, vector<string>& pavardes, vector<vector<double>>& nd_rezultatai, vector<double>& egzaminoBalai) {
+    ifstream file("C:\\Users\\radvi\\source\\repos\\v.pradinee\\kursiokai.txt");
 
-// Funkcija ivesti ir tikrinti balo korektiskuma
-double ivestiBala(const string& prompt, bool naudotiAtsitiktini) {
-    if (naudotiAtsitiktini) {
-        double balas = generuotiAtsitiktiniBala();
-        cout << prompt << balas << endl;
-        return balas;
+    if (!file.is_open()) {
+        cout << "Nepavyko atidaryti failo!" << endl;
+        return;
     }
 
-    double balas;
-    while (true) {
-        cout << prompt;
-        cin >> balas;
+    string header;
+    getline(file, header);
 
-        if (cin.fail()) {
-            cin.clear(); // atstatyti cin busena
-            cin.ignore(numeric_limits<streamsize>::max(), '\n'); // praleisti netinkama ivesti
-            cout << "Klaida: Iveskite tinkama skaiciu!" << endl;
-        }
-        else if (balas < 0 || balas > 10) {
-            cout << "Klaida: Iveskite skaiciu tarp 0 ir 10." << endl;
-        }
-        else {
-            return balas;
-        }
-    }
-}
+    string vardas, pavarde;
+    double uzduotis1, uzduotis2, uzduotis3, uzduotis4, uzduotis5, egzam;
 
-vector<double> ivestiND(bool naudotiAtsitiktini) {
-    vector<double> nd_rezultatai;
-
-    if (naudotiAtsitiktini) {
-        int nd_sk = rand() % 10 + 1; // Generuoja atsitiktini namu darbu skaiciu (nuo 1 iki 10)
-        for (int i = 0; i < nd_sk; ++i) {
-            double balas = generuotiAtsitiktiniBala();
-            nd_rezultatai.push_back(balas);
-            cout << "Generuojamas " << i + 1 << "-ojo namu darbo rezultatas: " << balas << endl;
-        }
-    }
-    else {
-        string input;
-        while (true) {
-            cout << "Iveskite namu darbo rezultata(paspauskite ENTER norint baigti): ";
-            getline(cin, input); 
-
-         
-            if (input.empty() && nd_rezultatai.size() > 0) {
-                break; // Baigti jei yra ivestas bent vienas rezultatas
-            }
-            else if (input.empty()) {
-                cout << "Klaida: Turite ivesti bent viena namu darbo rezultata!" << endl;
-                continue;
-            }
-
-
-            try {
-                double balas = stod(input); 
-               
-                if (balas < 0 || balas > 10) {
-                    cout << "Klaida: Iveskite skaiciu tarp 0 ir 10." << endl;
-                }
-                else {
-                    nd_rezultatai.push_back(balas);
-                }
-            }
-            catch (const invalid_argument&) {
-                cout << "Klaida: Iveskite tinkama skaiciu!" << endl; 
-            }
-            catch (const out_of_range&) {
-                cout << "Klaida: Iveskite tinkama skaiciu!" << endl; 
-            }
-        }
+    while (file >> vardas >> pavarde >> uzduotis1 >> uzduotis2 >> uzduotis3 >> uzduotis4 >> uzduotis5 >> egzam) {
+        vardai.push_back(vardas);
+        pavardes.push_back(pavarde);
+        nd_rezultatai.push_back({ uzduotis1, uzduotis2, uzduotis3, uzduotis4, uzduotis5 });
+        egzaminoBalai.push_back(egzam);
     }
 
-    return nd_rezultatai;
+    file.close();
 }
 
 double skaiciuotiVidurki(const vector<double>& nd_rezultatai) {
-    if (nd_rezultatai.empty()) return 0.0;
-
-    double nd_vidurkis = 0.0;
-    for (double balas : nd_rezultatai) {
-        nd_vidurkis += balas;
+    double total = 0.0;
+    for (double score : nd_rezultatai) {
+        total += score;
     }
-    return nd_vidurkis / nd_rezultatai.size();
+    return total / nd_rezultatai.size();
 }
 
 double skaiciuotiMediana(vector<double> nd_rezultatai) {
-    if (nd_rezultatai.empty()) return 0.0;
-
     sort(nd_rezultatai.begin(), nd_rezultatai.end());
     size_t size = nd_rezultatai.size();
     if (size % 2 == 0) {
@@ -116,93 +59,149 @@ double skaiciuotiMediana(vector<double> nd_rezultatai) {
         return nd_rezultatai[size / 2];
     }
 }
-// Funkcija apskaiciuoti galutini bala
-double skaiciuotiGalutiniBala(const vector<double>& nd_rezultatai, double egz_bal, bool naudotiMediana) {
-    double galutinis_nd = naudotiMediana ? skaiciuotiMediana(nd_rezultatai) : skaiciuotiVidurki(nd_rezultatai);
-    return 0.4 * galutinis_nd + 0.6 * egz_bal;
-}
 
-// Funkcija pavaizduoti galutini rezultata
-void displayResults(const vector<string>& vardai, const vector<string>& pavardes, const vector<double>& galutiniaiBalai, bool naudotiMediana) {
-    cout << left << std::setw(20) << "Vardas" << std::setw(20) << "Pavarde" << std::setw(25)
-        << (naudotiMediana ? "Galutinis (Med.)" : "Galutinis (Vid.)") << endl;
-    cout << string(65, '-') << endl;
+void displayResults(const vector<string>& vardai, const vector<string>& pavardes, const vector<double>& galutiniaiBalai, const vector<double>& naudotiMediana) {
+    cout << left << setw(20) << "Vardas" << setw(20) << "Pavarde" << setw(25) << "Galutinis (Vidurkis)" << setw(25) << "Galutinis (Mediana)" << endl;
+    cout << string(90, '-') << endl;
 
     for (size_t i = 0; i < vardai.size(); ++i) {
-        cout << std::setw(20) << vardai[i] << std::setw(20) << pavardes[i] << std::setw(25) << fixed << setprecision(2) << galutiniaiBalai[i] << endl;
+        cout << setw(20) << vardai[i] << setw(20) << pavardes[i] << setw(25) << fixed << setprecision(2) << galutiniaiBalai[i] << setw(25) << fixed << setprecision(2) << naudotiMediana[i] << endl;
+    }
+}
+
+// Function to get a positive score from the user
+double getPositiveScore(const string& prompt) {
+    double score;
+    while (true) {
+        cout << prompt;
+        cin >> score;
+        if (cin.fail() || score < 0.0) { // Check for non-numeric or negative input
+            cin.clear(); // Clear the error state
+            cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Discard invalid input
+            cout << "Klaida! Prasome ivesti teigiama skaiciu." << endl;
+        }
+        else {
+            cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Clear the buffer
+            return score; // Valid input, return score
+        }
+    }
+}
+
+// Function to get a valid choice for data input type
+char getInputChoice() {
+    char choice;
+    while (true) {
+        cout << "Pasirinkite duomenu irasymo tipa:\n";
+        cout << "1 - Ivesti duomenis\n";
+        cout << "2 - Generuoti duomenis atsitiktinai\n";
+        cout << "3 - Nuskaityti duomenis is failo\n";
+        cin >> choice;
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+
+        if (choice == '1' || choice == '2' || choice == '3') {
+            return choice; // Return valid choice
+        }
+        else {
+            cout << "Klaida! Prasome pasirinkti 1, 2 arba 3." << endl; // Invalid choice
+        }
     }
 }
 
 int main() {
-    int studentCount;
-    bool naudotiMediana, naudotiAtsitiktini;
+    int studentCount = 0;
 
-    while (true) {
+    char choice = getInputChoice(); // Get valid choice for data input type
+
+    vector<string> vardai;
+    vector<string> pavardes;
+    vector<vector<double>> nd_rezultatai;
+    vector<double> egzaminoBalai;
+
+    if (choice == '1') {
         cout << "Kiek studentu norite ivesti? ";
         cin >> studentCount;
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
 
-        if (cin.fail()) {
-            cin.clear();
-            cin.ignore(numeric_limits<streamsize>::max(), '\n');
-            cout << "Klaida: Iveskite skaiciu!" << endl;
-        }
-        else if (studentCount <= 0) {
-            cout << "Klaida: Iveskite teigiama skaiciu!" << endl;
-        }
-        else {
-            break;
+        vardai.resize(studentCount);
+        pavardes.resize(studentCount);
+        nd_rezultatai.resize(studentCount);
+        egzaminoBalai.resize(studentCount);
+
+        for (int i = 0; i < studentCount; ++i) {
+            cout << "Iveskite " << i + 1 << "-ojo studento varda: ";
+            getline(cin, vardai[i]);
+            cout << "Iveskite " << i + 1 << "-ojo studento pavarde: ";
+            getline(cin, pavardes[i]);
+
+            vector<double> uzduotys;
+            cout << "Iveskite uzduociu balus (spauskite ENTER du kartus, kad baigti):" << endl;
+
+            string input;
+            while (true) {
+                getline(cin, input);
+                if (input.empty()) {
+                    break;
+                }
+
+                try {
+                    double uzduotis = stod(input);
+                    if (uzduotis < 0) { // Ensure the score is positive
+                        cout << "Neteisingas balas! Prasome ivesti teigiama skaiciu." << endl;
+                    }
+                    else {
+                        uzduotys.push_back(uzduotis);
+                    }
+                }
+                catch (invalid_argument&) {
+                    cout << "Neteisingas balas! Prasome ivesti skaiciu." << endl;
+                }
+            }
+            nd_rezultatai[i] = uzduotys;
+
+            // Input exam score using the validation function
+            double egzaminoBalas = getPositiveScore("Iveskite egzamino rezultata: ");
+            egzaminoBalai[i] = egzaminoBalas;
         }
     }
-    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+    else if (choice == '2') {
+        cout << "Kiek studentu norite ivesti? ";
+        cin >> studentCount;
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
 
-    vector<string> vardai(studentCount);
-    vector<string> pavardes(studentCount);
+        vardai.resize(studentCount);
+        pavardes.resize(studentCount);
+        nd_rezultatai.resize(studentCount);
+        egzaminoBalai.resize(studentCount);
+
+        for (int i = 0; i < studentCount; ++i) {
+            vardai[i] = "Vardas" + to_string(i + 1);
+            pavardes[i] = "Pavarde" + to_string(i + 1);
+
+            vector<double> uzduotys(5);
+            for (int j = 0; j < 5; ++j) {
+                uzduotys[j] = generuotiAtsitiktiniBala();
+            }
+            nd_rezultatai[i] = uzduotys;
+
+            egzaminoBalai[i] = generuotiAtsitiktiniBala();
+        }
+    }
+    else if (choice == '3') {
+        readFromFile(vardai, pavardes, nd_rezultatai, egzaminoBalai);
+        studentCount = vardai.size();
+    }
+
+    // Final score calculation
     vector<double> galutiniaiBalai(studentCount);
-
-    char pasirinkimas;
-
-    while (true) {
-        cout << "Ar norite skaiciuoti galutini bala naudodami medianos skaiciavima? (y/n): ";
-        cin >> pasirinkimas;
-        if (pasirinkimas == 'y' || pasirinkimas == 'Y') {
-            naudotiMediana = true;
-            break;
-        }else if (pasirinkimas == 'n' || pasirinkimas == 'N') {
-            naudotiMediana = false;
-            break;
-        }else {
-            cout << "Klaida: Iveskite 'y' arba 'n'!" << endl;
-        }
-    }
-    while (true) {
-        cout << "Ar norite naudoti atsitiktinius balus? (y/n): ";
-        cin >> pasirinkimas;
-        if (pasirinkimas == 'y' || pasirinkimas == 'Y') {
-            naudotiAtsitiktini = true;
-            break;
-        } else if (pasirinkimas == 'n' || pasirinkimas == 'N') {
-            naudotiAtsitiktini = false;
-            break;
-        } else {
-            cout << "Klaida: Iveskite 'y' arba 'n'!" << endl;
-        }
-    }
-
-    cin.ignore(numeric_limits<streamsize>::max(), '\n');
-
+    vector<double> naudotiMediana(studentCount);
     for (int i = 0; i < studentCount; ++i) {
-        cout << "Iveskite " << i + 1 << "-ojo studento varda: ";
-        getline(cin, vardai[i]);
-        cout << "Iveskite " << i + 1 << "-ojo studento pavarde: ";
-        getline(cin, pavardes[i]);
-
-        vector<double> nd_rezultatai = ivestiND(naudotiAtsitiktini);
-        double egz_bal = ivestiBala("Iveskite egzamino rezultata: ", naudotiAtsitiktini);
-        galutiniaiBalai[i] = skaiciuotiGalutiniBala(nd_rezultatai, egz_bal, naudotiMediana);
+        double egzaminoBalas = egzaminoBalai[i];
+        galutiniaiBalai[i] = 0.4 * skaiciuotiVidurki(nd_rezultatai[i]) + 0.6 * egzaminoBalas;
+        naudotiMediana[i] = 0.4 * skaiciuotiMediana(nd_rezultatai[i]) + 0.6 * egzaminoBalas;
     }
 
-    
     displayResults(vardai, pavardes, galutiniaiBalai, naudotiMediana);
 
     return 0;
 }
+

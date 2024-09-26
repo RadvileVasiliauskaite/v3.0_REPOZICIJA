@@ -1,0 +1,6 @@
+Vardas Pavarde ND1 ND2 ND3 ND4 ND5 Egzaminas
+Radvile Vasiliauskaite 8 9 7 8 9 6
+Martynas Urbaitis 7 6 8 9 5 7
+Gabriele Vasiliauskaite 9 10 9 10 7 8
+Ieva Ivanauskiene 6 8 7 8 9 5
+Mindaugas Mindaugaitis 10 9 8 9 7 8
