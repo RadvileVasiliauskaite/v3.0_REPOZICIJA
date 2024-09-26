@@ -10,6 +10,11 @@
 
 using namespace std;
 
+struct Rezultatai {
+    vector<double> nd_rezultatai;  
+    double egzaminoBalas;          
+};
+
 struct Studentas {
     string vardas;
     string pavarde;
