@@ -5,6 +5,8 @@
 #include <limits>
 #include <random>
 #include <string>
+#include <sstream>
+#include <vector>
 
 using namespace std;
 
@@ -16,8 +18,21 @@ double generuotiAtsitiktiniBala() {
 }
 
 void readFromFile(vector<Studentas>& studentai, vector<vector<double>>& nd_rezultatai, vector<double>& egzaminoBalai) {
-    ifstream file("C:\\Users\\radvi\\source\\repos\\v.pradinee\\kursiokai.txt");
+    cout << "Pasirinkite faila:\n1. kursiokai.txt\n2. studentai10000.txt\n3. studentai100000.txt\n4. studentai1000000.txt\n";
+    int pasirinkimas;
+    cin >> pasirinkimas;
+    cin.ignore(numeric_limits<streamsize>::max(), '\n');
 
+    string failoKelias;
+    switch (pasirinkimas) {
+    case 1: failoKelias = "C:\\Users\\radvi\\source\\repos\\v.pradinee\\kursiokai.txt"; break;
+    case 2: failoKelias = "C:\\Users\\radvi\\source\\repos\\v.pradinee\\studentai10000 (1).txt"; break;
+    case 3: failoKelias = "C:\\Users\\radvi\\source\\repos\\v.pradinee\\studentai100000.txt"; break;
+    case 4: failoKelias = "C:\\Users\\radvi\\source\\repos\\v.pradinee\\studentai1000000.txt"; break;
+    default: cout << "Neteisingas pasirinkimas!" << endl; return;
+    }
+
+    ifstream file(failoKelias);
     if (!file.is_open()) {
         cout << "Nepavyko atidaryti failo!" << endl;
         return;
@@ -26,16 +41,24 @@ void readFromFile(vector<Studentas>& studentai, vector<vector<double>>& nd_rezul
     string header;
     getline(file, header);
 
-    string vardas, pavarde;
-    double uzduotis1, uzduotis2, uzduotis3, uzduotis4, uzduotis5, egzam;
-
-    while (file >> vardas >> pavarde >> uzduotis1 >> uzduotis2 >> uzduotis3 >> uzduotis4 >> uzduotis5 >> egzam) {
+    string line;
+    while (getline(file, line)) {
+        istringstream iss(line);
         Studentas studentas;
-        studentas.vardas = vardas;
-        studentas.pavarde = pavarde;
+        iss >> studentas.vardas >> studentas.pavarde;
+
+        vector<double> uzduotys;
+        double balas;
+        while (iss >> balas) {
+            uzduotys.push_back(balas);
+        }
+
+        double egzaminoBalas = uzduotys.back();
+        uzduotys.pop_back();
+
         studentai.push_back(studentas);
-        nd_rezultatai.push_back({ uzduotis1, uzduotis2, uzduotis3, uzduotis4, uzduotis5 });
-        egzaminoBalai.push_back(egzam);
+        nd_rezultatai.push_back(uzduotys);
+        egzaminoBalai.push_back(egzaminoBalas);
     }
 
     file.close();
@@ -61,10 +84,7 @@ double getPositiveScore(const string& prompt) {
 char getInputChoice() {
     char choice;
     while (true) {
-        cout << "Pasirinkite duomenu irasymo tipa:\n";
-        cout << "1 - Ivesti duomenis\n";
-        cout << "2 - Generuoti duomenis atsitiktinai\n";
-        cout << "3 - Nuskaityti duomenis is failo\n";
+        cout << "Pasirinkite duomenu irasymo tipa:\n1 - Ivesti duomenis\n2 - Generuoti duomenis atsitiktinai\n3 - Nuskaityti duomenis is failo\n";
         cin >> choice;
         cin.ignore(numeric_limits<streamsize>::max(), '\n');
 
