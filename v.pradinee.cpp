@@ -4,7 +4,38 @@
 #include <vector>
 #include <algorithm>
 #include <iostream>
-#include <stdexcept> 
+#include <stdexcept>
+#include <limits>
+#include <fstream>
+
+
+std::string formatIndex(int index, int maxLength) {
+    std::string formatted = std::to_string(index);
+    while (formatted.length() < maxLength) {
+        formatted = "0" + formatted; 
+    }
+    return formatted;
+}
+
+void writeToFile(const std::vector<Studentas>& studentai, const std::vector<std::vector<double>>& nd_rezultatai, const std::vector<double>& egzaminoBalai, const std::string& filename) {
+    std::ofstream file(filename);
+    if (!file.is_open()) {
+        std::cerr << "Nepavyko sukurti failo!" << std::endl;
+        return;
+    }
+
+    file << "Vardas Pavarde UzduociuBalai EgzaminoBalas" << std::endl;
+    for (size_t i = 0; i < studentai.size(); ++i) {
+        file << studentai[i].vardas << " " << studentai[i].pavarde << " ";
+        for (double balas : nd_rezultatai[i]) {
+            file << balas << " ";
+        }
+        file << egzaminoBalai[i] << std::endl;
+    }
+
+    file.close();
+    std::cout << "Sugeneruoti duomenys buvo issaugoti faile!" << std::endl;
+}
 
 int main() {
     int studentCount = 0;
@@ -16,28 +47,63 @@ int main() {
 
     try {
         if (choice == '1' || choice == '2') {
-            
-            while (true) {
-                std::cout << "Kiek studentu norite ivesti? ";
-                std::cin >> studentCount;
+            if (choice == '2') {
+                while (true) {
+                    std::cout << "Kiek studentu norite generuoti (1000, 10000, 100000, 1000000, 10000000)? ";
+                    std::cin >> studentCount;
 
-                
-                if (std::cin.fail() || studentCount <= 0) {
-                    std::cin.clear(); 
-                    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); 
-                    std::cout << "Klaida! Prasome ivesti teigiama studentu skaiciu." << std::endl;
+                    if (std::cin.fail() || (studentCount != 1000 && studentCount != 10000 && studentCount != 100000 && studentCount != 1000000 && studentCount != 10000000)) {
+                        std::cin.clear();
+                        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+                        std::cout << "Klaida! Prasome pasirinkti 1000, 10000, 100000, 1000000 arba 10000000." << std::endl;
+                    }
+                    else {
+                        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+                        break;
+                    }
                 }
-                else {
-                    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-                    break;
+
+                studentai.resize(studentCount);
+                nd_rezultatai.resize(studentCount);
+                egzaminoBalai.resize(studentCount);
+
+                int indexLength = std::to_string(studentCount).length();
+
+                for (int i = 0; i < studentCount; ++i) {
+                    studentai[i].vardas = "Vardas" + formatIndex(i + 1, indexLength);
+                    studentai[i].pavarde = "Pavarde" + formatIndex(i + 1, indexLength);
+
+                    std::vector<double> uzduotys(5);
+                    for (int j = 0; j < 5; ++j) {
+                        uzduotys[j] = generuotiAtsitiktiniBala();
+                    }
+                    nd_rezultatai[i] = uzduotys;
+
+                    egzaminoBalai[i] = generuotiAtsitiktiniBala();
                 }
+
+                writeToFile(studentai, nd_rezultatai, egzaminoBalai, "generated_students.txt");
             }
+            else {
+                while (true) {
+                    std::cout << "Kiek studentu norite ivesti? ";
+                    std::cin >> studentCount;
 
-            studentai.resize(studentCount);
-            nd_rezultatai.resize(studentCount);
-            egzaminoBalai.resize(studentCount);
+                    if (std::cin.fail() || studentCount <= 0) {
+                        std::cin.clear();
+                        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+                        std::cout << "Klaida! Prasome ivesti teigiama studentu skaiciu." << std::endl;
+                    }
+                    else {
+                        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+                        break;
+                    }
+                }
 
-            if (choice == '1') {
+                studentai.resize(studentCount);
+                nd_rezultatai.resize(studentCount);
+                egzaminoBalai.resize(studentCount);
+
                 for (int i = 0; i < studentCount; ++i) {
                     std::cout << "Iveskite " << i + 1 << "-ojo studento varda: ";
                     getline(std::cin, studentai[i].vardas);
@@ -73,20 +139,6 @@ int main() {
                     egzaminoBalai[i] = egzaminoBalas;
                 }
             }
-            else if (choice == '2') {
-                for (int i = 0; i < studentCount; ++i) {
-                    studentai[i].vardas = "Vardas" + std::to_string(i + 1);
-                    studentai[i].pavarde = "Pavarde" + std::to_string(i + 1);
-
-                    std::vector<double> uzduotys(5);
-                    for (int j = 0; j < 5; ++j) {
-                        uzduotys[j] = generuotiAtsitiktiniBala();
-                    }
-                    nd_rezultatai[i] = uzduotys;
-
-                    egzaminoBalai[i] = generuotiAtsitiktiniBala();
-                }
-            }
         }
         else if (choice == '3') {
             readFromFile(studentai, nd_rezultatai, egzaminoBalai);
@@ -109,7 +161,5 @@ int main() {
         std::cerr << "Klaida: " << e.what() << std::endl;
     }
 
-
     return 0;
 }
-
