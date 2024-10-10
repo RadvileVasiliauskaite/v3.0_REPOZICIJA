@@ -36,26 +36,9 @@ void writeToFile(const std::vector<Studentas>& studentai, const std::vector<std:
     std::cout << "Sugeneruoti duomenys buvo issaugoti faile!" << std::endl;
 }
 
-char getSortingChoice() {
-    char sortChoice;
-    while (true) {
-        std::cout << "Pasirinkite rusiuoti pagal:\n1 - Vidurki\n2 - Mediana\nJusu pasirinkimas: ";
-        std::cin >> sortChoice;
-
-        if (sortChoice == '1' || sortChoice == '2') {
-            break;
-        }
-        else {
-            std::cout << "Klaida! Pasirinkimas turi buti 1 arba 2." << std::endl;
-        }
-    }
-    return sortChoice;
-}
-
 int main() {
     int studentCount = 0;
-    char choice = getInputChoice();
-    char sortChoice = getSortingChoice();
+    char choice = getInputChoice(); // No sorting choice needed
 
     std::vector<Studentas> studentai;
     std::vector<std::vector<double>> nd_rezultatai;
@@ -177,24 +160,13 @@ int main() {
             }
         }
 
-        if (sortChoice == '1') {
-            std::cout << "Rusiavimas pagal vidurki..." << std::endl;
-            std::sort(vargsiai.begin(), vargsiai.end(), [](const Studentas& a, const Studentas& b) {
-                return a.galutinisBalas < b.galutinisBalas;
-                });
-            std::sort(kietiakiai.begin(), kietiakiai.end(), [](const Studentas& a, const Studentas& b) {
-                return a.galutinisBalas < b.galutinisBalas;
-                });
-        }
-        else if (sortChoice == '2') {
-            std::cout << "Rusiavimas pagal mediana..." << std::endl;
-            std::sort(vargsiai.begin(), vargsiai.end(), [](const Studentas& a, const Studentas& b) {
-                return a.galutinisMediana < b.galutinisMediana;
-                });
-            std::sort(kietiakiai.begin(), kietiakiai.end(), [](const Studentas& a, const Studentas& b) {
-                return a.galutinisMediana < b.galutinisMediana;
-                });
-        }
+        std::cout << "Rusiavimas pagal vidurki..." << std::endl;
+        std::sort(vargsiai.begin(), vargsiai.end(), [](const Studentas& a, const Studentas& b) {
+            return a.galutinisBalas < b.galutinisBalas;
+            });
+        std::sort(kietiakiai.begin(), kietiakiai.end(), [](const Studentas& a, const Studentas& b) {
+            return a.galutinisBalas < b.galutinisBalas;
+            });
 
         std::cout << "Vargsiukai:" << std::endl;
         displayResults(vargsiai);
