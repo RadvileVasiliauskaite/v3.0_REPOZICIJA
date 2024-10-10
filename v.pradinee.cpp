@@ -97,8 +97,9 @@ int main() {
 
                 int indexLength = std::to_string(studentCount).length();
 
-                
-               
+
+                auto start = std::chrono::high_resolution_clock::now();
+
                 for (int i = 0; i < studentCount; ++i) {
                     studentai[i].vardas = "Vardas" + formatIndex(i + 1, indexLength);
                     studentai[i].pavarde = "Pavarde" + formatIndex(i + 1, indexLength);
@@ -112,11 +113,14 @@ int main() {
                     egzaminoBalai[i] = generuotiAtsitiktiniBala();
                 }
 
-                
+
                 writeToFile(studentai, nd_rezultatai, egzaminoBalai, "generated_students.txt");
 
-                
-            
+
+                auto end = std::chrono::high_resolution_clock::now();
+                std::chrono::duration<double> elapsed = end - start;
+
+                std::cout << "Failo 'generated_students.txt' sukurimas uztruko: " << elapsed.count() << " sekundziu." << std::endl;
             }
             else {
                 while (true) {
