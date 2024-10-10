@@ -7,6 +7,8 @@
 #include <stdexcept>
 #include <limits>
 #include <fstream>
+#include <iomanip>
+#include <chrono>  
 
 std::string formatIndex(int index, int maxLength) {
     std::string formatted = std::to_string(index);
@@ -19,7 +21,7 @@ std::string formatIndex(int index, int maxLength) {
 void writeToFile(const std::vector<Studentas>& studentai, const std::vector<std::vector<double>>& nd_rezultatai, const std::vector<double>& egzaminoBalai, const std::string& filename) {
     std::ofstream file(filename);
     if (!file.is_open()) {
-        std::cerr << "Nepavyko sukurti failo!" << std::endl;
+        std::cerr << "Nepavyko sukurti failo " << filename << "!" << std::endl;
         return;
     }
 
@@ -33,12 +35,39 @@ void writeToFile(const std::vector<Studentas>& studentai, const std::vector<std:
     }
 
     file.close();
-    std::cout << "Sugeneruoti duomenys buvo issaugoti faile!" << std::endl;
+    std::cout << "Sugeneruoti duomenys buvo issaugoti faile: " << filename << std::endl;
+}
+
+void writeResultsToFile(const std::vector<Studentas>& studentai, const std::string& filename) {
+    std::ofstream file(filename);
+    if (!file.is_open()) {
+        std::cerr << "Nepavyko sukurti failo " << filename << "!" << std::endl;
+        return;
+    }
+
+    file << "Vardas Pavarde Galutinis (Vidurkis) Galutinis (Mediana)" << std::endl;
+    for (const auto& studentas : studentai) {
+        file << studentas.vardas << " " << studentas.pavarde << " "
+            << std::fixed << std::setprecision(2) << studentas.galutinisBalas << " "
+            << studentas.galutinisMediana << std::endl;
+    }
+
+    file.close();
+    std::cout << "Rezultatai buvo issaugoti faile: " << filename << std::endl;
+}
+
+void processAndWriteResults(const std::vector<Studentas>& studentai, const std::string& category) {
+    if (category == "vargsiai") {
+        writeResultsToFile(studentai, "vargsiai.txt");
+    }
+    else if (category == "kietiakiai") {
+        writeResultsToFile(studentai, "kietiakiai.txt");
+    }
 }
 
 int main() {
     int studentCount = 0;
-    char choice = getInputChoice(); // No sorting choice needed
+    char choice = getInputChoice();
 
     std::vector<Studentas> studentai;
     std::vector<std::vector<double>> nd_rezultatai;
@@ -68,6 +97,8 @@ int main() {
 
                 int indexLength = std::to_string(studentCount).length();
 
+                
+               
                 for (int i = 0; i < studentCount; ++i) {
                     studentai[i].vardas = "Vardas" + formatIndex(i + 1, indexLength);
                     studentai[i].pavarde = "Pavarde" + formatIndex(i + 1, indexLength);
@@ -81,7 +112,11 @@ int main() {
                     egzaminoBalai[i] = generuotiAtsitiktiniBala();
                 }
 
+                
                 writeToFile(studentai, nd_rezultatai, egzaminoBalai, "generated_students.txt");
+
+                
+            
             }
             else {
                 while (true) {
@@ -168,11 +203,9 @@ int main() {
             return a.galutinisBalas < b.galutinisBalas;
             });
 
-        std::cout << "Vargsiukai:" << std::endl;
-        displayResults(vargsiai);
+        processAndWriteResults(vargsiai, "vargsiai");
+        processAndWriteResults(kietiakiai, "kietiakiai");
 
-        std::cout << "Kietiakiai:" << std::endl;
-        displayResults(kietiakiai);
     }
     catch (const std::exception& e) {
         std::cerr << "Klaida: " << e.what() << std::endl;
@@ -180,4 +213,3 @@ int main() {
 
     return 0;
 }
-
