@@ -8,11 +8,10 @@
 #include <limits>
 #include <fstream>
 
-
 std::string formatIndex(int index, int maxLength) {
     std::string formatted = std::to_string(index);
     while (formatted.length() < maxLength) {
-        formatted = "0" + formatted; 
+        formatted = "0" + formatted;
     }
     return formatted;
 }
@@ -37,9 +36,26 @@ void writeToFile(const std::vector<Studentas>& studentai, const std::vector<std:
     std::cout << "Sugeneruoti duomenys buvo issaugoti faile!" << std::endl;
 }
 
+char getSortingChoice() {
+    char sortChoice;
+    while (true) {
+        std::cout << "Pasirinkite rusiuoti pagal:\n1 - Vidurki\n2 - Mediana\nJusu pasirinkimas: ";
+        std::cin >> sortChoice;
+
+        if (sortChoice == '1' || sortChoice == '2') {
+            break;
+        }
+        else {
+            std::cout << "Klaida! Pasirinkimas turi buti 1 arba 2." << std::endl;
+        }
+    }
+    return sortChoice;
+}
+
 int main() {
     int studentCount = 0;
     char choice = getInputChoice();
+    char sortChoice = getSortingChoice();
 
     std::vector<Studentas> studentai;
     std::vector<std::vector<double>> nd_rezultatai;
@@ -145,17 +161,46 @@ int main() {
             studentCount = studentai.size();
         }
 
+        std::vector<Studentas> vargsiai;
+        std::vector<Studentas> kietiakiai;
+
         for (int i = 0; i < studentCount; ++i) {
             double egzaminoBalas = egzaminoBalai[i];
             studentai[i].galutinisBalas = 0.4 * skaiciuotiVidurki(nd_rezultatai[i]) + 0.6 * egzaminoBalas;
             studentai[i].galutinisMediana = 0.4 * skaiciuotiMediana(nd_rezultatai[i]) + 0.6 * egzaminoBalas;
+
+            if (studentai[i].galutinisBalas < 5.0) {
+                vargsiai.push_back(studentai[i]);
+            }
+            else {
+                kietiakiai.push_back(studentai[i]);
+            }
         }
 
-        std::sort(studentai.begin(), studentai.end(), [](const Studentas& a, const Studentas& b) {
-            return a.vardas < b.vardas;
-            });
+        if (sortChoice == '1') {
+            std::cout << "Rusiavimas pagal vidurki..." << std::endl;
+            std::sort(vargsiai.begin(), vargsiai.end(), [](const Studentas& a, const Studentas& b) {
+                return a.galutinisBalas < b.galutinisBalas;
+                });
+            std::sort(kietiakiai.begin(), kietiakiai.end(), [](const Studentas& a, const Studentas& b) {
+                return a.galutinisBalas < b.galutinisBalas;
+                });
+        }
+        else if (sortChoice == '2') {
+            std::cout << "Rusiavimas pagal mediana..." << std::endl;
+            std::sort(vargsiai.begin(), vargsiai.end(), [](const Studentas& a, const Studentas& b) {
+                return a.galutinisMediana < b.galutinisMediana;
+                });
+            std::sort(kietiakiai.begin(), kietiakiai.end(), [](const Studentas& a, const Studentas& b) {
+                return a.galutinisMediana < b.galutinisMediana;
+                });
+        }
 
-        displayResults(studentai);
+        std::cout << "Vargsiukai:" << std::endl;
+        displayResults(vargsiai);
+
+        std::cout << "Kietiakiai:" << std::endl;
+        displayResults(kietiakiai);
     }
     catch (const std::exception& e) {
         std::cerr << "Klaida: " << e.what() << std::endl;
@@ -163,3 +208,4 @@ int main() {
 
     return 0;
 }
+

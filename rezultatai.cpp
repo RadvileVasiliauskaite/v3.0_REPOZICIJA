@@ -13,7 +13,7 @@ double skaiciuotiVidurki(const std::vector<double>& nd_rezultatai) {
 }
 
 double skaiciuotiMediana(std::vector<double> nd_rezultatai) {
-    sort(nd_rezultatai.begin(), nd_rezultatai.end());
+    std::sort(nd_rezultatai.begin(), nd_rezultatai.end());
     size_t size = nd_rezultatai.size();
     if (size % 2 == 0) {
         return (nd_rezultatai[size / 2 - 1] + nd_rezultatai[size / 2]) / 2.0;
