@@ -7,6 +7,7 @@
 #include <string>
 #include <sstream>
 #include <vector>
+#include <chrono>
 
 using namespace std;
 
@@ -39,7 +40,7 @@ void readFromFile(vector<Studentas>& studentai, vector<vector<double>>& nd_rezul
     }
 
     string header;
-    getline(file, header);
+    getline(file, header); 
 
     string line;
     while (getline(file, line)) {
@@ -53,12 +54,16 @@ void readFromFile(vector<Studentas>& studentai, vector<vector<double>>& nd_rezul
             uzduotys.push_back(balas);
         }
 
-        double egzaminoBalas = uzduotys.back();
-        uzduotys.pop_back();
-
-        studentai.push_back(studentas);
-        nd_rezultatai.push_back(uzduotys);
-        egzaminoBalai.push_back(egzaminoBalas);
+        if (uzduotys.size() == 6) {
+            double egzaminoBalas = uzduotys.back();
+            uzduotys.pop_back();
+            studentai.push_back(studentas);
+            nd_rezultatai.push_back(uzduotys);
+            egzaminoBalai.push_back(egzaminoBalas);
+        }
+        else {
+            cout << "Netinkama duomenu struktura: " << line << endl;
+        }
     }
 
     file.close();
@@ -84,15 +89,15 @@ double getPositiveScore(const string& prompt) {
 char getInputChoice() {
     char choice;
     while (true) {
-        cout << "Pasirinkite duomenu irasymo tipa:\n1 - Ivesti duomenis\n2 - Generuoti duomenis atsitiktinai\n3 - Nuskaityti duomenis is failo\n";
+        cout << "Pasirinkite duomenu irasymo tipa:\n1 - Ivesti duomenis\n2 - Generuoti duomenis atsitiktinai\n3 - Nuskaityti duomenis is failo\n4 - Atlikti programos veikimo greicio analize\n";
         cin >> choice;
         cin.ignore(numeric_limits<streamsize>::max(), '\n');
 
-        if (choice == '1' || choice == '2' || choice == '3') {
+        if (choice == '1' || choice == '2' || choice == '3' || choice == '4') {
             return choice;
         }
         else {
-            cout << "Klaida! Prasome pasirinkti 1, 2 arba 3." << endl;
+            cout << "Klaida! Prasome pasirinkti 1, 2, 3 arba 4." << endl;
         }
     }
 }
