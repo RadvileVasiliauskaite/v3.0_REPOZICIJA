@@ -24,6 +24,33 @@ std::string formatIndex(int index, int maxLength) {
     return formatted;
 }
 
+void categorizeStudents(const std::vector<Studentas>& studentai, std::vector<Studentas>& vargsiai, std::vector<Studentas>& kietiakiai) {
+    for (const auto& studentas : studentai) {
+        if (studentas.galutinisBalas < 5.0) { 
+            vargsiai.push_back(studentas);
+        }
+        else {
+            kietiakiai.push_back(studentas);
+        }
+    }
+}
+
+char getSortingChoice() {
+    char choice;
+    while (true) {
+        cout << "Pasirinkite rusavimo tvarka:\n1 - Didejimo tvarka\n2 - Mazejimo tvarka\n";
+        cin >> choice;
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+
+        if (choice == '1' || choice == '2') {
+            return choice;
+        }
+        else {
+            cout << "Klaida! Prasome pasirinkti 1 arba 2." << endl;
+        }
+    }
+}
+
 void writeToFile(const std::vector<Studentas>& studentai, const std::vector<std::vector<double>>& nd_rezultatai, const std::vector<double>& egzaminoBalai, const std::string& filename) {
     std::ofstream file(filename);
     if (!file.is_open()) {
@@ -63,12 +90,28 @@ void writeResultsToFile(const std::vector<Studentas>& studentai, const std::stri
     file.close();
 }
 
-void processAndWriteResults(const std::vector<Studentas>& studentai, const std::string& category) {
+void processAndWriteResults(std::vector<Studentas>& studentai, const std::string& category, char sortOrder) {
+    
+    if (sortOrder == '1') {
+        std::sort(studentai.begin(), studentai.end(), [](const Studentas& a, const Studentas& b) {
+            return a.galutinisBalas < b.galutinisBalas; 
+            });
+    }
+    else { 
+        std::sort(studentai.begin(), studentai.end(), [](const Studentas& a, const Studentas& b) {
+            return a.galutinisBalas > b.galutinisBalas; 
+            });
+    }
+
+    std::vector<Studentas> vargsiai, kietiakiai;
+    categorizeStudents(studentai, vargsiai, kietiakiai);
+
+    
     if (category == "vargsiai") {
-        writeResultsToFile(studentai, "vargsiai.txt");
+        writeResultsToFile(vargsiai, "vargsiai.txt");
     }
     else if (category == "kietiakiai") {
-        writeResultsToFile(studentai, "kietiakiai.txt");
+        writeResultsToFile(kietiakiai, "kietiakiai.txt");
     }
 }
 
