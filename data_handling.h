@@ -19,6 +19,7 @@ std::string formatIndex(int index, int maxLength);
 char getSortingChoice();
 void categorizeStudents(const std::vector<Studentas>& studentai, std::vector<Studentas>& vargsiai, std::vector<Studentas>& kietiakiai);
 void processAndWriteResults(std::vector<Studentas>& studentai, const std::string& category, char sortOrder);
+void writeResultsToFile(const std::vector<Studentas>& students, const std::string& filename);
 
 
 #endif // DATA_HANDLING_H

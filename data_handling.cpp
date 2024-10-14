@@ -26,7 +26,7 @@ std::string formatIndex(int index, int maxLength) {
 
 void categorizeStudents(const std::vector<Studentas>& studentai, std::vector<Studentas>& vargsiai, std::vector<Studentas>& kietiakiai) {
     for (const auto& studentas : studentai) {
-        if (studentas.galutinisBalas < 5.0) { 
+        if (studentas.galutinisBalas < 5.0) {
             vargsiai.push_back(studentas);
         }
         else {
@@ -58,10 +58,10 @@ void writeToFile(const std::vector<Studentas>& studentai, const std::vector<std:
     }
     file << "Vardas Pavarde ";
 
-    
+
     if (!nd_rezultatai.empty()) {
         for (size_t j = 0; j < nd_rezultatai[0].size(); ++j) {
-            file << "ND" << (j + 1) << " "; 
+            file << "ND" << (j + 1) << " ";
         }
     }
 
@@ -91,22 +91,22 @@ void writeResultsToFile(const std::vector<Studentas>& studentai, const std::stri
 }
 
 void processAndWriteResults(std::vector<Studentas>& studentai, const std::string& category, char sortOrder) {
-    
+
     if (sortOrder == '1') {
         std::sort(studentai.begin(), studentai.end(), [](const Studentas& a, const Studentas& b) {
-            return a.galutinisBalas < b.galutinisBalas; 
+            return a.galutinisBalas < b.galutinisBalas;
             });
     }
-    else { 
+    else {
         std::sort(studentai.begin(), studentai.end(), [](const Studentas& a, const Studentas& b) {
-            return a.galutinisBalas > b.galutinisBalas; 
+            return a.galutinisBalas > b.galutinisBalas;
             });
     }
 
     std::vector<Studentas> vargsiai, kietiakiai;
     categorizeStudents(studentai, vargsiai, kietiakiai);
 
-    
+
     if (category == "vargsiai") {
         writeResultsToFile(vargsiai, "vargsiai.txt");
     }
@@ -131,9 +131,9 @@ void generateStudents(int studentCount, std::vector<Studentas>& studentai, std::
             uzduotys[j] = generuotiAtsitiktiniBala();
         }
         nd_rezultatai[i] = uzduotys;
-        egzaminoBalai[i] = generuotiAtsitiktiniBala(); 
+        egzaminoBalai[i] = generuotiAtsitiktiniBala();
     }
-    
+
 }
 
 void inputStudentData(int studentCount, std::vector<Studentas>& studentai, std::vector<std::vector<double>>& nd_rezultatai, std::vector<double>& egzaminoBalai) {

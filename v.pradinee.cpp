@@ -59,6 +59,67 @@ int main() {
             readFromFile(studentai, nd_rezultatai, egzaminoBalai);
             studentCount = studentai.size();
         }
+        else if (choice == '4') {
+            std::vector<std::string> filenames = {
+                "studentai_1000.txt",
+                "studentai_10000.txt",
+                "studentai_100000.txt",
+                "studentai_1000000.txt",
+                "studentai_10000000.txt"
+            };
+
+            for (const auto& filename : filenames) {
+                std::cout << "Analizuojamas failas: " << filename << std::endl;
+
+                auto totalStart = std::chrono::high_resolution_clock::now();
+
+                // Measure time to read file
+                auto start = std::chrono::high_resolution_clock::now();
+                readFromFile(studentai, nd_rezultatai, egzaminoBalai);
+                auto end = std::chrono::high_resolution_clock::now();
+                std::chrono::duration<double> fileReadTime = end - start;
+                std::cout << "Failo \"" << filename << "\" nuskaitymas uztruko: " << fileReadTime.count() << " sekundes." << std::endl;
+
+                // Measure time to sort students
+                start = std::chrono::high_resolution_clock::now();
+                std::sort(studentai.begin(), studentai.end(), [](const Studentas& a, const Studentas& b) {
+                    return a.galutinisBalas < b.galutinisBalas;
+                    });
+                end = std::chrono::high_resolution_clock::now();
+                std::chrono::duration<double> sortTime = end - start;
+                std::cout << "Studentu rusiavimas uztruko: " << sortTime.count() << " sekundes." << std::endl;
+
+                // Measure time to split students into groups
+                std::vector<Studentas> vargsiai, kietiakiai;
+                start = std::chrono::high_resolution_clock::now();
+                categorizeStudents(studentai, vargsiai, kietiakiai);
+                studentai.clear();
+                end = std::chrono::high_resolution_clock::now();
+                std::chrono::duration<double> splitTime = end - start;
+                std::cout << "Studentu dalijimas i grupes uztruko: " << splitTime.count() << " sekundes." << std::endl;
+
+                // Measure time to write 'vargsiai' to file
+                start = std::chrono::high_resolution_clock::now();
+                writeResultsToFile(vargsiai, "vargsiai_");
+                end = std::chrono::high_resolution_clock::now();
+                std::chrono::duration<double> writeVargsiaiTime = end - start;
+                std::cout << "Vargsiu irasymas i faila uztruko: " << writeVargsiaiTime.count() << " sekundes." << std::endl;
+
+                // Measure time to write 'kietiakiai' to file
+                start = std::chrono::high_resolution_clock::now();
+                writeResultsToFile(kietiakiai, "kietiakiai_" + filename);
+                end = std::chrono::high_resolution_clock::now();
+                std::chrono::duration<double> writeKietiakiaiTime = end - start;
+                std::cout << "Kieteku irasymas i faila uztruko: " << writeKietiakiaiTime.count() << " sekundes." << std::endl;
+
+                auto totalEnd = std::chrono::high_resolution_clock::now();
+                std::chrono::duration<double> totalTime = totalEnd - totalStart;
+                std::cout << "Bendras laikas visiems veiksmams: " << totalTime.count() << " sekundes." << std::endl;
+
+                std::cout << std::endl;
+            }
+            return 0;  // Exit after performance analysis
+        }
 
         for (int i = 0; i < studentCount; ++i) {
             double egzaminoBalas = egzaminoBalai[i];
@@ -70,7 +131,7 @@ int main() {
         std::vector<Studentas> kietiakiai;
         categorizeStudents(studentai, vargsiai, kietiakiai);
 
-        
+
         char sortOrder;
         std::cout << "Pasirinkite rusiavima (1 - didejimo, 2 - mazejimo): ";
         std::cin >> sortOrder;
