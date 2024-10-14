@@ -12,16 +12,18 @@ double skaiciuotiVidurki(const std::vector<double>& nd_rezultatai) {
     return total / nd_rezultatai.size();
 }
 
-double skaiciuotiMediana(std::vector<double> nd_rezultatai) {
-    std::sort(nd_rezultatai.begin(), nd_rezultatai.end());
-    size_t size = nd_rezultatai.size();
+double skaiciuotiMediana(const std::vector<double>& uzduotys) {
+    std::vector<double> sortedUzduotys = uzduotys;
+    std::sort(sortedUzduotys.begin(), sortedUzduotys.end());
+    size_t size = sortedUzduotys.size();
     if (size % 2 == 0) {
-        return (nd_rezultatai[size / 2 - 1] + nd_rezultatai[size / 2]) / 2.0;
+        return (sortedUzduotys[size / 2 - 1] + sortedUzduotys[size / 2]) / 2;
     }
     else {
-        return nd_rezultatai[size / 2];
+        return sortedUzduotys[size / 2];
     }
 }
+
 
 void displayResults(const std::vector<Studentas>& studentai) {
     std::cout << std::left << std::setw(20) << "Vardas" << std::setw(20) << "Pavarde"

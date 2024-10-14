@@ -11,53 +11,6 @@
 #include <fstream>
 #include <iomanip>
 
-std::string formatIndex(int index, int maxLength) {
-    std::string formatted = std::to_string(index);
-    while (formatted.length() < maxLength) {
-        formatted = "0" + formatted;
-    }
-    return formatted;
-}
-
-void writeToFile(const std::vector<Studentas>& studentai, const std::vector<std::vector<double>>& nd_rezultatai, const std::vector<double>& egzaminoBalai, const std::string& filename) {
-    std::ofstream file(filename);
-    if (!file.is_open()) {
-        return;
-    }
-    file << "Vardas Pavarde UzduociuBalai EgzaminoBalas" << std::endl;
-    for (size_t i = 0; i < studentai.size(); ++i) {
-        file << studentai[i].vardas << " " << studentai[i].pavarde << " ";
-        for (double balas : nd_rezultatai[i]) {
-            file << balas << " ";
-        }
-        file << egzaminoBalai[i] << std::endl;
-    }
-    file.close();
-}
-
-void writeResultsToFile(const std::vector<Studentas>& studentai, const std::string& filename) {
-    std::ofstream file(filename);
-    if (!file.is_open()) {
-        return;
-    }
-    file << "Vardas Pavarde Galutinis (Vidurkis) Galutinis (Mediana)" << std::endl;
-    for (const auto& studentas : studentai) {
-        file << studentas.vardas << " " << studentas.pavarde << " "
-            << std::fixed << std::setprecision(2) << studentas.galutinisBalas << " "
-            << studentas.galutinisMediana << std::endl;
-    }
-    file.close();
-}
-
-void processAndWriteResults(const std::vector<Studentas>& studentai, const std::string& category) {
-    if (category == "vargsiai") {
-        writeResultsToFile(studentai, "vargsiai.txt");
-    }
-    else if (category == "kietiakiai") {
-        writeResultsToFile(studentai, "kietiakiai.txt");
-    }
-}
-
 int main() {
     int studentCount = 0;
     char choice = getInputChoice();
@@ -82,25 +35,8 @@ int main() {
                         break;
                     }
                 }
-                studentai.resize(studentCount);
-                nd_rezultatai.resize(studentCount);
-                egzaminoBalai.resize(studentCount);
-                int indexLength = std::to_string(studentCount).length();
-                auto start = std::chrono::high_resolution_clock::now();
-                for (int i = 0; i < studentCount; ++i) {
-                    studentai[i].vardas = "Vardas" + formatIndex(i + 1, indexLength);
-                    studentai[i].pavarde = "Pavarde" + formatIndex(i + 1, indexLength);
-                    std::vector<double> uzduotys(5);
-                    for (int j = 0; j < 5; ++j) {
-                        uzduotys[j] = generuotiAtsitiktiniBala();
-                    }
-                    nd_rezultatai[i] = uzduotys;
-                    egzaminoBalai[i] = generuotiAtsitiktiniBala();
-                }
+                generateStudents(studentCount, studentai, nd_rezultatai, egzaminoBalai);
                 writeToFile(studentai, nd_rezultatai, egzaminoBalai, "generated_students.txt");
-                auto end = std::chrono::high_resolution_clock::now();
-                std::chrono::duration<double> elapsed = end - start;
-                std::cout << "Failo 'generated_students.txt' sukurimas uztruko: " << elapsed.count() << " sekundziu." << std::endl;
             }
             else {
                 while (true) {
@@ -116,39 +52,7 @@ int main() {
                         break;
                     }
                 }
-                studentai.resize(studentCount);
-                nd_rezultatai.resize(studentCount);
-                egzaminoBalai.resize(studentCount);
-                for (int i = 0; i < studentCount; ++i) {
-                    std::cout << "Iveskite " << i + 1 << "-ojo studento varda: ";
-                    getline(std::cin, studentai[i].vardas);
-                    std::cout << "Iveskite " << i + 1 << "-ojo studento pavarde: ";
-                    getline(std::cin, studentai[i].pavarde);
-                    std::vector<double> uzduotys;
-                    std::cout << "Iveskite uzduociu balus (spauskite ENTER du kartus, kad baigti):" << std::endl;
-                    std::string input;
-                    while (true) {
-                        getline(std::cin, input);
-                        if (input.empty()) {
-                            break;
-                        }
-                        try {
-                            double uzduotis = std::stod(input);
-                            if (uzduotis < 0) {
-                                std::cout << "Neteisingas balas! Prasome ivesti teigiama skaiciu." << std::endl;
-                            }
-                            else {
-                                uzduotys.push_back(uzduotis);
-                            }
-                        }
-                        catch (const std::invalid_argument&) {
-                            std::cout << "Neteisingas balas! Prasome ivesti skaiciu." << std::endl;
-                        }
-                    }
-                    nd_rezultatai[i] = uzduotys;
-                    double egzaminoBalas = getPositiveScore("Iveskite egzamino rezultata: ");
-                    egzaminoBalai[i] = egzaminoBalas;
-                }
+                inputStudentData(studentCount, studentai, nd_rezultatai, egzaminoBalai);
             }
         }
         else if (choice == '3') {
