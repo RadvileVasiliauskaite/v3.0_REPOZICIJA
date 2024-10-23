@@ -77,7 +77,7 @@ void writeToFile(const std::vector<Studentas>& studentai, const std::vector<std:
 }
 
 void writeResultsToFile(const std::vector<Studentas>& studentai, const std::string& filename) {
-    std::ofstream file(filename);
+    std::ofstream file(filename + ".txt");
     if (!file.is_open()) {
         return;
     }
@@ -91,7 +91,7 @@ void writeResultsToFile(const std::vector<Studentas>& studentai, const std::stri
 }
 
 void processAndWriteResults(std::vector<Studentas>& studentai, const std::string& category, char sortOrder) {
-
+    
     if (sortOrder == '1') {
         std::sort(studentai.begin(), studentai.end(), [](const Studentas& a, const Studentas& b) {
             return a.galutinisBalas < b.galutinisBalas;
@@ -105,7 +105,7 @@ void processAndWriteResults(std::vector<Studentas>& studentai, const std::string
 
     std::vector<Studentas> vargsiai, kietiakiai;
     categorizeStudents(studentai, vargsiai, kietiakiai);
-
+   
 
     if (category == "vargsiai") {
         writeResultsToFile(vargsiai, "vargsiai.txt");
@@ -133,7 +133,9 @@ void generateStudents(int studentCount, std::vector<Studentas>& studentai, std::
         nd_rezultatai[i] = uzduotys;
         egzaminoBalai[i] = generuotiAtsitiktiniBala();
     }
-
+    std::string filename = "studentai_" + std::to_string(studentCount) + ".txt";
+    writeToFile(studentai, nd_rezultatai, egzaminoBalai, filename);
+    std::cout << "Sugeneruotas failas: " << filename << " su " << studentCount << " studentais.\n";
 }
 
 void inputStudentData(int studentCount, std::vector<Studentas>& studentai, std::vector<std::vector<double>>& nd_rezultatai, std::vector<double>& egzaminoBalai) {
@@ -181,51 +183,38 @@ double generuotiAtsitiktiniBala() {
     return dist(gen);
 }
 
-void readFromFile(vector<Studentas>& studentai, vector<vector<double>>& nd_rezultatai, vector<double>& egzaminoBalai) {
-    cout << "Pasirinkite faila:\n1. kursiokai.txt\n2. studentai10000.txt\n3. studentai100000.txt\n4. studentai1000000.txt\n";
-    int pasirinkimas;
-    cin >> pasirinkimas;
-    cin.ignore(numeric_limits<streamsize>::max(), '\n');
-
-    string failoKelias;
-    switch (pasirinkimas) {
-    case 1: failoKelias = "C:\\Users\\radvi\\source\\repos\\v.pradinee\\kursiokai.txt"; break;
-    case 2: failoKelias = "C:\\Users\\radvi\\source\\repos\\v.pradinee\\studentai10000 (1).txt"; break;
-    case 3: failoKelias = "C:\\Users\\radvi\\source\\repos\\v.pradinee\\studentai100000.txt"; break;
-    case 4: failoKelias = "C:\\Users\\radvi\\source\\repos\\v.pradinee\\studentai1000000.txt"; break;
-    default: cout << "Neteisingas pasirinkimas!" << endl; return;
-    }
-
-    ifstream file(failoKelias);
+void readFromFile(std::vector<Studentas>& studentai, std::vector<std::vector<double>>& nd_rezultatai, std::vector<double>& egzaminoBalai, const std::string& filename) {
+    
+    std::ifstream file(filename);
     if (!file.is_open()) {
-        cout << "Nepavyko atidaryti failo!" << endl;
+        std::cout << "Nepavyko atidaryti failo: " << filename << std::endl;
         return;
     }
 
-    string header;
-    getline(file, header);
+    std::string header;
+    std::getline(file, header);
 
-    string line;
-    while (getline(file, line)) {
-        istringstream iss(line);
+    std::string line;
+    while (std::getline(file, line)) {
+        std::istringstream iss(line);
         Studentas studentas;
         iss >> studentas.vardas >> studentas.pavarde;
 
-        vector<double> uzduotys;
+        std::vector<double> uzduotys;
         double balas;
         while (iss >> balas) {
             uzduotys.push_back(balas);
         }
 
         if (uzduotys.size() == 6) {
-            double egzaminoBalas = uzduotys.back();
-            uzduotys.pop_back();
-            studentai.push_back(studentas);
-            nd_rezultatai.push_back(uzduotys);
-            egzaminoBalai.push_back(egzaminoBalas);
+            double egzaminoBalas = uzduotys.back(); 
+            uzduotys.pop_back(); 
+            studentai.push_back(studentas); 
+            nd_rezultatai.push_back(uzduotys); 
+            egzaminoBalai.push_back(egzaminoBalas); 
         }
         else {
-            cout << "Netinkama duomenu struktura: " << line << endl;
+            std::cout << "Netinkama duomenu struktura: " << line << std::endl;
         }
     }
 

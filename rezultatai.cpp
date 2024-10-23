@@ -1,10 +1,12 @@
 #include "rezultatai.h"
 #include "studentas.h"
+#include "data_handling.h"
 #include <iostream>
 #include <iomanip>
 #include <algorithm>
 
 double skaiciuotiVidurki(const std::vector<double>& nd_rezultatai) {
+    if (nd_rezultatai.empty()) return 0.0;
     double total = 0.0;
     for (double score : nd_rezultatai) {
         total += score;
@@ -13,6 +15,7 @@ double skaiciuotiVidurki(const std::vector<double>& nd_rezultatai) {
 }
 
 double skaiciuotiMediana(const std::vector<double>& uzduotys) {
+    if (uzduotys.empty()) return 0.0;
     std::vector<double> sortedUzduotys = uzduotys;
     std::sort(sortedUzduotys.begin(), sortedUzduotys.end());
     size_t size = sortedUzduotys.size();
