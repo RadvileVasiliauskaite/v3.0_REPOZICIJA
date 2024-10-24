@@ -148,6 +148,8 @@ void inputStudentData(int studentCount, std::vector<Studentas>& studentai, std::
         getline(std::cin, studentai[i].vardas);
         std::cout << "Iveskite " << i + 1 << "-ojo studento pavarde: ";
         getline(std::cin, studentai[i].pavarde);
+
+        std::cout << "Studento atminties adresas: " << &studentai[i] << std::endl;
         std::vector<double> uzduotys;
         std::cout << "Iveskite uzduociu balus (spauskite ENTER du kartus, kad baigti):" << std::endl;
         std::string input;
