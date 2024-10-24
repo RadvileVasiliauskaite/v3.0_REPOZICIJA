@@ -36,7 +36,7 @@ int main() {
                     }
                 }
                 generateStudents(studentCount, studentai, nd_rezultatai, egzaminoBalai);
-                //writeToFile(studentai, nd_rezultatai, egzaminoBalai, "generated_students.txt");
+                
             }
             else {
                 while (true) {
@@ -76,7 +76,7 @@ int main() {
 
                 auto totalStart = std::chrono::high_resolution_clock::now();
 
-                // Measure time to read file
+                
                 auto start = std::chrono::high_resolution_clock::now();
                 readFromFile(studentai, nd_rezultatai, egzaminoBalai, filename);
                 auto end = std::chrono::high_resolution_clock::now();
@@ -142,7 +142,7 @@ int main() {
 
                 std::cout << std::endl;
             }
-            return 0;  // Exit after performance analysis
+            return 0;
         }
 
         for (int i = 0; i < studentCount; ++i) {
@@ -160,26 +160,6 @@ int main() {
         std::cout << "Pasirinkite rusiavima (1 - didejimo, 2 - mazejimo): ";
         std::cin >> sortOrder;
 
-        //  tai dabar padarys processAndWriteResults funkcija
-        // if (sortOrder == '1') { 
-        //     std::sort(vargsiai.begin(), vargsiai.end(), [](const Studentas& a, const Studentas& b) {
-        //         return a.galutinisBalas < b.galutinisBalas;
-        //         });
-        //     std::sort(kietiakiai.begin(), kietiakiai.end(), [](const Studentas& a, const Studentas& b) {
-        //         return a.galutinisBalas < b.galutinisBalas;
-        //         });
-        // }
-        // else if (sortOrder == '2') {
-        //     std::sort(vargsiai.begin(), vargsiai.end(), [](const Studentas& a, const Studentas& b) {
-        //         return a.galutinisBalas > b.galutinisBalas;
-        //         });
-        //     std::sort(kietiakiai.begin(), kietiakiai.end(), [](const Studentas& a, const Studentas& b) {
-        //         return a.galutinisBalas > b.galutinisBalas;
-        //         });
-        // }
-        // else {
-        //     std::cout << "Neteisingas pasirinkimas! Rusiavimas nebus atliktas." << std::endl;
-        // }
 
         processAndWriteResults(vargsiai, "vargsiai", sortOrder);
         processAndWriteResults(kietiakiai, "kietiakiai", sortOrder);
