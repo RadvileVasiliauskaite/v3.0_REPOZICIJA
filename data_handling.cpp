@@ -56,22 +56,25 @@ void writeToFile(const std::vector<Studentas>& studentai, const std::vector<std:
     if (!file.is_open()) {
         return;
     }
-    file << "Vardas Pavarde ";
+    file << std::left << std::setw(15) << "Vardas"
+        << std::setw(15) << "Pavarde" << " ";
 
 
     if (!nd_rezultatai.empty()) {
         for (size_t j = 0; j < nd_rezultatai[0].size(); ++j) {
-            file << "ND" << (j + 1) << " ";
+            file << std::setw(10) << "ND" + std::to_string(j + 1) << " ";
         }
     }
 
-    file << "EgzaminoBalas" << std::endl;
+    file << std::setw(15) << "EgzaminoBalas" << std::endl;
     for (size_t i = 0; i < studentai.size(); ++i) {
-        file << studentai[i].vardas << " " << studentai[i].pavarde << " ";
+        file << std::left << std::setw(15) << studentai[i].vardas
+            << std::setw(15) << studentai[i].pavarde << " ";
+        
         for (double balas : nd_rezultatai[i]) {
-            file << static_cast<int>(balas) << " ";
+            file << std::setw(10) << static_cast<int>(balas) << " ";
         }
-        file << static_cast<int>(egzaminoBalai[i]) << std::endl;
+        file << std::setw(15) << static_cast<int>(egzaminoBalai[i]) << std::endl;
     }
     file.close();
 }
@@ -81,11 +84,17 @@ void writeResultsToFile(const std::vector<Studentas>& studentai, const std::stri
     if (!file.is_open()) {
         return;
     }
-    file << "Vardas Pavarde Galutinis (Vidurkis) Galutinis (Mediana)" << std::endl;
+    file << std::left << std::setw(15) << "Vardas"
+        << std::setw(15) << "Pavarde"
+        << std::setw(15) << "Galutinis(Vid.)"
+        << std::setw(15) << "Galutinis(Med.)" << std::endl; 
+    
     for (const auto& studentas : studentai) {
-        file << studentas.vardas << " " << studentas.pavarde << " "
-            << std::fixed << std::setprecision(2) << studentas.galutinisBalas << " "
-            << studentas.galutinisMediana << std::endl;
+        file << std::left << std::setw(15) << studentas.vardas
+            << std::setw(15) << studentas.pavarde << " "
+            << std::fixed << std::setprecision(2)
+            << std::setw(15) << studentas.galutinisBalas << " "
+            << std::setw(15) << studentas.galutinisMediana << std::endl;
     }
     file.close();
 }
