@@ -14,7 +14,7 @@
 
 
 using namespace std;
-//komentaras
+
 
 std::string formatIndex(int index, int maxLength) {
     std::string formatted = std::to_string(index);
@@ -24,7 +24,7 @@ std::string formatIndex(int index, int maxLength) {
     return formatted;
 }
 
-void categorizeStudents(const std::vector<Studentas>& studentai, std::vector<Studentas>& vargsiai, std::vector<Studentas>& kietiakiai) {
+void categorizeStudents(const std::list<Studentas>& studentai, std::list<Studentas>& vargsiai, std::list<Studentas>& kietiakiai) {
     for (const auto& studentas : studentai) {
         if (studentas.galutinisBalas < 5.0) {
             vargsiai.push_back(studentas);
@@ -51,7 +51,7 @@ char getSortingChoice() {
     }
 }
 
-void writeToFile(const std::vector<Studentas>& studentai, const std::vector<std::vector<double>>& nd_rezultatai, const std::vector<double>& egzaminoBalai, const std::string& filename) {
+void writeToFile(const std::list<Studentas>& studentai, const std::vector<std::vector<double>>& nd_rezultatai, const std::vector<double>& egzaminoBalai, const std::string& filename) {
     std::ofstream file(filename);
     if (!file.is_open()) {
         return;
@@ -65,21 +65,22 @@ void writeToFile(const std::vector<Studentas>& studentai, const std::vector<std:
             file << std::setw(10) << "ND" + std::to_string(j + 1) << " ";
         }
     }
+    auto nd_it = nd_rezultatai.begin();
+    auto egzaminas_it = egzaminoBalai.begin();
+    for (auto it = studentai.begin(); it != studentai.end(); ++it, ++nd_it, ++egzaminas_it) {
+        file << std::left << std::setw(15) << it->vardas
+            << std::setw(15) << it->pavarde << " ";
 
-    file << std::setw(15) << "EgzaminoBalas" << std::endl;
-    for (size_t i = 0; i < studentai.size(); ++i) {
-        file << std::left << std::setw(15) << studentai[i].vardas
-            << std::setw(15) << studentai[i].pavarde << " ";
-
-        for (double balas : nd_rezultatai[i]) {
+        for (double balas : *nd_it) {
             file << std::setw(10) << static_cast<int>(balas) << " ";
         }
-        file << std::setw(15) << static_cast<int>(egzaminoBalai[i]) << std::endl;
+
+        file << std::setw(15) << static_cast<int>(*egzaminas_it) << std::endl;
     }
     file.close();
 }
 
-void writeResultsToFile(const std::vector<Studentas>& studentai, const std::string& filename) {
+void writeResultsToFile(const std::list<Studentas>& studentai, const std::string& filename) {
     std::ofstream file(filename + ".txt");
     if (!file.is_open()) {
         return;
@@ -99,20 +100,20 @@ void writeResultsToFile(const std::vector<Studentas>& studentai, const std::stri
     file.close();
 }
 
-void processAndWriteResults(std::vector<Studentas>& studentai, const std::string& category, char sortOrder) {
+void processAndWriteResults(std::list<Studentas>& studentai, const std::string& category, char sortOrder) {
 
     if (sortOrder == '1') {
-        std::sort(studentai.begin(), studentai.end(), [](const Studentas& a, const Studentas& b) {
+        studentai.sort([](const Studentas& a, const Studentas& b) {
             return a.galutinisBalas < b.galutinisBalas;
             });
     }
     else {
-        std::sort(studentai.begin(), studentai.end(), [](const Studentas& a, const Studentas& b) {
+        studentai.sort([](const Studentas& a, const Studentas& b) {
             return a.galutinisBalas > b.galutinisBalas;
             });
     }
 
-    std::vector<Studentas> vargsiai, kietiakiai;
+    std::list<Studentas> vargsiai, kietiakiai;
     categorizeStudents(studentai, vargsiai, kietiakiai);
 
 
@@ -124,17 +125,17 @@ void processAndWriteResults(std::vector<Studentas>& studentai, const std::string
     }
 }
 
-void generateStudents(int studentCount, std::vector<Studentas>& studentai, std::vector<std::vector<double>>& nd_rezultatai, std::vector<double>& egzaminoBalai) {
+void generateStudents(int studentCount, std::list<Studentas>& studentai, std::vector<std::vector<double>>& nd_rezultatai, std::vector<double>& egzaminoBalai) {
     studentai.resize(studentCount);
     nd_rezultatai.resize(studentCount);
     egzaminoBalai.resize(studentCount);
 
     int indexLength = std::to_string(studentCount).length();
     auto start = std::chrono::high_resolution_clock::now();
-
-    for (int i = 0; i < studentCount; ++i) {
-        studentai[i].vardas = "Vardas" + formatIndex(i + 1, indexLength);
-        studentai[i].pavarde = "Pavarde" + formatIndex(i + 1, indexLength);
+    auto it = studentai.begin();
+    for (int i = 0; i < studentCount; ++i, ++it) {
+        it->vardas = "Vardas" + formatIndex(i + 1, indexLength);
+        it->pavarde = "Pavarde" + formatIndex(i + 1, indexLength);
         std::vector<double> uzduotys(5);
         for (int j = 0; j < 5; ++j) {
             uzduotys[j] = generuotiAtsitiktiniBala();
@@ -147,18 +148,19 @@ void generateStudents(int studentCount, std::vector<Studentas>& studentai, std::
     std::cout << "Sugeneruotas failas: " << filename << " su " << studentCount << " studentais.\n";
 }
 
-void inputStudentData(int studentCount, std::vector<Studentas>& studentai, std::vector<std::vector<double>>& nd_rezultatai, std::vector<double>& egzaminoBalai) {
+void inputStudentData(int studentCount, std::list<Studentas>& studentai, std::vector<std::vector<double>>& nd_rezultatai, std::vector<double>& egzaminoBalai) {
     studentai.resize(studentCount);
     nd_rezultatai.resize(studentCount);
     egzaminoBalai.resize(studentCount);
 
+    auto it = studentai.begin();
     for (int i = 0; i < studentCount; ++i) {
         std::cout << "Iveskite " << i + 1 << "-ojo studento varda: ";
-        getline(std::cin, studentai[i].vardas);
+        std::getline(std::cin, it->vardas);
         std::cout << "Iveskite " << i + 1 << "-ojo studento pavarde: ";
-        getline(std::cin, studentai[i].pavarde);
+        std::getline(std::cin, it->pavarde);
 
-        std::cout << "Studento atminties adresas: " << &studentai[i] << std::endl;
+        std::cout << "Studento atminties adresas: " << &(*it) << std::endl;
         std::vector<double> uzduotys;
         std::cout << "Iveskite uzduociu balus (spauskite ENTER du kartus, kad baigti):" << std::endl;
         std::string input;
@@ -194,7 +196,7 @@ double generuotiAtsitiktiniBala() {
     return dist(gen);
 }
 
-void readFromFile(std::vector<Studentas>& studentai, std::vector<std::vector<double>>& nd_rezultatai, std::vector<double>& egzaminoBalai, const std::string& filename) {
+void readFromFile(std::list<Studentas>& studentai, std::vector<std::vector<double>>& nd_rezultatai, std::vector<double>& egzaminoBalai, const std::string& filename) {
 
     std::ifstream file(filename);
     if (!file.is_open()) {
