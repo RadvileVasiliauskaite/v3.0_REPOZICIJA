@@ -10,14 +10,12 @@
 #include <numeric>
 #include <fstream>
 #include <iomanip>
-#include <list>
-
 
 int main() {
     int studentCount = 0;
     char choice = getInputChoice();
 
-    std::list<Studentas> studentai;
+    std::vector<Studentas> studentai;
     std::vector<std::vector<double>> nd_rezultatai;
     std::vector<double> egzaminoBalai;
 
@@ -85,14 +83,10 @@ int main() {
                 std::chrono::duration<double> fileReadTime = end - start;
                 std::cout << "Failo \"" << filename << "\" nuskaitymas uztruko: " << fileReadTime.count() << " sekundes." << std::endl;
 
-                auto itStudent = studentai.begin();
-                auto itNdRezultatai = nd_rezultatai.begin();
-                auto itEgzaminoBalai = egzaminoBalai.begin();
-
-                for (; itStudent != studentai.end(); ++itStudent, ++itNdRezultatai, ++itEgzaminoBalai) {
-                    double egzaminoBalas = *itEgzaminoBalai;
-                    itStudent->galutinisBalas = 0.4 * skaiciuotiVidurki(*itNdRezultatai) + 0.6 * egzaminoBalas;
-                    itStudent->galutinisMediana = 0.4 * skaiciuotiMediana(*itNdRezultatai) + 0.6 * egzaminoBalas;
+                for (int i = 0; i < studentai.size(); ++i) {
+                    double egzaminoBalas = egzaminoBalai[i];
+                    studentai[i].galutinisBalas = 0.4 * skaiciuotiVidurki(nd_rezultatai[i]) + 0.6 * egzaminoBalas;
+                    studentai[i].galutinisMediana = 0.4 * skaiciuotiMediana(nd_rezultatai[i]) + 0.6 * egzaminoBalas;
                 }
 
                 char sortOrder;
@@ -102,12 +96,12 @@ int main() {
 
                 start = std::chrono::high_resolution_clock::now();
                 if (sortOrder == '1') {
-                    studentai.sort([](const Studentas& a, const Studentas& b) {
+                    std::sort(studentai.begin(), studentai.end(), [](const Studentas& a, const Studentas& b) {
                         return a.galutinisBalas < b.galutinisBalas;
                         });
                 }
                 else if (sortOrder == '2') {
-                    studentai.sort([](const Studentas& a, const Studentas& b) {
+                    std::sort(studentai.begin(), studentai.end(), [](const Studentas& a, const Studentas& b) {
                         return a.galutinisBalas > b.galutinisBalas;
                         });
                 }
@@ -120,7 +114,7 @@ int main() {
                 std::cout << "Studentu rusiavimas uztruko: " << sortTime.count() << " sekundes." << std::endl;
 
                 // Measure time to split students into groups
-                std::list<Studentas> vargsiai, kietiakiai;
+                std::vector<Studentas> vargsiai, kietiakiai;
                 start = std::chrono::high_resolution_clock::now();
                 categorizeStudents(studentai, vargsiai, kietiakiai);
                 studentai.clear();
@@ -151,18 +145,14 @@ int main() {
             return 0;
         }
 
-        auto itStudent = studentai.begin();
-        auto itNdRezultatai = nd_rezultatai.begin();
-        auto itEgzaminoBalai = egzaminoBalai.begin();
-
-        for (; itStudent != studentai.end(); ++itStudent, ++itNdRezultatai, ++itEgzaminoBalai) {
-            double egzaminoBalas = *itEgzaminoBalai;
-            itStudent->galutinisBalas = 0.4 * skaiciuotiVidurki(*itNdRezultatai) + 0.6 * egzaminoBalas;
-            itStudent->galutinisMediana = 0.4 * skaiciuotiMediana(*itNdRezultatai) + 0.6 * egzaminoBalas;
+        for (int i = 0; i < studentCount; ++i) {
+            double egzaminoBalas = egzaminoBalai[i];
+            studentai[i].galutinisBalas = 0.4 * skaiciuotiVidurki(nd_rezultatai[i]) + 0.6 * egzaminoBalas;
+            studentai[i].galutinisMediana = 0.4 * skaiciuotiMediana(nd_rezultatai[i]) + 0.6 * egzaminoBalas;
         }
 
-        std::list<Studentas> vargsiai;
-        std::list<Studentas> kietiakiai;
+        std::vector<Studentas> vargsiai;
+        std::vector<Studentas> kietiakiai;
         categorizeStudents(studentai, vargsiai, kietiakiai);
 
 

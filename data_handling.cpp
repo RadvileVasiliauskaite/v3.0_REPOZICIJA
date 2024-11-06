@@ -14,7 +14,7 @@
 
 
 using namespace std;
-//komentaras
+
 
 std::string formatIndex(int index, int maxLength) {
     std::string formatted = std::to_string(index);
