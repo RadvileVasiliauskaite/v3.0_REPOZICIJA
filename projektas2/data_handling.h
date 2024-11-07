@@ -22,5 +22,10 @@ void categorizeStudents(const std::list<Studentas>& studentai, std::list<Student
 void processAndWriteResults(std::list<Studentas>& studentai, const std::string& category, char sortOrder);
 void writeResultsToFile(const std::list<Studentas>& students, const std::string& filename);
 
+void strategija1(const std::list<Studentas>& studentai, std::list<Studentas>& vargsiai, std::list<Studentas>& kietiakiai);
+void strategija2(std::list<Studentas>& studentai, std::list<Studentas>& vargsiai);
+void strategija3(const std::list<Studentas>& studentai, std::list<Studentas>& vargsiai, std::list<Studentas>& kietiakiai);
+int selectStrategyAndCategorizeStudents(std::list<Studentas>& studentai, std::list<Studentas>& vargsiai, std::list<Studentas>& kietiakiai);
+
 
 #endif // DATA_HANDLING_H

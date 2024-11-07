@@ -54,7 +54,10 @@ int main() {
                         break;
                     }
                 }
+
                 inputStudentData(studentCount, studentai, nd_rezultatai, egzaminoBalai);
+                skaiciavimai(studentai, nd_rezultatai, egzaminoBalai);
+                displayResults(studentai);
             }
         }
         else if (choice == '3') {
@@ -143,17 +146,6 @@ int main() {
             return 0;
         }
 
-        skaiciavimai(studentai, nd_rezultatai, egzaminoBalai);
-        selectStrategyAndCategorizeStudents(studentai, vargsiai, kietiakiai);
-
-        char sortOrder;
-        std::cout << "Pasirinkite rusiavima (1 - didejimo, 2 - mazejimo): ";
-        std::cin >> sortOrder;
-
-
-        processAndWriteResults(vargsiai, "vargsiai", sortOrder);
-        processAndWriteResults(kietiakiai, "kietiakiai", sortOrder);
-        std::cout << "Rezultatai isvesti i failus." << std::endl;
 
     }
     catch (const std::exception& e) {

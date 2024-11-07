@@ -57,6 +57,8 @@ int main() {
                     }
                 }
                 inputStudentData(studentCount, studentai, nd_rezultatai, egzaminoBalai);
+                skaiciavimai(studentai, nd_rezultatai, egzaminoBalai);
+                displayResults(studentai);
             }
         }
         else if (choice == '3') {
@@ -65,6 +67,7 @@ int main() {
             std::getline(std::cin, filename);
             readFromFile(studentai, nd_rezultatai, egzaminoBalai, filename);
             studentCount = studentai.size();
+            skaiciavimai(studentai, nd_rezultatai, egzaminoBalai);
         }
         else if (choice == '4') {
             std::vector<std::string> filenames = {
@@ -113,11 +116,8 @@ int main() {
                 std::chrono::duration<double> sortTime = end - start;
                 std::cout << "Studentu rusiavimas uztruko: " << sortTime.count() << " sekundes." << std::endl;
 
-                // Measure time to split students into groups
-                std::list<Studentas> vargsiai, kietiakiai;
                 start = std::chrono::high_resolution_clock::now();
-                categorizeStudents(studentai, vargsiai, kietiakiai);
-                studentai.clear();
+                int strategyChoice = selectStrategyAndCategorizeStudents(studentai, vargsiai, kietiakiai);
                 end = std::chrono::high_resolution_clock::now();
                 std::chrono::duration<double> splitTime = end - start;
                 std::cout << "Studentu dalijimas i grupes uztruko: " << splitTime.count() << " sekundes." << std::endl;
@@ -131,7 +131,12 @@ int main() {
 
                 // Measure time to write 'kietiakiai' to file
                 start = std::chrono::high_resolution_clock::now();
-                writeResultsToFile(kietiakiai, "kietiakiai_" + filename);
+                if (strategyChoice == 1) {
+                    writeResultsToFile(kietiakiai, "kietiakiai_" + filename);
+                }
+                else if (strategyChoice == 2) {
+                    writeResultsToFile(studentai, "kietiakiai_" + filename);
+                }
                 end = std::chrono::high_resolution_clock::now();
                 std::chrono::duration<double> writeKietiakiaiTime = end - start;
                 std::cout << "Kieteku irasymas i faila uztruko: " << writeKietiakiaiTime.count() << " sekundes." << std::endl;
@@ -145,18 +150,9 @@ int main() {
             return 0;
         }
 
-        skaiciavimai( studentai, nd_rezultatai, egzaminoBalai);
-        categorizeStudents(studentai, vargsiai, kietiakiai);
+        //skaiciavimai( studentai, nd_rezultatai, egzaminoBalai);
+        //generateStudents(studentCount, studentai, nd_rezultatai, egzaminoBalai);
 
-
-        char sortOrder;
-        std::cout << "Pasirinkite rusiavima (1 - didejimo, 2 - mazejimo): ";
-        std::cin >> sortOrder;
-
-
-        processAndWriteResults(vargsiai, "vargsiai", sortOrder);
-        processAndWriteResults(kietiakiai, "kietiakiai", sortOrder);
-        std::cout << "Rezultatai isvesti i failus." << std::endl;
 
     }
     catch (const std::exception& e) {

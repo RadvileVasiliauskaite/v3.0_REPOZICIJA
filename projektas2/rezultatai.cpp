@@ -44,7 +44,7 @@ double skaiciuotiMediana(const std::vector<double>& uzduotys) {
 }
 
 
-void displayResults(const std::vector<Studentas>& studentai) {
+void displayResults(const std::list<Studentas>& studentai) {
     std::cout << std::left << std::setw(20) << "Vardas" << std::setw(20) << "Pavarde"
         << std::setw(25) << "Galutinis (Vidurkis)" << std::setw(25) << "Galutinis (Mediana)" << std::endl;
     std::cout << std::string(90, '-') << std::endl;
