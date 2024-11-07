@@ -18,6 +18,8 @@ int main() {
     std::vector<Studentas> studentai;
     std::vector<std::vector<double>> nd_rezultatai;
     std::vector<double> egzaminoBalai;
+    std::vector<Studentas> vargsiai;
+    std::vector<Studentas> kietiakiai;
 
     try {
         if (choice == '1' || choice == '2') {
@@ -83,11 +85,7 @@ int main() {
                 std::chrono::duration<double> fileReadTime = end - start;
                 std::cout << "Failo \"" << filename << "\" nuskaitymas uztruko: " << fileReadTime.count() << " sekundes." << std::endl;
 
-                for (int i = 0; i < studentai.size(); ++i) {
-                    double egzaminoBalas = egzaminoBalai[i];
-                    studentai[i].galutinisBalas = 0.4 * skaiciuotiVidurki(nd_rezultatai[i]) + 0.6 * egzaminoBalas;
-                    studentai[i].galutinisMediana = 0.4 * skaiciuotiMediana(nd_rezultatai[i]) + 0.6 * egzaminoBalas;
-                }
+                skaiciavimai(studentai, nd_rezultatai, egzaminoBalai);
 
                 char sortOrder;
                 std::cout << "Pasirinkite rusiavima (1 - didejimo, 2 - mazejimo): ";
@@ -113,25 +111,25 @@ int main() {
                 std::chrono::duration<double> sortTime = end - start;
                 std::cout << "Studentu rusiavimas uztruko: " << sortTime.count() << " sekundes." << std::endl;
 
-                // Measure time to split students into groups
-                std::vector<Studentas> vargsiai, kietiakiai;
                 start = std::chrono::high_resolution_clock::now();
-                categorizeStudents(studentai, vargsiai, kietiakiai);
-                studentai.clear();
+                int strategyChoice = selectStrategyAndCategorizeStudents(studentai, vargsiai, kietiakiai);
                 end = std::chrono::high_resolution_clock::now();
                 std::chrono::duration<double> splitTime = end - start;
                 std::cout << "Studentu dalijimas i grupes uztruko: " << splitTime.count() << " sekundes." << std::endl;
 
-                // Measure time to write 'vargsiai' to file
                 start = std::chrono::high_resolution_clock::now();
                 writeResultsToFile(vargsiai, "vargsiai_" + filename);
                 end = std::chrono::high_resolution_clock::now();
                 std::chrono::duration<double> writeVargsiaiTime = end - start;
                 std::cout << "Vargsiu irasymas i faila uztruko: " << writeVargsiaiTime.count() << " sekundes." << std::endl;
 
-                // Measure time to write 'kietiakiai' to file
                 start = std::chrono::high_resolution_clock::now();
-                writeResultsToFile(kietiakiai, "kietiakiai_" + filename);
+                if (strategyChoice == 1) {
+                    writeResultsToFile(kietiakiai, "kietiakiai_" + filename); 
+                }
+                else if (strategyChoice == 2) {
+                    writeResultsToFile(studentai, "kietiakiai_" + filename); 
+                }
                 end = std::chrono::high_resolution_clock::now();
                 std::chrono::duration<double> writeKietiakiaiTime = end - start;
                 std::cout << "Kieteku irasymas i faila uztruko: " << writeKietiakiaiTime.count() << " sekundes." << std::endl;
@@ -145,16 +143,8 @@ int main() {
             return 0;
         }
 
-        for (int i = 0; i < studentCount; ++i) {
-            double egzaminoBalas = egzaminoBalai[i];
-            studentai[i].galutinisBalas = 0.4 * skaiciuotiVidurki(nd_rezultatai[i]) + 0.6 * egzaminoBalas;
-            studentai[i].galutinisMediana = 0.4 * skaiciuotiMediana(nd_rezultatai[i]) + 0.6 * egzaminoBalas;
-        }
-
-        std::vector<Studentas> vargsiai;
-        std::vector<Studentas> kietiakiai;
-        categorizeStudents(studentai, vargsiai, kietiakiai);
-
+        skaiciavimai(studentai, nd_rezultatai, egzaminoBalai);
+        selectStrategyAndCategorizeStudents(studentai, vargsiai, kietiakiai);
 
         char sortOrder;
         std::cout << "Pasirinkite rusiavima (1 - didejimo, 2 - mazejimo): ";

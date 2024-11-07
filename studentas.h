@@ -8,6 +8,7 @@ struct Studentas {
     std::string pavarde;
     double galutinisBalas;
     double galutinisMediana;
+
 };
 
 #endif // STUDENTAS_H

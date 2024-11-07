@@ -7,6 +7,7 @@
 double skaiciuotiVidurki(const std::vector<double>& nd_rezultatai);
 double skaiciuotiMediana(const std::vector<double>& uzduotys);
 void displayResults(const std::vector<Studentas>& studentai);
-void skaiciavimai(int studentCount, std::vector<Studentas>& studentai, const std::vector<std::vector<double>>& nd_rezultatai, const std::vector<double>& egzaminoBalai);
+//void skaiciavimai(int studentCount, std::vector<Studentas>& studentai, const std::vector<std::vector<double>>& nd_rezultatai, const std::vector<double>& egzaminoBalai);
+void skaiciavimai(std::vector<Studentas>& studentai, const std::vector<std::vector<double>>& nd_rezultatai, const std::vector<double>& egzaminoBalai);
 
 #endif // REZULTATAI_H

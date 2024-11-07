@@ -80,9 +80,10 @@ void writeToFile(const std::vector<Studentas>& studentai, const std::vector<std:
 }
 
 void writeResultsToFile(const std::vector<Studentas>& studentai, const std::string& filename) {
-    std::ofstream file(filename + ".txt");
+    std::ofstream file(filename + ".txt", std::ios::out | std::ios::trunc);
+
     if (!file.is_open()) {
-        return;
+        return;  
     }
     file << std::left << std::setw(15) << "Vardas"
         << std::setw(15) << "Pavarde"
@@ -263,4 +264,64 @@ char getInputChoice() {
             cout << "Klaida! Prasome pasirinkti 1, 2, 3 arba 4." << endl;
         }
     }
+}
+
+void strategija1(const std::vector<Studentas>& studentai, std::vector<Studentas>& vargsiai, std::vector<Studentas>& kietiakiai) {
+    for (const auto& studentas : studentai) {
+        if (studentas.galutinisBalas < 5.0) {
+            vargsiai.push_back(studentas);
+        }
+        else {
+            kietiakiai.push_back(studentas);
+        }
+    }
+}
+
+void strategija2(std::vector<Studentas>& studentai, std::vector<Studentas>& vargsiai) {
+    
+    auto it = studentai.begin();
+    while (it != studentai.end()) {
+        if (it->galutinisBalas < 5.0) {
+            vargsiai.push_back(*it);
+            it = studentai.erase(it); 
+        }
+        else {
+            ++it;
+        }
+    }
+    std::cout << "Strategija 2 taikyta: sukurti vargsiai ir pasalinti juos is pradinio saraso." << std::endl;
+
+}
+
+
+void strategija3(std::vector<Studentas>& studentai, std::vector<Studentas>& vargsiai, std::vector<Studentas>& kietiakiai) {
+    
+    strategija1(studentai, vargsiai, kietiakiai);
+}
+
+int selectStrategyAndCategorizeStudents(std::vector<Studentas>& studentai, std::vector<Studentas>& vargsiai, std::vector<Studentas>& kietiakiai) {
+    int strategyChoice;
+    std::cout << "Pasirinkite skaidymo strategija:\n";
+    std::cout << "1. Bendro konteinerio skaidymas i du naujus konteinerius.\n";
+    std::cout << "2. Tik vieno naujo konteinerio sukurimas su studentu pasalinimu is pirminio saraso.\n";
+    std::cout << "3. Efektyvi strategija su optimizuotais metodais.\n";
+    std::cout << "iveskite pasirinkima (1-3): ";
+    std::cin >> strategyChoice;
+
+    std::string filename = "studentai_" + std::to_string(rand()) + ".txt";
+
+    if (strategyChoice == 1) {
+        strategija1(studentai, vargsiai, kietiakiai);
+    }
+    else if (strategyChoice == 2) {
+        strategija2(studentai, vargsiai);
+        
+    }
+    else if (strategyChoice == 3) {
+        strategija3(studentai, vargsiai, kietiakiai);
+    }
+    else {
+        std::cout << "Neteisingas pasirinkimas, strategija nebus taikoma." << std::endl;
+    }
+    return strategyChoice;
 }
