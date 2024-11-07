@@ -24,7 +24,7 @@ void writeResultsToFile(const std::list<Studentas>& students, const std::string&
 
 void strategija1(const std::list<Studentas>& studentai, std::list<Studentas>& vargsiai, std::list<Studentas>& kietiakiai);
 void strategija2(std::list<Studentas>& studentai, std::list<Studentas>& vargsiai);
-void strategija3(const std::list<Studentas>& studentai, std::list<Studentas>& vargsiai, std::list<Studentas>& kietiakiai);
+void strategija3(std::list<Studentas>& studentai, std::list<Studentas>& vargsiai, std::list<Studentas>& kietiakiai);
 int selectStrategyAndCategorizeStudents(std::list<Studentas>& studentai, std::list<Studentas>& vargsiai, std::list<Studentas>& kietiakiai);
 
 

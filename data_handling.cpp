@@ -279,6 +279,7 @@ void strategija1(const std::vector<Studentas>& studentai, std::vector<Studentas>
 
 void strategija2(std::vector<Studentas>& studentai, std::vector<Studentas>& vargsiai) {
     
+    vargsiai.reserve(vargsiai.size() + studentai.size());
     auto it = studentai.begin();
     while (it != studentai.end()) {
         if (it->galutinisBalas < 5.0) {
@@ -296,7 +297,16 @@ void strategija2(std::vector<Studentas>& studentai, std::vector<Studentas>& varg
 
 void strategija3(std::vector<Studentas>& studentai, std::vector<Studentas>& vargsiai, std::vector<Studentas>& kietiakiai) {
     
-    strategija1(studentai, vargsiai, kietiakiai);
+    auto partition_point = std::partition(studentai.begin(), studentai.end(), [](const Studentas& s) {
+        return s.galutinisBalas < 5.0;
+        });
+
+    vargsiai.insert(vargsiai.end(), studentai.begin(), partition_point);
+    kietiakiai.insert(kietiakiai.end(), partition_point, studentai.end());
+
+    studentai.clear();
+
+    std::cout << "Strategija 1 taikyta: sukurti vargsiai ir kietiakiai." << std::endl;
 }
 
 int selectStrategyAndCategorizeStudents(std::vector<Studentas>& studentai, std::vector<Studentas>& vargsiai, std::vector<Studentas>& kietiakiai) {

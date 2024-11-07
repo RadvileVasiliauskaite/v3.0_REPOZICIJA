@@ -8,8 +8,9 @@
 struct Studentas {
     std::string vardas;
     std::string pavarde;
-    double galutinisBalas = 0.0;
-    double galutinisMediana = 0.0; 
+    float galutinisBalas = 0.0;
+    double galutinisMediana = 0.0;
+    
 };
 
 #endif // STUDENTAS_H
