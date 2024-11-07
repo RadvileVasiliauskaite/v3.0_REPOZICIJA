@@ -5,6 +5,22 @@
 #include <iomanip>
 #include <algorithm>
 
+void skaiciavimai(std::list<Studentas>& studentai,
+    const std::vector<std::vector<double>> nd_rezultatai,
+    const std::vector<double>& egzaminoBalai) {
+    auto itStudent = studentai.begin();
+    auto itNdRezultatai = nd_rezultatai.begin();
+    auto itEgzaminoBalai = egzaminoBalai.begin();
+
+    for (; itStudent != studentai.end() && itNdRezultatai != nd_rezultatai.end() && itEgzaminoBalai != egzaminoBalai.end();
+        ++itStudent, ++itNdRezultatai, ++itEgzaminoBalai) {
+
+        double egzaminoBalas = *itEgzaminoBalai;
+        itStudent->galutinisBalas = 0.4 * skaiciuotiVidurki(*itNdRezultatai) + 0.6 * egzaminoBalas;
+        itStudent->galutinisMediana = 0.4 * skaiciuotiMediana(*itNdRezultatai) + 0.6 * egzaminoBalas;
+    }
+}
+
 double skaiciuotiVidurki(const std::vector<double>& nd_rezultatai) {
     if (nd_rezultatai.empty()) return 0.0;
     double total = 0.0;

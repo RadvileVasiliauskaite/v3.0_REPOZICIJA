@@ -20,6 +20,8 @@ int main() {
     std::list<Studentas> studentai;
     std::vector<std::vector<double>> nd_rezultatai;
     std::vector<double> egzaminoBalai;
+    std::list<Studentas> vargsiai;
+    std::list<Studentas> kietiakiai;
 
     try {
         if (choice == '1' || choice == '2') {
@@ -85,16 +87,8 @@ int main() {
                 std::chrono::duration<double> fileReadTime = end - start;
                 std::cout << "Failo \"" << filename << "\" nuskaitymas uztruko: " << fileReadTime.count() << " sekundes." << std::endl;
 
-                auto itStudent = studentai.begin();
-                auto itNdRezultatai = nd_rezultatai.begin();
-                auto itEgzaminoBalai = egzaminoBalai.begin();
-
-                for (; itStudent != studentai.end(); ++itStudent, ++itNdRezultatai, ++itEgzaminoBalai) {
-                    double egzaminoBalas = *itEgzaminoBalai;
-                    itStudent->galutinisBalas = 0.4 * skaiciuotiVidurki(*itNdRezultatai) + 0.6 * egzaminoBalas;
-                    itStudent->galutinisMediana = 0.4 * skaiciuotiMediana(*itNdRezultatai) + 0.6 * egzaminoBalas;
-                }
-
+                skaiciavimai(studentai, nd_rezultatai, egzaminoBalai);
+                
                 char sortOrder;
                 std::cout << "Pasirinkite rusiavima (1 - didejimo, 2 - mazejimo): ";
                 std::cin >> sortOrder;
@@ -151,18 +145,7 @@ int main() {
             return 0;
         }
 
-        auto itStudent = studentai.begin();
-        auto itNdRezultatai = nd_rezultatai.begin();
-        auto itEgzaminoBalai = egzaminoBalai.begin();
-
-        for (; itStudent != studentai.end(); ++itStudent, ++itNdRezultatai, ++itEgzaminoBalai) {
-            double egzaminoBalas = *itEgzaminoBalai;
-            itStudent->galutinisBalas = 0.4 * skaiciuotiVidurki(*itNdRezultatai) + 0.6 * egzaminoBalas;
-            itStudent->galutinisMediana = 0.4 * skaiciuotiMediana(*itNdRezultatai) + 0.6 * egzaminoBalas;
-        }
-
-        std::list<Studentas> vargsiai;
-        std::list<Studentas> kietiakiai;
+        skaiciavimai( studentai, nd_rezultatai, egzaminoBalai);
         categorizeStudents(studentai, vargsiai, kietiakiai);
 
 
