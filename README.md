@@ -3,7 +3,8 @@ bei išvedimą į skirtingus failus. Apskaičiuojamas vidurkius ir medianas, stu
 suskirstomi į kategorijas "kietiakai" ir "vargšiai". Yra du programos kodai viename naudojami vektoriai, kituose listai, atlikus analizę 
 ir paskaičiavus programos veikimo laiko vidurkius pastebime, kad programos veikimas naudojant listus užtrunka daug ilgiau nei vektorius.
 
-#V0.1
+<h1>V0.1</h1>
+
 Projekto v0.1 versijoje sukurta programa, kuri leidžia įvesti studentų duomenis (vardas, pavardė, namų darbų ir egzamino rezultatai),
 apskaičiuoti galutinį balą naudojant vidurkį arba medianą. Duomenys gali būti įvedami rankiniu būdu arba nuskaityti iš failo
 (kursiokai.txt). Studentai rūšiuojami pagal vardą/pavardę, o išvedimas yra tinkamai suformatuotas.
