@@ -8,5 +8,5 @@ copy studentai_100000.txt Debug\studentai_100000.txt
 copy studentai_1000000.txt Debug\studentai_1000000.txt
 copy studentai_10000000.txt Debug\studentai_10000000.txt
 cd Debug\
-v.pradinee.exe
+projektas2.exe
 pause
