@@ -315,20 +315,16 @@ void strategija2(std::list<Studentas>& studentai, std::list<Studentas>& vargsiai
     std::cout << "Strategija 2 taikyta: sukurti vargsiai ir pasalinti juos is pradinio saraso." << std::endl;
 }
 
-void strategija3( std::list<Studentas>& studentai, std::list<Studentas>& vargsiai) {
-        
-        auto it = std::remove_if(studentai.begin(), studentai.end(),
-            [&vargsiai](const Studentas& studentas) {
-                if (studentas.galutinisBalas < 5.0) {
-                    vargsiai.push_back(studentas);
-                    return true;
-                }
-                return false;
-            });
+void strategija3(std::list<Studentas>& studentai, std::list<Studentas>& vargsiai, std::list<Studentas>& kietiakiai) {
+    auto it = std::partition(studentai.begin(), studentai.end(), [](const Studentas& studentas) {
+        return studentas.galutinisBalas < 5.0;
+        });
 
-        studentai.erase(it, studentai.end());
-        std::cout << "Strategija 3 taikyta: 2 strategija su optimizuotais metodais." << std::endl;
-    }
+    vargsiai.assign(studentai.begin(), it);  
+    kietiakiai.assign(it, studentai.end());  
+
+    std::cout << "Strategija 3 taikyta: 1 strategija sukurti vargsiai ir kietiakiai sarasus." << std::endl;
+}
 
 int selectStrategyAndCategorizeStudents(std::list<Studentas>& studentai, std::list<Studentas>& vargsiai, std::list<Studentas>& kietiakiai) {
     int strategyChoice;
@@ -348,7 +344,7 @@ int selectStrategyAndCategorizeStudents(std::list<Studentas>& studentai, std::li
         strategija2(studentai, vargsiai);
     }
     else if (strategyChoice == 3) {
-        strategija3(studentai, vargsiai);
+        strategija3(studentai, vargsiai, kietiakiai);
     }
     else {
         std::cout << "Neteisingas pasirinkimas, strategija nebus taikoma." << std::endl;

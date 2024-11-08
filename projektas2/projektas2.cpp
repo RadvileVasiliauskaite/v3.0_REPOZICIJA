@@ -138,7 +138,7 @@ int main() {
                     writeResultsToFile(studentai, "kietiakiai_" + filename);
                 }
                 else if (strategyChoice == 3) {
-                    writeResultsToFile(studentai, "kietiakiai_" + filename);
+                    writeResultsToFile(kietiakiai, "kietiakiai_" + filename);
                 }
                 end = std::chrono::high_resolution_clock::now();
                 std::chrono::duration<double> writeKietiakiaiTime = end - start;
