@@ -47,6 +47,35 @@
 | Kietekų išsaugojimas  | 16.5767 s  | 16.2833 s  |
 | Bendras laikas        | 72.3017 s  | 196.722 s  | 
 
+C++ optimizacijos analizė
+
+Šiame eksperimente buvo išmatuotas programos vykdymo laikas naudojant skirtingus kompiliatoriaus
+ optimizavimo lygiai: **`-O1`**, **`-O2`**, **`-O3`**. Palyginome laikus, kaip optimizacija veikia programos našumą.
+
+Testavimo metodai:
+Kiekvienas programos variantas buvo kompiiliuotas su skirtingais optimizacijos lygiais:
+
+- **`-O1`**: Pagrindinė optimizacija
+- **`-O2`**: Vidutinio lygio optimizacija
+- **`-O3`**: Maksimali optimizacija
+
+### Testavimo rezultatai
+STRUCT
+| Optimizacijos lygis | 1000000 | 10000000 | exe |
+|---------------------|---------|----------|-----|
+| `-O1`               | 9.10 s  |  83.19 s | 75KB|
+| `-O2`               | 8.89 s  |  71.7 s  | 89KB|
+| `-O3`               | 8.75 s  |  65 s    | 95KB|
+
+CLASS
+| Optimizacijos lygis | 1000000 | 10000000 | exe |
+|---------------------|---------|----------|-----|
+| `-O1`               | 9.10 s  |  83.19 s | 75KB|
+| `-O2`               | 8.89 s  |  71.7 s  | 89KB|
+| `-O3`               | 8.75 s  |  65 s    | 95KB|
+
+
+
 <h1>V1.0</h1>
 v1.0 versija yra galutinė projekto realizacija, kurioje atliktas optimizavimas studentų rūšiavimo procese naudojant skirtingus konteinerius: vector ir list. Buvo išbandytos trys strategijos, kai studentai skirstomi į dvi kategorijas – "vargšiukai" ir "kietiakiai". Pirmoji strategija apima bendro studentų konteinerio dalijimą į du naujus konteinerius. Antroji strategija naudoja tik vieną papildomą konteinerį "vargšiukams", o trečioji strategija optimizuoja geriau veikiančią strategiją. Programos greičio analizė buvo atlikta tiek vector, tiek list konteinerių atveju, lyginant laiką, praleistą atliekant kiekvieną žingsnį. Gauti rezultatai buvo pateikti su laiko matavimais ir palyginimais, įskaitant vidurkius, gautus su skirtingais studentų skaičiais. Pridėtos naudojimo ir idiegimo instrukcijos, bei paruoštas MakeLists.txt ir run.bat failas diegimui bet kokioje operacinėje sistemoje. 
 
