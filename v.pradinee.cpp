@@ -10,6 +10,7 @@
 #include <numeric>
 #include <fstream>
 #include <iomanip>
+#include <cstdlib>
 
 int main() {
     int studentCount = 0;
@@ -155,5 +156,6 @@ int main() {
         std::cerr << "Klaida: " << e.what() << std::endl;
     }
 
+    system("pause");
     return 0;
 }
