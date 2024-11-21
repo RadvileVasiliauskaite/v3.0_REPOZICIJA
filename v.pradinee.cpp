@@ -99,18 +99,19 @@ int main() {
                 start = std::chrono::high_resolution_clock::now();
                 if (sortOrder == '1') {
                     std::sort(studentai.begin(), studentai.end(), [](const Studentas& a, const Studentas& b) {
-                        return a.galutinisBalas < b.galutinisBalas;
+                        return a.getGalutinisBalas() < b.getGalutinisBalas(); 
                         });
                 }
                 else if (sortOrder == '2') {
                     std::sort(studentai.begin(), studentai.end(), [](const Studentas& a, const Studentas& b) {
-                        return a.galutinisBalas > b.galutinisBalas;
+                        return a.getGalutinisBalas() > b.getGalutinisBalas();  
                         });
                 }
                 else {
                     std::cout << "Neteisingas pasirinkimas! Rusiavimas nebus atliktas." << std::endl;
                     continue;
                 }
+
                 end = std::chrono::high_resolution_clock::now();
                 std::chrono::duration<double> sortTime = end - start;
                 std::cout << "Studentu rusiavimas uztruko: " << sortTime.count() << " sekundes." << std::endl;
