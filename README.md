@@ -1,3 +1,51 @@
+<h1>V1.1</h1>
+
+
+|                       | STRUCT     | CLASS      |
+| 1000 studentų         | 3strat.    | 3strat.    |
+|-----------------------|------------|------------|
+| Failo nuskaitymas     | 0.00360 s  | 0.01254 s  |
+| Rūšiavimas            | 0.00015 s  | 0.00007 s  |
+| Dalijimas į grupes    | 0.00248 s  | 2.45766 s  |
+| Vargšių išsaugojimas  | 0.02096 s  | 0.00578 s  |
+| Kietekų išsaugojimas  | 0.00518 s  | 0.00288 s  |
+| Bendras laikas        | 2.5198 s   | 3.79922 s  |
+
+| 10000 studentų        | 3strat.    | 3strat.    |
+|-----------------------|------------|------------|
+| Failo nuskaitymas     | 0.03099 s  | 0.03795 s  |
+| Rūšiavimas            | 0.00119 s  | 0.00114 s  |
+| Dalijimas į grupes    | 1.34269 s  | 2.20461 s  |
+| Vargšių išsaugojimas  | 0.01777 s  | 0.01685 s  |
+| Kietekų išsaugojimas  | 0.01688 s  | 0.01699 s  |
+| Bendras laikas        | 16.5476 s  | 4.21732 s  |
+
+| 100000 studentų       | 3strat.    | 3strat.    |
+|-----------------------|------------|------------|
+| Failo nuskaitymas     | 0.30469 s  | 0.31873 s  | 
+| Rūšiavimas            | 0.00665 s  | 0.00725 s  | 
+| Dalijimas į grupes    | 1.20666 s  | 1.0955 s   | 
+| Vargšių išsaugojimas  | 0.16695 s  | 0.16238 s  | 
+| Kietekų išsaugojimas  | 0.16738 s  | 0.15994 s  | 
+| Bendras laikas        | 3.05906 s  | 4.82208 s  | 
+
+| 1000000 studentų      | 3strat.    | 3strat.    |
+|-----------------------|------------|------------|
+| Failo nuskaitymas     | 3.10161 s  | 3.21587 s  | 
+| Rūšiavimas            | 0.07144 s  | 0.07435 s  | 
+| Dalijimas į grupes    | 1.47273 s  | 1.47237 s  | 
+| Vargšių išsaugojimas  | 1.63293 s  | 1.59242 s  | 
+| Kietekų išsaugojimas  | 1.65165 s  | 1.64607 s  |
+| Bendras laikas        | 10.3526 s  | 9.33 s     |
+
+| 10000000 studentų     | 3strat.    | 3strat.    |
+|-----------------------|------------|------------|
+| Failo nuskaitymas     | 31.5896 s  | 28.3868 s  | 
+| Rūšiavimas            | 0.89778 s  | 0.77349 s  | 
+| Dalijimas į grupes    | 3.45435 s  | 3.46566 s  | 
+| Vargšių išsaugojimas  | 16.6124 s  | 15.7654 s  | 
+| Kietekų išsaugojimas  | 16.5767 s  | 16.2833 s  |
+| Bendras laikas        | 72.3017 s  | 196.722 s  | 
 
 <h1>V1.0</h1>
 v1.0 versija yra galutinė projekto realizacija, kurioje atliktas optimizavimas studentų rūšiavimo procese naudojant skirtingus konteinerius: vector ir list. Buvo išbandytos trys strategijos, kai studentai skirstomi į dvi kategorijas – "vargšiukai" ir "kietiakiai". Pirmoji strategija apima bendro studentų konteinerio dalijimą į du naujus konteinerius. Antroji strategija naudoja tik vieną papildomą konteinerį "vargšiukams", o trečioji strategija optimizuoja geriau veikiančią strategiją. Programos greičio analizė buvo atlikta tiek vector, tiek list konteinerių atveju, lyginant laiką, praleistą atliekant kiekvieną žingsnį. Gauti rezultatai buvo pateikti su laiko matavimais ir palyginimais, įskaitant vidurkius, gautus su skirtingais studentų skaičiais. Pridėtos naudojimo ir idiegimo instrukcijos, bei paruoštas MakeLists.txt ir run.bat failas diegimui bet kokioje operacinėje sistemoje. 
