@@ -63,9 +63,9 @@ Kiekvienas programos variantas buvo kompiiliuotas su skirtingais optimizacijos l
 STRUCT
 | Optimizacijos lygis | 1000000 | 10000000 | exe |
 |---------------------|---------|----------|-----|
-| `-O1`               | 9.10 s  |  83.19 s | 75KB|
-| `-O2`               | 8.89 s  |  71.7 s  | 89KB|
-| `-O3`               | 8.75 s  |  65 s    | 95KB|
+| `-O1`               | 10.4 s  |  73.2  s | 73KB|
+| `-O2`               | 8.96 s  |  71.59 s | 79KB|
+| `-O3`               | 9.56 s  |  71.06 s | 85KB|
 
 CLASS
 | Optimizacijos lygis | 1000000 | 10000000 | exe |
