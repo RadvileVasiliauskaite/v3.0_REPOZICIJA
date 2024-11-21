@@ -294,7 +294,7 @@ void strategija3(std::vector<Studentas>& studentai, std::vector<Studentas>& varg
 
     studentai.clear();
 
-    std::cout << "Strategija 1 taikyta: sukurti vargsiai ir kietiakiai." << std::endl;
+    std::cout << "Strategija 3 paremta 1 strategija: sukurti vargsiai ir kietiakiai." << std::endl;
 }
 
 int selectStrategyAndCategorizeStudents(std::vector<Studentas>& studentai, std::vector<Studentas>& vargsiai, std::vector<Studentas>& kietiakiai) {
