@@ -1,8 +1,8 @@
 <h1>V1.1</h1>
 
 
-|                       | STRUCT     | CLASS      |
-| 1000 studentų         | 3strat.    | 3strat.    |
+
+| 1000 studentų         | STRUCT     | CLASS      |
 |-----------------------|------------|------------|
 | Failo nuskaitymas     | 0.00360 s  | 0.01254 s  |
 | Rūšiavimas            | 0.00015 s  | 0.00007 s  |
@@ -11,7 +11,7 @@
 | Kietekų išsaugojimas  | 0.00518 s  | 0.00288 s  |
 | Bendras laikas        | 2.5198 s   | 3.79922 s  |
 
-| 10000 studentų        | 3strat.    | 3strat.    |
+| 10000 studentų        | STRUCT     | CLASS      |
 |-----------------------|------------|------------|
 | Failo nuskaitymas     | 0.03099 s  | 0.03795 s  |
 | Rūšiavimas            | 0.00119 s  | 0.00114 s  |
@@ -20,7 +20,7 @@
 | Kietekų išsaugojimas  | 0.01688 s  | 0.01699 s  |
 | Bendras laikas        | 16.5476 s  | 4.21732 s  |
 
-| 100000 studentų       | 3strat.    | 3strat.    |
+| 100000 studentų       | STRUCT     | CLASS      |
 |-----------------------|------------|------------|
 | Failo nuskaitymas     | 0.30469 s  | 0.31873 s  | 
 | Rūšiavimas            | 0.00665 s  | 0.00725 s  | 
@@ -29,7 +29,7 @@
 | Kietekų išsaugojimas  | 0.16738 s  | 0.15994 s  | 
 | Bendras laikas        | 3.05906 s  | 4.82208 s  | 
 
-| 1000000 studentų      | 3strat.    | 3strat.    |
+| 1000000 studentų      | STRUCT     | CLASS      |
 |-----------------------|------------|------------|
 | Failo nuskaitymas     | 3.10161 s  | 3.21587 s  | 
 | Rūšiavimas            | 0.07144 s  | 0.07435 s  | 
@@ -38,7 +38,7 @@
 | Kietekų išsaugojimas  | 1.65165 s  | 1.64607 s  |
 | Bendras laikas        | 10.3526 s  | 9.33 s     |
 
-| 10000000 studentų     | 3strat.    | 3strat.    |
+| 10000000 studentų     | STRUCT     | CLASS      |
 |-----------------------|------------|------------|
 | Failo nuskaitymas     | 31.5896 s  | 28.3868 s  | 
 | Rūšiavimas            | 0.89778 s  | 0.77349 s  | 
