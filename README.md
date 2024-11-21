@@ -1,6 +1,7 @@
 <h1>V1.1</h1>
 
-
+Atlikus tyrimus pastebėta, kad greičiau veikia, kai Studentas yra struct'ūra, bendras visų failų analizės laikas
+ naudojant struct'ūras ~104s, o klasės ~216s.
 
 | 1000 studentų         | STRUCT     | CLASS      |
 |-----------------------|------------|------------|
