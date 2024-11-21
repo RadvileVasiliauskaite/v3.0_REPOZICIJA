@@ -26,7 +26,7 @@ std::string formatIndex(int index, int maxLength) {
 
 void categorizeStudents(const std::list<Studentas>& studentai, std::list<Studentas>& vargsiai, std::list<Studentas>& kietiakiai) {
     for (const auto& studentas : studentai) {
-        if (studentas.galutinisBalas < 5.0) {
+        if (studentas.getGalutinisBalas() < 5.0) {
             vargsiai.push_back(studentas);
         }
         else {
@@ -75,8 +75,8 @@ void writeToFile(const std::list<Studentas>& studentai, const std::vector<std::v
 
     
     while (itStudentas != studentai.end()) {
-        file << std::left << std::setw(15) << itStudentas->vardas
-            << std::setw(15) << itStudentas->pavarde << " ";
+        file << std::left << std::setw(15) << itStudentas->getVardas()
+            << std::setw(15) << itStudentas->getPavarde() << " ";
 
        
         for (double balas : *itNd) {
@@ -107,11 +107,11 @@ void writeResultsToFile(const std::list<Studentas>& studentai, const std::string
         << std::setw(15) << "Galutinis(Med.)" << std::endl;
 
     for (const auto& studentas : studentai) {
-        file << std::left << std::setw(15) << studentas.vardas
-            << std::setw(15) << studentas.pavarde << " "
+        file << std::left << std::setw(15) << studentas.getVardas()
+            << std::setw(15) << studentas.getPavarde() << " "
             << std::fixed << std::setprecision(2)
-            << std::setw(15) << studentas.galutinisBalas << " "
-            << std::setw(15) << studentas.galutinisMediana << std::endl;
+            << std::setw(15) << studentas.getGalutinisBalas() << " "
+            << std::setw(15) << studentas.getGalutinisMediana() << std::endl;
     }
     file.close();
 }
@@ -120,12 +120,12 @@ void processAndWriteResults(std::list<Studentas>& studentai, const std::string& 
 
     if (sortOrder == '1') {
         studentai.sort([](const Studentas& a, const Studentas& b) {
-            return a.galutinisBalas < b.galutinisBalas;
+            return a.getGalutinisBalas() < b.getGalutinisBalas();
             });
     }
     else {
         studentai.sort([](const Studentas& a, const Studentas& b) {
-            return a.galutinisBalas > b.galutinisBalas;
+            return a.getGalutinisBalas() > b.getGalutinisBalas();
             });
     }
 
@@ -152,8 +152,8 @@ void generateStudents(int studentCount, std::list<Studentas>& studentai, std::ve
     for (int i = 0; i < studentCount; ++i) {
         
         Studentas studentas;
-        studentas.vardas = "Vardas" + formatIndex(i + 1, indexLength);
-        studentas.pavarde = "Pavarde" + formatIndex(i + 1, indexLength);
+        studentas.setVardas( "Vardas" + formatIndex(i + 1, indexLength));
+        studentas.setVardas( "Pavarde" + formatIndex(i + 1, indexLength));
 
         std::vector<double> uzduotys(5);
         for (int j = 0; j < 5; ++j) {
@@ -177,9 +177,13 @@ void inputStudentData(int studentCount, std::list<Studentas>& studentai, std::ve
     auto it = studentai.begin();
     for (int i = 0; i < studentCount; ++i) {
         std::cout << "Iveskite " << i + 1 << "-ojo studento varda: ";
-        std::getline(std::cin, it->vardas);
+        std::string vardas;
+        std::getline(std::cin, vardas);
+        it->setVardas(vardas);
         std::cout << "Iveskite " << i + 1 << "-ojo studento pavarde: ";
-        std::getline(std::cin, it->pavarde);
+        std::string pavarde;
+        std::getline(std::cin, pavarde);
+        it->setPavarde(pavarde);
 
         std::cout << "Studento atminties adresas: " << &(*it) << std::endl;
         std::vector<double> uzduotys;
@@ -233,8 +237,13 @@ void readFromFile(std::list<Studentas>& studentai, std::vector<std::vector<doubl
     std::string line;
     while (std::getline(file, line)) {
         std::istringstream iss(line);
+
+        std::string vardas, pavarde;
+        iss >> vardas >> pavarde;
+
         Studentas studentas;
-        iss >> studentas.vardas >> studentas.pavarde;
+        studentas.setVardas(vardas);
+        studentas.setPavarde(pavarde);
 
         std::vector<double> uzduotys;
         double balas;
@@ -292,7 +301,7 @@ char getInputChoice() {
 
 void strategija1(const std::list<Studentas>& studentai, std::list<Studentas>& vargsiai, std::list<Studentas>& kietiakiai) {
     for (const auto& studentas : studentai) {
-        if (studentas.galutinisBalas < 5.0) {
+        if (studentas.getGalutinisBalas() < 5.0) {
             vargsiai.push_back(studentas);
         }
         else {
@@ -304,7 +313,7 @@ void strategija1(const std::list<Studentas>& studentai, std::list<Studentas>& va
 
 void strategija2(std::list<Studentas>& studentai, std::list<Studentas>& vargsiai) {
     for (auto it = studentai.begin(); it != studentai.end(); ) {
-        if (it->galutinisBalas < 5.0) {
+        if (it->getGalutinisBalas() < 5.0) {
             vargsiai.push_back(*it);
             it = studentai.erase(it);
         }
@@ -317,7 +326,7 @@ void strategija2(std::list<Studentas>& studentai, std::list<Studentas>& vargsiai
 
 void strategija3(std::list<Studentas>& studentai, std::list<Studentas>& vargsiai, std::list<Studentas>& kietiakiai) {
     auto it = std::partition(studentai.begin(), studentai.end(), [](const Studentas& studentas) {
-        return studentas.galutinisBalas < 5.0;
+        return studentas.getGalutinisBalas() < 5.0;
         });
 
     vargsiai.assign(studentai.begin(), it);  

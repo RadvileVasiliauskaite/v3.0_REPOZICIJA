@@ -328,6 +328,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClCompile Include="C:\Users\radvi\source\repos\projektas2\data_handling.cpp" />
     <ClInclude Include="C:\Users\radvi\source\repos\projektas2\data_handling.h" />
     <ClInclude Include="C:\Users\radvi\source\repos\projektas2\studentas.h" />
+    <ClCompile Include="C:\Users\radvi\source\repos\projektas2\studentas.cpp" />
     <ClCompile Include="C:\Users\radvi\source\repos\projektas2\rezultatai.cpp" />
     <ClInclude Include="C:\Users\radvi\source\repos\projektas2\rezultatai.h" />
   </ItemGroup>

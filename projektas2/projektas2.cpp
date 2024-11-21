@@ -100,12 +100,12 @@ int main() {
                 start = std::chrono::high_resolution_clock::now();
                 if (sortOrder == '1') {
                     studentai.sort([](const Studentas& a, const Studentas& b) {
-                        return a.galutinisBalas < b.galutinisBalas;
+                        return a.getGalutinisBalas() < b.getGalutinisBalas();
                         });
                 }
                 else if (sortOrder == '2') {
                     studentai.sort([](const Studentas& a, const Studentas& b) {
-                        return a.galutinisBalas > b.galutinisBalas;
+                        return a.getGalutinisBalas() > b.getGalutinisBalas();
                         });
                 }
                 else {

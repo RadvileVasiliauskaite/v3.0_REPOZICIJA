@@ -7,6 +7,9 @@
     <ClCompile Include="C:\Users\radvi\source\repos\projektas2\data_handling.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="C:\Users\radvi\source\repos\projektas2\studentas.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="C:\Users\radvi\source\repos\projektas2\rezultatai.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>

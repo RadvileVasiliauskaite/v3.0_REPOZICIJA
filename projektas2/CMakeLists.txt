@@ -10,6 +10,7 @@ add_executable(projektas2
     data_handling.cpp
     data_handling.h
     studentas.h
+    studentas.cpp
     rezultatai.cpp
     rezultatai.h
 )

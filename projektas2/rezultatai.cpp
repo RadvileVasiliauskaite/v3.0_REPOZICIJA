@@ -16,8 +16,8 @@ void skaiciavimai(std::list<Studentas>& studentai,
         ++itStudent, ++itNdRezultatai, ++itEgzaminoBalai) {
 
         double egzaminoBalas = *itEgzaminoBalai;
-        itStudent->galutinisBalas = 0.4 * skaiciuotiVidurki(*itNdRezultatai) + 0.6 * egzaminoBalas;
-        itStudent->galutinisMediana = 0.4 * skaiciuotiMediana(*itNdRezultatai) + 0.6 * egzaminoBalas;
+        itStudent->setGalutinisBalas( 0.4 * skaiciuotiVidurki(*itNdRezultatai) + 0.6 * egzaminoBalas);
+        itStudent->setGalutinisMediana( 0.4 * skaiciuotiMediana(*itNdRezultatai) + 0.6 * egzaminoBalas);
     }
 }
 
@@ -45,13 +45,13 @@ double skaiciuotiMediana(const std::vector<double>& uzduotys) {
 
 
 void displayResults(const std::list<Studentas>& studentai) {
-    std::cout << std::left << std::setw(20) << "Vardas" << std::setw(20) << "Pavarde"
-        << std::setw(25) << "Galutinis (Vidurkis)" << std::setw(25) << "Galutinis (Mediana)" << std::endl;
+    std::cout << std::left << std::setw(20) << "Vardas"
+        << std::setw(20) << "Pavarde"
+        << std::setw(25) << "Galutinis (Vidurkis)" 
+        << std::setw(25) << "Galutinis (Mediana)" << std::endl;
     std::cout << std::string(90, '-') << std::endl;
 
     for (const auto& studentas : studentai) {
-        std::cout << std::setw(20) << studentas.vardas << std::setw(20) << studentas.pavarde
-            << std::setw(25) << std::fixed << std::setprecision(2) << studentas.galutinisBalas
-            << std::setw(25) << std::fixed << std::setprecision(2) << studentas.galutinisMediana << std::endl;
+        studentas.printInfo();
     }
 }
