@@ -26,7 +26,8 @@ public:
     void setGalutinisBalas(double gBalas) { galutinisBalas = gBalas; }
     void setGalutinisMediana(double gMediana) { galutinisMediana = gMediana; }
 
-    
+    ~Studentas() {}
+
     void printInfo() const;
 };
 

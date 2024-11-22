@@ -125,7 +125,7 @@ void generateStudents(int studentCount, std::vector<Studentas>& studentai, std::
     for (int i = 0; i < studentCount; ++i) {
         studentai[i].setVardas("Vardas" + formatIndex(i + 1, indexLength));
         studentai[i].setPavarde("Pavarde" + formatIndex(i + 1, indexLength));
-        
+
         std::vector<double> uzduotys(5);
         for (int j = 0; j < 5; ++j) {
             uzduotys[j] = generuotiAtsitiktiniBala();
@@ -133,6 +133,10 @@ void generateStudents(int studentCount, std::vector<Studentas>& studentai, std::
         nd_rezultatai[i] = uzduotys;
         egzaminoBalai[i] = generuotiAtsitiktiniBala();
     }
+
+    std::string filename = "studentai_" + std::to_string(studentCount) + ".txt";
+    writeToFile(studentai, nd_rezultatai, egzaminoBalai, filename);
+    std::cout << "Sugeneruotas failas: " << filename << " su " << studentCount << " studentais.\n";
 }
 
 void inputStudentData(int studentCount, std::vector<Studentas>& studentai, std::vector<std::vector<double>>& nd_rezultatai, std::vector<double>& egzaminoBalai) {
@@ -210,13 +214,16 @@ void readFromFile(std::vector<Studentas>& studentai, std::vector<std::vector<dou
         while (iss >> balas) {
             uzduotys.push_back(balas);
         }
-
-        if (!uzduotys.empty()) {
+        
+        if (uzduotys.size() == 6) {
             double egzaminoBalas = uzduotys.back();
             uzduotys.pop_back();
             studentai.push_back(studentas);
             nd_rezultatai.push_back(uzduotys);
             egzaminoBalai.push_back(egzaminoBalas);
+        }
+        else {
+            std::cout << "Netinkama duomenu struktura: " << line << std::endl;
         }
     }
     file.close();

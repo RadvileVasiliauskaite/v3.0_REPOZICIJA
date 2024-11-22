@@ -67,6 +67,8 @@ int main() {
             std::getline(std::cin, filename);
             readFromFile(studentai, nd_rezultatai, egzaminoBalai, filename);
             studentCount = studentai.size();
+            skaiciavimai(studentai, nd_rezultatai, egzaminoBalai);
+            displayResults(studentai);
         }
         else if (choice == '4') {
             std::vector<std::string> filenames = {
