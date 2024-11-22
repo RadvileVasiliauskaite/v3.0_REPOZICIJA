@@ -77,7 +77,7 @@ CLASS
 | `-O2`               | 8.89 s  |  71.7 s  | 89KB|
 | `-O3`               | 8.75 s  |  65 s    | 95KB|
 
-
+Išvados: greičiausiai veikia '-O3' optimizacija, tačiau jis užima daugiausiai vietos.
 
 <h1>V1.0</h1>
 v1.0 versija yra galutinė projekto realizacija, kurioje atliktas optimizavimas studentų rūšiavimo procese naudojant skirtingus konteinerius: vector ir list. Buvo išbandytos trys strategijos, kai studentai skirstomi į dvi kategorijas – "vargšiukai" ir "kietiakiai". Pirmoji strategija apima bendro studentų konteinerio dalijimą į du naujus konteinerius. Antroji strategija naudoja tik vieną papildomą konteinerį "vargšiukams", o trečioji strategija optimizuoja geriau veikiančią strategiją. Programos greičio analizė buvo atlikta tiek vector, tiek list konteinerių atveju, lyginant laiką, praleistą atliekant kiekvieną žingsnį. Gauti rezultatai buvo pateikti su laiko matavimais ir palyginimais, įskaitant vidurkius, gautus su skirtingais studentų skaičiais. Pridėtos naudojimo ir idiegimo instrukcijos, bei paruoštas MakeLists.txt ir run.bat failas diegimui bet kokioje operacinėje sistemoje. 
