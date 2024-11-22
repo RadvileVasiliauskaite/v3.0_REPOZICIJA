@@ -3,6 +3,8 @@
 Atlikus tyrimus pastebėta, kad greičiau veikia, kai Studentas yra struct'ūra, bendras visų failų analizės laikas
  naudojant struct'ūras ~104s, o klasės ~216s.
 
+ Matavimų laikai:
+
 | 1000 studentų         | STRUCT     | CLASS      |
 |-----------------------|------------|------------|
 | Failo nuskaitymas     | 0.00360 s  | 0.01254 s  |
