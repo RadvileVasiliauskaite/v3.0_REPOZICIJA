@@ -1,3 +1,37 @@
+<h1>V1.2</h1>
+Programoje išpildyta "rule of three' ir pridėtas išvesties ir įvesties operatorius.
+
+Rankinis Duomenų Įvedimas:
+* Vartotojas pats įveda studento vardą, pavardę, namų darbų ir egzamino balus.
+* Programa leidžia įvesti kelis studentus ir patikrina balų teisingumą.
+
+Automatinis Duomenų Generavimas:
+* Naudojant funkciją generuotiAtsitiktiniBala(), sugeneruojami vardai, pavardės, atsitiktiniai namų darbų balai ir egzamino rezultatai.
+* Sugeneruoti studentai saugomi faile (studentai_[kiekis].txt).
+
+Duomenų Nuskaitymas Iš Failo:
+* Programa priima .txt failus su struktūrizuotais duomenimis.
+* Failo formatas:
+Vardas      Pavarde      ND1  ND2  ND3  ND4  ND5  Egzaminas
+Jonas       Jonaitis     8    7    6    9    8    10
+
+Duomenų išvestis į ekraną:
+* Naudojant operator<<, rezultatai pateikiami formatuotai.
+* Formatas:
+Vardas          Pavarde         Galutinis (Vid.)   Galutinis (Med.)
+Jonas           Jonaitis        8.50              8.00
+
+Duomenų išvedimas į failus:
+* Rezultatai gali būti išsaugomi į failus:
+    * vargsiai.txt – studentai, kurių balas mažesnis nei 5.0.
+    * kietiakiai.txt – studentai, kurių balas didesnis arba lygus 5.0.
+* Rezultatai, kurie sugeneruoti atsitiktiniu būdu išvedami į failą (studentai_[kiekis].txt). Formatas:
+Vardas         Pavarde        ND1       ND2       ND3       ND4       ND5       EgzaminoBalas  
+Vardas0001     Pavarde0001    7         5         7         1         8         6              
+Vardas0002     Pavarde0002    9         3         3         2         9         8              
+Vardas0003     Pavarde0003    4         1         9         9         7         8    
+
+
 <h1>V1.1</h1>
 
 Atlikus tyrimus pastebėta, kad greičiau veikia, kai Studentas yra struct'ūra, bendras visų failų analizės laikas
