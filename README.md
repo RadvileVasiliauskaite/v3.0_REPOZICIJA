@@ -1,6 +1,9 @@
 <h1>V1.2</h1>
 Programoje išpildyta "rule of three' ir pridėtas išvesties ir įvesties operatorius.
 
+Išvesties operatorius leidžia patogiai išvesti Studentas objektą į srautą, išsaugant aiškų ir tvarkingą formatavimą.
+Įvesties operatorius leidžia lengvai nuskaityti Studentas objektą iš srauto. Jis užtikrina, kad duomenys būtų teisingai nustatyti klasės atributams.
+
 Rankinis Duomenų Įvedimas:
 * Vartotojas pats įveda studento vardą, pavardę, namų darbų ir egzamino balus.
 * Programa leidžia įvesti kelis studentus ir patikrina balų teisingumą.
