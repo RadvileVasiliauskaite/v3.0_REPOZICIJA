@@ -38,10 +38,8 @@ void displayResults(const std::vector<Studentas>& studentai) {
         << std::setw(20) << "Galutinis (Med.)"
         << std::endl;
     
-    for (auto& studentas : studentai) {
-        std::cout << studentas;  // Using the overloaded '<<' operator
+
+    for (const auto& studentas : studentai) {
+        studentas.printInfo();
     }
-    //for (const auto& studentas : studentai) {
-    //    studentas.printInfo();
-    //}
 }

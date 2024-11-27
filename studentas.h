@@ -23,6 +23,7 @@ public:
         pavarde(other.pavarde),
         galutinisBalas(other.galutinisBalas),
         galutinisMediana(other.galutinisMediana) {}
+
     //priskyrimo operatorius
     Studentas& operator=(const Studentas& other) {
         if (this == &other) return *this; // Apsauga nuo saves priskyrimo

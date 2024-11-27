@@ -144,7 +144,6 @@ void inputStudentData(int studentCount, std::vector<Studentas>& studentai, std::
     for (int i = 0; i < studentCount; ++i) {
         std::cout << "Iveskite " << i + 1 << "-ojo studento varda: ";
         std::string vardas;
-        std::cin.ignore();
         std::getline(std::cin, vardas);
         studentai[i].setVardas(vardas);
 
@@ -153,6 +152,7 @@ void inputStudentData(int studentCount, std::vector<Studentas>& studentai, std::
         std::getline(std::cin, pavarde);
         studentai[i].setPavarde(pavarde);
 
+        std::cout << "Studento atminties adresas: " << &studentai[i] << std::endl;
         std::vector<double> uzduotys;
         std::cout << "Iveskite uzduociu balus (spauskite ENTER du kartus, kad baigti):" << std::endl;
         std::string input;

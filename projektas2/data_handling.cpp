@@ -107,12 +107,9 @@ void writeResultsToFile(const std::list<Studentas>& studentai, const std::string
         << std::setw(15) << "Galutinis(Med.)" << std::endl;
 
     for (const auto& studentas : studentai) {
-        file << std::left << std::setw(15) << studentas.getVardas()
-            << std::setw(15) << studentas.getPavarde() << " "
-            << std::fixed << std::setprecision(2)
-            << std::setw(15) << studentas.getGalutinisBalas() << " "
-            << std::setw(15) << studentas.getGalutinisMediana() << std::endl;
+        file << studentas << std::endl; //isvedimo operatorius
     }
+
     file.close();
 }
 
@@ -153,7 +150,7 @@ void generateStudents(int studentCount, std::list<Studentas>& studentai, std::ve
         
         Studentas studentas;
         studentas.setVardas( "Vardas" + formatIndex(i + 1, indexLength));
-        studentas.setVardas( "Pavarde" + formatIndex(i + 1, indexLength));
+        studentas.setPavarde( "Pavarde" + formatIndex(i + 1, indexLength));
 
         std::vector<double> uzduotys(5);
         for (int j = 0; j < 5; ++j) {
