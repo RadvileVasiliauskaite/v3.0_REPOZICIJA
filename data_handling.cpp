@@ -86,12 +86,16 @@ void writeResultsToFile(const std::vector<Studentas>& studentai, const std::stri
          << std::setw(15) << "Galutinis (Med.)" << std::endl;
 
     for (const auto& studentas : studentai) {
-        file << std::left << std::setw(15) << studentas.getVardas()
-             << std::setw(15) << studentas.getPavarde()
-             << std::fixed << std::setprecision(2)
-             << std::setw(15) << studentas.getGalutinisBalas()
-             << std::setw(15) << studentas.getGalutinisMediana() << std::endl;
+        file << studentas << std::endl; //isvedimo operatorius
     }
+
+    //for (const auto& studentas : studentai) {
+    //    file << std::left << std::setw(15) << studentas.getVardas()
+    //         << std::setw(15) << studentas.getPavarde()
+    //         << std::fixed << std::setprecision(2)
+    //         << std::setw(15) << studentas.getGalutinisBalas()
+    //         << std::setw(15) << studentas.getGalutinisMediana() << std::endl;
+    //}
     file.close();
 }
 
