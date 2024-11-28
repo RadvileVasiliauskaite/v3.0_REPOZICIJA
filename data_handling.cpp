@@ -20,7 +20,7 @@ std::string formatIndex(int index, int maxLength) {
     }
     return formatted;
 }
-
+//copy constructor
 void categorizeStudents(const std::vector<Studentas>& studentai, std::vector<Studentas>& vargsiai, std::vector<Studentas>& kietiakiai) {
     for (const auto& studentas : studentai) {
         if (studentas.getGalutinisBalas() < 5.0) {
@@ -135,7 +135,7 @@ void generateStudents(int studentCount, std::vector<Studentas>& studentai, std::
     writeToFile(studentai, nd_rezultatai, egzaminoBalai, filename);
     std::cout << "Sugeneruotas failas: " << filename << " su " << studentCount << " studentais.\n";
 }
-
+//priskyrimo operatorius
 void inputStudentData(int studentCount, std::vector<Studentas>& studentai, std::vector<std::vector<double>>& nd_rezultatai, std::vector<double>& egzaminoBalai) {
     studentai.resize(studentCount);
     nd_rezultatai.resize(studentCount);
@@ -268,10 +268,10 @@ void strategija1(const std::vector<Studentas>& studentai, std::vector<Studentas>
         }
     }
 }
-
+//priskyrimo konstruktorius
 void strategija2(std::vector<Studentas>& studentai, std::vector<Studentas>& vargsiai) {
-
     vargsiai.reserve(vargsiai.size() + studentai.size());
+
     auto it = studentai.begin();
     while (it != studentai.end()) {
         if (it->getGalutinisBalas() < 5.0) {
@@ -283,10 +283,10 @@ void strategija2(std::vector<Studentas>& studentai, std::vector<Studentas>& varg
         }
     }
     std::cout << "Strategija 2 taikyta: sukurti vargsiai ir pasalinti juos is pradinio saraso." << std::endl;
-
 }
 
 
+//copy constructor
 void strategija3(std::vector<Studentas>& studentai, std::vector<Studentas>& vargsiai, std::vector<Studentas>& kietiakiai) {
 
     auto partition_point = std::partition(studentai.begin(), studentai.end(), [](const Studentas& s) {

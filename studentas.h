@@ -26,13 +26,15 @@ public:
 
     //priskyrimo operatorius
     Studentas& operator=(const Studentas& other) {
-        if (this == &other) return *this; // Apsauga nuo saves priskyrimo
+        if (this == &other) return *this; // Saves priskyrimo tikrinimas
         vardas = other.vardas;
         pavarde = other.pavarde;
         galutinisBalas = other.galutinisBalas;
         galutinisMediana = other.galutinisMediana;
         return *this;
     }
+    
+
 
     std::string getVardas() const { return vardas; }
     std::string getPavarde() const { return pavarde; }
