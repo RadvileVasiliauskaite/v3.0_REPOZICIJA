@@ -22,5 +22,5 @@ int selectStrategyAndCategorizeStudents(std::vector<Studentas>& studentai, std::
 void strategija1(const std::vector<Studentas>& studentai, std::vector<Studentas>& vargsiai, std::vector<Studentas>& kietiakiai);
 void strategija2(std::vector<Studentas>& studentai, std::vector<Studentas>& vargsiai);
 void strategija3(std::vector<Studentas>& studentai, std::vector<Studentas>& vargsiai, std::vector<Studentas>& kietiakiai);
-
+void RuleOfThree();
 #endif // DATA_HANDLING_H

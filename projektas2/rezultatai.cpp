@@ -52,6 +52,6 @@ void displayResults(const std::list<Studentas>& studentai) {
     std::cout << std::string(90, '-') << std::endl;
 
     for (const auto& studentas : studentai) {
-        studentas.printInfo();
+        std::cout << studentas << std::endl;
     }
 }

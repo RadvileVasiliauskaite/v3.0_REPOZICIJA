@@ -24,9 +24,9 @@ std::istream& operator>>(std::istream& is, Studentas& studentas) {
 }
 
 std::ostream& operator<<(std::ostream& os, const Studentas& studentas) {
-    os << std::left << std::setw(15) << studentas.getVardas()
-        << std::setw(15) << studentas.getPavarde()
-        << std::setw(10) << std::fixed << std::setprecision(2) << studentas.getGalutinisBalas()
-        << std::setw(40) << std::fixed << std::setprecision(2) << studentas.getGalutinisMediana();
+    os << std::left << std::setw(20) << studentas.getVardas()
+        << std::setw(20) << studentas.getPavarde()
+        << std::setw(25) << std::fixed << std::setprecision(2) << studentas.getGalutinisBalas()
+        << std::setw(25) << std::fixed << std::setprecision(2) << studentas.getGalutinisMediana();
     return os;
 }

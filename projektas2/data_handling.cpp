@@ -283,15 +283,15 @@ double getPositiveScore(const string& prompt) {
 char getInputChoice() {
     char choice;
     while (true) {
-        cout << "Pasirinkite duomenu irasymo tipa:\n1 - Ivesti duomenis\n2 - Generuoti duomenis atsitiktinai\n3 - Nuskaityti duomenis is failo\n4 - Atlikti programos veikimo greicio analize\n";
+        cout << "Pasirinkite duomenu irasymo tipa:\n1 - Ivesti duomenis\n2 - Generuoti duomenis atsitiktinai\n3 - Nuskaityti duomenis is failo\n4 - Atlikti programos veikimo greicio analize\n5 - Pademonstruoti Triju metodu taisykle\n";
         cin >> choice;
         cin.ignore(numeric_limits<streamsize>::max(), '\n');
 
-        if (choice == '1' || choice == '2' || choice == '3' || choice == '4') {
+        if (choice == '1' || choice == '2' || choice == '3' || choice == '4' || choice == '5') {
             return choice;
         }
         else {
-            cout << "Klaida! Prasome pasirinkti 1, 2, 3 arba 4." << endl;
+            cout << "Klaida! Prasome pasirinkti 1, 2, 3, 4 arba 5." << endl;
         }
     }
 }
@@ -357,4 +357,22 @@ int selectStrategyAndCategorizeStudents(std::list<Studentas>& studentai, std::li
     }
 
     return strategyChoice;
+}
+void RuleOfThree() {
+    Studentas studentas1("Petras", "Petraitis", 9.7, 8.5);
+    std::cout << "Studentas1: " << studentas1.getVardas() << " " << studentas1.getPavarde() << " " << " Galutinis(Vid.): " << studentas1.getGalutinisBalas() << " Galutinis(Med.): " << studentas1.getGalutinisMediana() << std::endl;
+
+    cout << "Studentas2 nukopijuotas studentas1" << endl;
+    Studentas studentas2 = studentas1;
+    std::cout << "Studentas 2:" << studentas2.getVardas() << " " << studentas2.getPavarde() << " " << " Galutinis(Vid.): " << studentas2.getGalutinisBalas() << " Galutinis(Med.): " << studentas2.getGalutinisMediana() << std::endl;
+
+    cout << "Studentas3 priskiriamas studentas1" << endl;
+    Studentas studentas3("Jonas", "Jonaitis", 5.5, 3.4);
+    std::cout << "Studentas3 (pries priskyrima): " << studentas3.getVardas() << " " << studentas3.getPavarde() << " " << " Galutinis(Vid.): " << studentas3.getGalutinisBalas() << " Galutinis(Med.): " << studentas3.getGalutinisMediana() << std::endl;
+    studentas3 = studentas1;
+    std::cout << "Studentas3 (po priskyrimo): " << studentas3.getVardas() << " " << studentas3.getPavarde() << " " << " Galutinis(Vid.): " << studentas3.getGalutinisBalas() << " Galutinis(Med.): " << studentas3.getGalutinisMediana() << std::endl;
+
+    studentas1.~Studentas();
+    std::cout << "Studentas1 po destruktoriaus panaudojimo: " << studentas1 << endl;
+
 }

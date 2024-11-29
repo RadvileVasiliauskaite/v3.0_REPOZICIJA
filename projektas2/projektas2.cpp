@@ -153,9 +153,10 @@ int main() {
             }
             return 0;
         }
-
-        //skaiciavimai( studentai, nd_rezultatai, egzaminoBalai);
-        //generateStudents(studentCount, studentai, nd_rezultatai, egzaminoBalai);
+        else if (choice == '5') {
+            std::cout << "Triju metodu taisykle" << std::endl;
+            RuleOfThree();
+        }
 
 
     }

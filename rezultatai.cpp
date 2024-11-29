@@ -40,6 +40,6 @@ void displayResults(const std::vector<Studentas>& studentai) {
     
 
     for (const auto& studentas : studentai) {
-        studentas.printInfo();
+        std::cout << studentas << std::endl;
     }
 }

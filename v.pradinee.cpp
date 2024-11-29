@@ -152,6 +152,10 @@ int main() {
             }
             return 0;
         }
+        else if (choice == '5') {
+            std::cout << "Triju metodu taisykle" << std:: endl;
+            RuleOfThree();
+        }
 
 
     }
