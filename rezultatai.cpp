@@ -40,6 +40,11 @@ void displayResults(const std::vector<Studentas>& studentai) {
     
 
     for (const auto& studentas : studentai) {
-        std::cout << studentas << std::endl;
+        std::cout << std::left << std::setw(20) << studentas.getVardas()
+            << std::setw(20) << studentas.getPavarde()
+            << std::setw(20) << std::fixed << std::setprecision(2) << studentas.getGalutinisBalas()
+            << std::setw(20) << std::fixed << std::setprecision(2) << studentas.getGalutinisMediana()
+            << std::endl;
     }
+
 }

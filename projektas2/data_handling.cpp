@@ -107,7 +107,11 @@ void writeResultsToFile(const std::list<Studentas>& studentai, const std::string
         << std::setw(15) << "Galutinis(Med.)" << std::endl;
 
     for (const auto& studentas : studentai) {
-        file << studentas << std::endl; //isvedimo operatorius
+        file << std::left << std::setw(15) << studentas.getVardas()
+            << std::setw(15) << studentas.getPavarde()
+            << std::setw(15) << std::fixed << std::setprecision(2) << studentas.getGalutinisBalas()
+            << std::setw(15) << std::fixed << std::setprecision(2) << studentas.getGalutinisMediana()
+            << std::endl;
     }
 
     file.close();
@@ -359,18 +363,18 @@ int selectStrategyAndCategorizeStudents(std::list<Studentas>& studentai, std::li
     return strategyChoice;
 }
 void RuleOfThree() {
-    Studentas studentas1("Petras", "Petraitis", 9.7, 8.5);
-    std::cout << "Studentas1: " << studentas1.getVardas() << " " << studentas1.getPavarde() << " " << " Galutinis(Vid.): " << studentas1.getGalutinisBalas() << " Galutinis(Med.): " << studentas1.getGalutinisMediana() << std::endl;
+    Studentas studentas1("Jonas", "Jonaitis", 9.0, 8.0, { 10, 9, 8 }, 10);
+    std::cout << "Studentas1: " << studentas1;
 
     cout << "Studentas2 nukopijuotas studentas1" << endl;
     Studentas studentas2 = studentas1;
-    std::cout << "Studentas 2:" << studentas2.getVardas() << " " << studentas2.getPavarde() << " " << " Galutinis(Vid.): " << studentas2.getGalutinisBalas() << " Galutinis(Med.): " << studentas2.getGalutinisMediana() << std::endl;
+    std::cout << "Studentas 2:" << studentas2;
 
     cout << "Studentas3 priskiriamas studentas1" << endl;
-    Studentas studentas3("Jonas", "Jonaitis", 5.5, 3.4);
-    std::cout << "Studentas3 (pries priskyrima): " << studentas3.getVardas() << " " << studentas3.getPavarde() << " " << " Galutinis(Vid.): " << studentas3.getGalutinisBalas() << " Galutinis(Med.): " << studentas3.getGalutinisMediana() << std::endl;
+    Studentas studentas3(studentas2);
+    std::cout << "Studentas3 (pries priskyrima): " << studentas2;
     studentas3 = studentas1;
-    std::cout << "Studentas3 (po priskyrimo): " << studentas3.getVardas() << " " << studentas3.getPavarde() << " " << " Galutinis(Vid.): " << studentas3.getGalutinisBalas() << " Galutinis(Med.): " << studentas3.getGalutinisMediana() << std::endl;
+    std::cout << "Studentas3 (po priskyrimo): " << studentas3;
 
     studentas1.~Studentas();
     std::cout << "Studentas1 po destruktoriaus panaudojimo: " << studentas1 << endl;

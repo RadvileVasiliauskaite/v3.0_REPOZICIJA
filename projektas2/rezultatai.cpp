@@ -47,11 +47,15 @@ double skaiciuotiMediana(const std::vector<double>& uzduotys) {
 void displayResults(const std::list<Studentas>& studentai) {
     std::cout << std::left << std::setw(20) << "Vardas"
         << std::setw(20) << "Pavarde"
-        << std::setw(25) << "Galutinis (Vidurkis)" 
-        << std::setw(25) << "Galutinis (Mediana)" << std::endl;
+        << std::setw(25) << "Galutinis (Vid.)" 
+        << std::setw(25) << "Galutinis (Med.)" << std::endl;
     std::cout << std::string(90, '-') << std::endl;
 
     for (const auto& studentas : studentai) {
-        std::cout << studentas << std::endl;
+        std::cout << std::left << std::setw(20) << studentas.getVardas()
+            << std::setw(20) << studentas.getPavarde()
+            << std::setw(20) << std::fixed << std::setprecision(2) << studentas.getGalutinisBalas()
+            << std::setw(20) << std::fixed << std::setprecision(2) << studentas.getGalutinisMediana()
+            << std::endl;
     }
 }
