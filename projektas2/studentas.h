@@ -3,11 +3,24 @@
 
 #include <string>
 #include <vector>
+#include <iostream> 
 
-class Studentas {
-private:
+class Zmogus {
+public:
     std::string vardas;
     std::string pavarde;
+    Zmogus(const std::string v = "", const std::string p = "") :
+        vardas(v), pavarde(p) {}
+
+    std::string getVardas() const { return vardas; }
+    std::string getPavarde() const { return pavarde; }
+
+    virtual void spausdintiInfo() const = 0;
+    virtual ~Zmogus() = default;
+};
+
+class Studentas : public Zmogus {
+private:
     double galutinisBalas;
     double galutinisMediana;
     std::vector<double> nd_rezultatai;
@@ -15,14 +28,13 @@ private:
 
 public:
 
-    Studentas() : galutinisBalas(0), galutinisMediana(0) {}
+    Studentas() : Zmogus(), galutinisBalas(0), galutinisMediana(0), egzaminoBalai(0) {}
     Studentas(const std::string& v, const std::string& p, double gBalas, double gMediana, const std::vector<double>& nd, double egz)
-        : vardas(v), pavarde(p), galutinisBalas(gBalas), galutinisMediana(gMediana), nd_rezultatai(nd), egzaminoBalai(egz) {}
+        : Zmogus(v, p), galutinisBalas(gBalas), galutinisMediana(gMediana), nd_rezultatai(nd), egzaminoBalai(egz) {}
 
     // Kopijavimo konstruktorius
     Studentas(const Studentas& other)
-        : vardas(other.vardas),
-        pavarde(other.pavarde),
+        : Zmogus(other.vardas, other.pavarde),
         galutinisBalas(other.galutinisBalas),
         galutinisMediana(other.galutinisMediana),
         nd_rezultatai(other.nd_rezultatai),
@@ -64,7 +76,9 @@ public:
         egzaminoBalai = 0;
     }
 
-    void printInfo() const;
+    void spausdintiInfo() const override {
+        std::cout << "Vardas: " << vardas << ", Pavarde: " << pavarde << std:: endl;
+    }
 
     friend std::ostream& operator<<(std::ostream& os, const Studentas& studentas);
     friend std::istream& operator>>(std::istream& is, Studentas& studentas);
