@@ -333,21 +333,29 @@ int selectStrategyAndCategorizeStudents(std::vector<Studentas>& studentai, std::
 }
 
 void RuleOfThree() {
-    Studentas studentas1("Jonas", "Jonaitis", 9.0, 8.0, { 10, 9, 8 }, 10);
-    std::cout << "Studentas1: " << studentas1; 
+    //Studentas studentas1("Jonas", "Jonaitis", 9.0, 8.0, { 10, 9, 8 }, 10);
+    //std::cout << "Studentas1: " << studentas1; 
 
-    cout << "Studentas2 nukopijuotas studentas1" << endl;
-    Studentas studentas2 = studentas1;
-    std::cout << "Studentas 2:" << studentas2; 
+    //cout << "Studentas2 nukopijuotas studentas1" << endl;
+    //Studentas studentas2 = studentas1;
+    //std::cout << "Studentas 2:" << studentas2; 
 
-    cout << "Studentas3 priskiriamas studentas1" << endl;
-    Studentas studentas3(studentas2);
+    //cout << "Studentas3 priskiriamas studentas1" << endl;
+    //Studentas studentas3(studentas2);
 
-    std::cout << "Studentas3 (pries priskyrima): " << studentas2; 
+    //std::cout << "Studentas3 (pries priskyrima): " << studentas2; 
   
-    std::cout << "Studentas3 (po priskyrimo): " << studentas3; 
+    //std::cout << "Studentas3 (po priskyrimo): " << studentas3; 
 
-    studentas1.~Studentas();
-    std::cout << "Studentas1 po destruktoriaus panaudojimo: " << studentas1 << endl;
+    //studentas1.~Studentas();
+    //std::cout << "Studentas1 po destruktoriaus panaudojimo: " << studentas1 << endl;
+
+    Studentas a;
+    std::cout << "Iveskite studento varda pavarde namu darbus(norint baigti namu darbu ivedima iveskite -1) egzamino bala: " << endl;
+    std::cin >> a;
+    Studentas b;
+    b = a;
+    Studentas c(b);
+    std:: cout << a << "\n" << b << c << std::endl;
 
 }

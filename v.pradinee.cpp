@@ -15,7 +15,6 @@
 int main() {
     int studentCount = 0;
     char choice = getInputChoice();
-
     std::vector<Studentas> studentai;
     std::vector<std::vector<double>> nd_rezultatai;
     std::vector<double> egzaminoBalai;
