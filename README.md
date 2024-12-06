@@ -4,7 +4,7 @@ Programoje sukurtos dvi klasės: abstrakti klasė Zmogus ir jos išvestinė klas
 Abstrakti bazinė klasė Zmogus negali būti naudojama tiesiogiai, tik jos išvestinėse klasėse. Klasė apima bendrus atributus ir metodus, kurie yra bendri 
 visiems žmonėms, tačiau jie negali būti naudojami tiesiogiai. Šioje klasėje yra du privatūs duomenys: vardas ir pavarde. Jie apibrėžiami naudojant kostruktorius.
 Jų vertes galima gauti per atitinkamus metodus. Kadangi tai abstrakti klasė, ji turi virtualų metodą "spausdintiInfo()", kuris yra grynasis ir turi būti realizuojamas
-tik išvestinėse klasėse, tai užtikrina, kad negalima sukurti Žmogus tipo objekto tiesiogiai.
+tik išvestinėse klasėse, tai užtikrina, kad negalima sukurti Žmogus tipo objekto tiesiogiai pvz.: Zmogus = z; negalimas
 
 Klasė Studentas yra išvestinė klasė, kuri paveldi visus Žmogus klasės atributus ir metodus. Be to, ji prideda papildomus atributus, susijusius su studento akademine veikla: 
 namų darbai, egzamino balai, galutinis balas, galutinė mediana.
