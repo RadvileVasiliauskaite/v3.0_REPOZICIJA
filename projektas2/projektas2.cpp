@@ -14,21 +14,24 @@
 
 
 int main() {
-    int studentCount = 0;
-    char choice = getInputChoice();
+    int studentCount = 0; //Kinatmasis studentu skaiciui saugoti
+    char choice = getInputChoice(); // funkcija, vartotojo pasirinkimui nuskaityti
 
-    std::list<Studentas> studentai;
-    std::vector<std::vector<double>> nd_rezultatai;
-    std::vector<double> egzaminoBalai;
-    std::list<Studentas> vargsiai;
-    std::list<Studentas> kietiakiai;
+    std::list<Studentas> studentai; //Studentu objektu listas
+    std::vector<std::vector<double>> nd_rezultatai; //Studentu namu darbu rezultatai
+    std::vector<double> egzaminoBalai; //Studentu egzamino balai
+    std::list<Studentas> vargsiai; //Listas studentu kuriu balai <5.0
+    std::list<Studentas> kietiakiai; //Listas studentu kuriu balai >5.0
 
     try {
         if (choice == '1' || choice == '2') {
-            if (choice == '2') {
+            if (choice == '2') { //jei pasirenkamas duomenu generavimas
                 while (true) {
+                    //Nuskaitomas generuojamu studentu skaicius
                     std::cout << "Kiek studentu norite generuoti (1000, 10000, 100000, 1000000, 10000000)? ";
                     std::cin >> studentCount;
+
+                    //Patikrinama, ar ivestis teisinga
                     if (std::cin.fail() || (studentCount != 1000 && studentCount != 10000 && studentCount != 100000 && studentCount != 1000000 && studentCount != 10000000)) {
                         std::cin.clear();
                         std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
@@ -39,13 +42,17 @@ int main() {
                         break;
                     }
                 }
+                //Generuojami studentai
                 generateStudents(studentCount, studentai, nd_rezultatai, egzaminoBalai);
 
             }
-            else {
+            else { //Jei pasirenkamas duomenu ivedimas rankiniu budu
                 while (true) {
+                    //Nuskaitomas ivedamu studentu skaicius
                     std::cout << "Kiek studentu norite ivesti? ";
                     std::cin >> studentCount;
+
+                    //patikrinama ar ivestis teisinga
                     if (std::cin.fail() || studentCount <= 0) {
                         std::cin.clear();
                         std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
@@ -56,21 +63,27 @@ int main() {
                         break;
                     }
                 }
+                // Vartotojo ivesties apdorojimas
                 inputStudentData(studentCount, studentai, nd_rezultatai, egzaminoBalai);
+                // Rezultatu skaiciavimas
                 skaiciavimai(studentai, nd_rezultatai, egzaminoBalai);
+                // Rezultatu isvedimas
                 displayResults(studentai);
             }
         }
-        else if (choice == '3') {
+        else if (choice == '3') { // Jei pasirenkamas duomenu nuskaitymas is failo
             std::string filename;
             std::cout << "Iveskite failo pavadinima: ";
             std::getline(std::cin, filename);
+
+            // Duomenu nuskaitymas is failo
             readFromFile(studentai, nd_rezultatai, egzaminoBalai, filename);
             studentCount = studentai.size();
+            // Rezultatu skaiciavimas ir isvedimas
             skaiciavimai(studentai, nd_rezultatai, egzaminoBalai);
             displayResults(studentai);
         }
-        else if (choice == '4') {
+        else if (choice == '4') { //Masinis failu nuskiatymas ir programos analize
             std::vector<std::string> filenames = {
                 "studentai_1000.txt",
                 "studentai_10000.txt",
@@ -84,7 +97,7 @@ int main() {
 
                 auto totalStart = std::chrono::high_resolution_clock::now();
 
-
+                // Failo nuskaitymo laiko matavimas
                 auto start = std::chrono::high_resolution_clock::now();
                 readFromFile(studentai, nd_rezultatai, egzaminoBalai, filename);
                 auto end = std::chrono::high_resolution_clock::now();
@@ -97,7 +110,7 @@ int main() {
                 std::cout << "Pasirinkite rusiavima (1 - didejimo, 2 - mazejimo): ";
                 std::cin >> sortOrder;
 
-
+                // Rusiavimas pagal vartotojo pasirinkta tvarka
                 start = std::chrono::high_resolution_clock::now();
                 if (sortOrder == '1') {
                     studentai.sort([](const Studentas& a, const Studentas& b) {
@@ -117,6 +130,7 @@ int main() {
                 std::chrono::duration<double> sortTime = end - start;
                 std::cout << "Studentu rusiavimas uztruko: " << sortTime.count() << " sekundes." << std::endl;
 
+                // Studentu padalijimas i grupes
                 start = std::chrono::high_resolution_clock::now();
                 int strategyChoice = selectStrategyAndCategorizeStudents(studentai, vargsiai, kietiakiai);
                 end = std::chrono::high_resolution_clock::now();
@@ -161,7 +175,7 @@ int main() {
 
     }
     catch (const std::exception& e) {
-        std::cerr << "Klaida: " << e.what() << std::endl;
+        std::cerr << "Klaida: " << e.what() << std::endl; //Klaidos pranesimas
     }
 
     return 0;

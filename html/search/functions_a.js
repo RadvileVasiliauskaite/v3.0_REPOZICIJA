@@ -1,0 +1,5 @@
+var searchData=
+[
+  ['writeresultstofile_0',['writeResultsToFile',['../data__handling_8cpp.html#a8ba0edd9cd036dcf9692acd226db0743',1,'writeResultsToFile(const std::vector&lt; Studentas &gt; &amp;studentai, const std::string &amp;filename):&#160;data_handling.cpp'],['../data__handling_8h.html#a5f43e349054cc1309cab5b4e37056860',1,'writeResultsToFile(const std::vector&lt; Studentas &gt; &amp;students, const std::string &amp;filename):&#160;data_handling.cpp']]],
+  ['writetofile_1',['writeToFile',['../data__handling_8cpp.html#a506181ae8301ff8fac85ddadbe3398b0',1,'writeToFile(const std::vector&lt; Studentas &gt; &amp;studentai, const std::vector&lt; std::vector&lt; double &gt; &gt; &amp;nd_rezultatai, const std::vector&lt; double &gt; &amp;egzaminoBalai, const std::string &amp;filename):&#160;data_handling.cpp'],['../data__handling_8h.html#a506181ae8301ff8fac85ddadbe3398b0',1,'writeToFile(const std::vector&lt; Studentas &gt; &amp;studentai, const std::vector&lt; std::vector&lt; double &gt; &gt; &amp;nd_rezultatai, const std::vector&lt; double &gt; &amp;egzaminoBalai, const std::string &amp;filename):&#160;data_handling.cpp']]]
+];

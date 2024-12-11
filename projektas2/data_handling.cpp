@@ -15,7 +15,7 @@
 
 using namespace std;
 
-
+// Suformuoja skaiciu (indeksa) pridedamas nulinius simbolius iki nurodyto ilgio
 std::string formatIndex(int index, int maxLength) {
     std::string formatted = std::to_string(index);
     while (formatted.length() < maxLength) {
@@ -24,6 +24,7 @@ std::string formatIndex(int index, int maxLength) {
     return formatted;
 }
 
+//Suskirsto studentus i dvi grupes: "vargsiai" ir "kietiakai" pagal ju galutini bala
 void categorizeStudents(const std::list<Studentas>& studentai, std::list<Studentas>& vargsiai, std::list<Studentas>& kietiakiai) {
     for (const auto& studentas : studentai) {
         if (studentas.getGalutinisBalas() < 5.0) {
@@ -35,6 +36,7 @@ void categorizeStudents(const std::list<Studentas>& studentai, std::list<Student
     }
 }
 
+//Gauti vartotojo pasirinkima del rusiavimo tvarkos
 char getSortingChoice() {
     char choice;
     while (true) {
@@ -51,6 +53,7 @@ char getSortingChoice() {
     }
 }
 
+//Iraso studentu duomenis i faila
 void writeToFile(const std::list<Studentas>& studentai, const std::vector<std::vector<double>>& nd_rezultatai, const std::vector<double>& egzaminoBalai, const std::string& filename) {
     std::ofstream file(filename);
     if (!file.is_open()) {
@@ -93,7 +96,7 @@ void writeToFile(const std::list<Studentas>& studentai, const std::vector<std::v
     file.close();
 }
 
-
+//Iraso studentu rezultatus i faila(suformuotas galutinis balas)
 void writeResultsToFile(const std::list<Studentas>& studentai, const std::string& filename) {
     std::ofstream file(filename + ".txt", std::ios::out | std::ios::trunc);
 
@@ -117,6 +120,7 @@ void writeResultsToFile(const std::list<Studentas>& studentai, const std::string
     file.close();
 }
 
+//Rusiuoja studentus ir iraso juos i kategorinius failus: vargsiai ir kietiakai.
 void processAndWriteResults(std::list<Studentas>& studentai, const std::string& category, char sortOrder) {
 
     if (sortOrder == '1') {
@@ -142,6 +146,7 @@ void processAndWriteResults(std::list<Studentas>& studentai, const std::string& 
     }
 }
 
+//sugeneruoja studentu duomenis atsitiktinai
 void generateStudents(int studentCount, std::list<Studentas>& studentai, std::vector<std::vector<double>>& nd_rezultatai, std::vector<double>& egzaminoBalai) {
     studentai.clear();
     nd_rezultatai.clear();
@@ -170,6 +175,7 @@ void generateStudents(int studentCount, std::list<Studentas>& studentai, std::ve
     std::cout << "Sugeneruotas failas: " << filename << " su " << studentCount << " studentais.\n";
 }
 
+//Leidizia vartotojui ivesti studentu duomenis rankiniu budu
 void inputStudentData(int studentCount, std::list<Studentas>& studentai, std::vector<std::vector<double>>& nd_rezultatai, std::vector<double>& egzaminoBalai) {
     studentai.resize(studentCount);
     nd_rezultatai.resize(studentCount);
@@ -216,7 +222,7 @@ void inputStudentData(int studentCount, std::list<Studentas>& studentai, std::ve
     }
 }
 
-
+//Generuoja atsitiktini bala tarp 1 ir 10
 double generuotiAtsitiktiniBala() {
     random_device rd;
     mt19937 gen(rd());
@@ -224,6 +230,7 @@ double generuotiAtsitiktiniBala() {
     return dist(gen);
 }
 
+//Nuskaito studentu duomenis is failo
 void readFromFile(std::list<Studentas>& studentai, std::vector<std::vector<double>>& nd_rezultatai, std::vector<double>& egzaminoBalai, const std::string& filename) {
 
     std::ifstream file(filename);
@@ -267,6 +274,7 @@ void readFromFile(std::list<Studentas>& studentai, std::vector<std::vector<doubl
     file.close();
 }
 
+//Uztikrina, kad vartotojas ivestu teigiama bala
 double getPositiveScore(const string& prompt) {
     double score;
     while (true) {
@@ -284,6 +292,8 @@ double getPositiveScore(const string& prompt) {
     }
 }
 
+//Funkcija vartotojo parinkimui ivesti duomenis, generuoti atsitiktinius duomenis, skaityti faila arba atlikti analize.
+//Ivesties kontrole uztikrina, kad pasirenkamos tik leistinos reiksmes.
 char getInputChoice() {
     char choice;
     while (true) {
@@ -300,6 +310,8 @@ char getInputChoice() {
     }
 }
 
+//Funkcija studentu skirstymui i "vargsius" ir "kietiakus" naudojant paprasta iteracija.
+//Tikrina kiekvieno studentu galutini bala, priklausomai nuo jo skirsto i atitinkamus sarasus. 
 void strategija1(const std::list<Studentas>& studentai, std::list<Studentas>& vargsiai, std::list<Studentas>& kietiakiai) {
     for (const auto& studentas : studentai) {
         if (studentas.getGalutinisBalas() < 5.0) {
@@ -312,6 +324,8 @@ void strategija1(const std::list<Studentas>& studentai, std::list<Studentas>& va
     std::cout << "Strategija 1 taikyta: sukurti vargsiai ir kietiakiai sarasus." << std::endl;
 }
 
+//Funkcija "vargsiu" sarasui sukurti naudojant pasalinima is pradinio saraso.
+//Rezervuojama vieta "vargsiu" sarase, kad isvengti perskirstymo. Po iteracijos studentai, kuriu balai mazesni nei 5.0, pasalinami. 
 void strategija2(std::list<Studentas>& studentai, std::list<Studentas>& vargsiai) {
     for (auto it = studentai.begin(); it != studentai.end(); ) {
         if (it->getGalutinisBalas() < 5.0) {
@@ -325,6 +339,8 @@ void strategija2(std::list<Studentas>& studentai, std::list<Studentas>& vargsiai
     std::cout << "Strategija 2 taikyta: sukurti vargsiai ir pasalinti juos is pradinio saraso." << std::endl;
 }
 
+//Funkcija studentu skirstymui naudojant optimizuota "std::partition" metoda.
+//Skiria "vargsiu" ir "kietiaku" sarasus pagal balus. Po skirstymo pradiniai duomenys isvalomi.
 void strategija3(std::list<Studentas>& studentai, std::list<Studentas>& vargsiai, std::list<Studentas>& kietiakiai) {
     auto it = std::partition(studentai.begin(), studentai.end(), [](const Studentas& studentas) {
         return studentas.getGalutinisBalas() < 5.0;
@@ -336,6 +352,8 @@ void strategija3(std::list<Studentas>& studentai, std::list<Studentas>& vargsiai
     std::cout << "Strategija 3 taikyta: 1 strategija sukurti vargsiai ir kietiakiai sarasus." << std::endl;
 }
 
+//Funkcija leidzia vartotojui pasirinkti skirstymo startegija ir ja taiko.
+//Priklausomai nuo pasirinkimo, iskvieciama viena is triju strategiju.
 int selectStrategyAndCategorizeStudents(std::list<Studentas>& studentai, std::list<Studentas>& vargsiai, std::list<Studentas>& kietiakiai) {
     int strategyChoice;
     std::cout << "Pasirinkite skaidymo strategija:\n";
@@ -362,6 +380,8 @@ int selectStrategyAndCategorizeStudents(std::list<Studentas>& studentai, std::li
 
     return strategyChoice;
 }
+
+//Demonstracija "Triju metodu taisykles" veikimo, kuria ir kopijuoja objektus naudojant priskyrimo ir kopijavimo konstruktorius.
 void RuleOfThree() {
     Studentas studentas1("Jonas", "Jonaitis", 9.0, 8.0, { 10, 9, 8 }, 10);
     std::cout << "Studentas1: " << studentas1;

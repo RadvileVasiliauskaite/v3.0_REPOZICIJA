@@ -5,6 +5,7 @@
 #include <algorithm>
 #include <numeric>
 
+//Funkcija apskaiciuoja kiekvieno studento galutini bala ir mediana pagal pateiktus namu darbu rezultatus bei egzamino balus
 void skaiciavimai(std::vector<Studentas>& studentai, const std::vector<std::vector<double>>& nd_rezultatai, const std::vector<double>& egzaminoBalai) {
     for (size_t i = 0; i < studentai.size(); ++i) {
         double egzaminoBalas = egzaminoBalai[i];
@@ -13,11 +14,13 @@ void skaiciavimai(std::vector<Studentas>& studentai, const std::vector<std::vect
     }
 }
 
+//Funkcija apskaiciuoja pateikto razultatu saraso vidurki
 double skaiciuotiVidurki(const std::vector<double>& nd_rezultatai) {
     if (nd_rezultatai.empty()) return 0.0;
     return std::accumulate(nd_rezultatai.begin(), nd_rezultatai.end(), 0.0) / nd_rezultatai.size();
 }
 
+//Funkcija apskaiciuoja pateikto razultatu saraso mediana
 double skaiciuotiMediana(const std::vector<double>& uzduotys) {
     if (uzduotys.empty()) return 0.0;
     std::vector<double> sortedUzduotys = uzduotys;
@@ -31,6 +34,7 @@ double skaiciuotiMediana(const std::vector<double>& uzduotys) {
     }
 }
 
+//Si funkcija isveda visu studentu informacija i standartini isvesties srauta
 void displayResults(const std::vector<Studentas>& studentai) {
     std::cout << std::left << std::setw(20) << "Vardas"
         << std::setw(20) << "Pavarde"

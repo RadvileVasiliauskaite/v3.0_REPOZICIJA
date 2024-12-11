@@ -2,7 +2,7 @@
 #include <iostream>
 #include <iomanip>
 
-
+//Funkcija, skirta ivesti "Studentas" objekto duomenis is standartinio srauto
 std::istream& operator>>(std::istream& is, Studentas& studentas) {
     std::string vardas, pavarde;
     double egzaminoBalai;
@@ -25,6 +25,7 @@ std::istream& operator>>(std::istream& is, Studentas& studentas) {
     return is;
 }
 
+//Funkcija, skirta isvesti "Studentas" objekto duomenis i standartini srauta
 std::ostream& operator<<(std::ostream& os, const Studentas& studentas) {
     os << std::left << std::setw(20) << studentas.getVardas()
         << std::setw(20) << studentas.getPavarde()
