@@ -1,3 +1,40 @@
+<h1>Naudojimo instrukcija</h1>
+CMake: Įdiegta CMake (versija 3.25 ar vėlesnė)
+Kompiliatorius: Turėti C++ kompiliatorių, kad galėtumėte sukompiliuoti projektą.
+CMake ir run.bat failas buvo išbandyti Windows aplinkoje
+
+<h1>Projekto struktūra</h1>
+CMakeLists.txt: failas naudojamas CMake projekto konfigūracijai ir kompiliavimui
+run.bat: Windows .bat failas, skirtas paleisti programą.
+
+<h1>Programos diegimas ir paleidimas</h1>
+Klonuokite projektą į savo kompiuterį, paleidimas su run.bat atliks visus reikalingus veiksmus, t.y. sukompiliuos ir paleis programą
+
+<h1>V2.0</h1>
+Šis C++ projektas skirtas studentų vardų, pavardžių ir balų tvarkymui. Programa leidžia įvesti studentų duomenis, apskaičiuoti galutinį balą naudojant vidurkį arba medianą, rūšiuoti studentus pagal jų balus, ir generuoti atsitiktinius studentų sąrašus su įvairiais duomenų kiekiais. Projektas apima optimizaciją ir testavimą naudojant įvairius kompiliatoriaus optimizacijos lygmenis. Pridėta dokumentacija HTML formatu (pateiktas HTML katalogas) bei parašyti Unit testai.
+
+Testų išvedimo pvz.:
+[==========] Running 5 tests from 1 test case.
+[----------] Global test environment set-up.
+[----------] 5 tests from StudentasTest
+[ RUN      ] StudentasTest.ConstructorAndGetters
+[       OK ] StudentasTest.ConstructorAndGetters (0 ms)
+[ RUN      ] StudentasTest.Setters
+[       OK ] StudentasTest.Setters (0 ms)
+[ RUN      ] StudentasTest.CopyConstructor
+[       OK ] StudentasTest.CopyConstructor (0 ms)
+[ RUN      ] StudentasTest.AssignmentOperator
+[       OK ] StudentasTest.AssignmentOperator (0 ms)
+[ RUN      ] StudentasTest.DestructorClearsResources
+[       OK ] StudentasTest.DestructorClearsResources (0 ms)
+[----------] 5 tests from StudentasTest (1 ms total)
+
+[----------] Global test environment tear-down
+[==========] 5 tests from 1 test case ran. (2 ms total)
+[  PASSED  ] 5 tests.
+
+
+
 <h1>V1.5</h1>
 Programoje sukurtos dvi klasės: abstrakti klasė Zmogus ir jos išvestinė klasė Studentas.
 
