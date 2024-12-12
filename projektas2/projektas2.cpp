@@ -12,16 +12,33 @@
 #include <iomanip>
 #include <list>
 
-
+/**
+ * @brief Pagrindine programos funkcija.
+ *
+ * Si funkcija uztikrina vartotojo sasaja ir leidzia pasirinkti veiksmus:
+ * 1. Studentu duomenu ivedimas arba generavimas.
+ * 2. Studentu duomenu nuskaitymas is failo.
+ * 3. Programos veikimo greicio analize ir masinis failu nuskaitymas.
+ * 4. Triju metodu taisykles demonstravimas.
+ *
+ * Programoje atliekami sie veiksmai:
+ * - Vartotojo pasirinkimo ivedimas.
+ * - Studentu generavimas arba ivedimas.
+ * - Studentu duomenu apdorojimas ir isvedimas.
+ * - Failu nuskaitymas ir analize.
+ * - Skirstymas pagal strategijas ir rezultatu issaugojimas i failus.
+ *
+ * @return Grazinamas 0, kai programa baigia darba.
+ */
 int main() {
-    int studentCount = 0; //Kinatmasis studentu skaiciui saugoti
-    char choice = getInputChoice(); // funkcija, vartotojo pasirinkimui nuskaityti
+    int studentCount = 0; /**< Kintamasis studentu skaiciui saugoti */
+    char choice = getInputChoice(); /**< Funkcija, vartotojo pasirinkimui nuskaityti */
 
-    std::list<Studentas> studentai; //Studentu objektu listas
-    std::vector<std::vector<double>> nd_rezultatai; //Studentu namu darbu rezultatai
-    std::vector<double> egzaminoBalai; //Studentu egzamino balai
-    std::list<Studentas> vargsiai; //Listas studentu kuriu balai <5.0
-    std::list<Studentas> kietiakiai; //Listas studentu kuriu balai >5.0
+    std::list<Studentas> studentai; /**< Studentu objektu listas */
+    std::vector<std::vector<double>> nd_rezultatai; /**< Studentu namu darbu rezultatai */
+    std::vector<double> egzaminoBalai;  /**< Studentu egzamino balai */
+    std::list<Studentas> vargsiai;  /**< listas studentu, kuriu balai < 5.0 */
+    std::list<Studentas> kietiakiai; /**< listas studentu, kuriu balai >= 5.0 */
 
     try {
         if (choice == '1' || choice == '2') {
@@ -175,8 +192,8 @@ int main() {
 
     }
     catch (const std::exception& e) {
-        std::cerr << "Klaida: " << e.what() << std::endl; //Klaidos pranesimas
+        std::cerr << "Klaida: " << e.what() << std::endl; /**< Klaidos pranesimas */
     }
 
-    return 0;
+    return 0;/**< Programos pabaiga */
 }
