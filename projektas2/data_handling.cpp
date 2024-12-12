@@ -15,7 +15,12 @@
 
 using namespace std;
 
-// Suformuoja skaiciu (indeksa) pridedamas nulinius simbolius iki nurodyto ilgio
+/**
+ * @brief Suformuoja skaiciu (indeksa), pridedant nulinius simbolius iki nurodyto ilgio.
+ * @param index Skaicius, kuri reikia formatuoti.
+ * @param maxLength Maksimalus simboliu skaicius.
+ * @return Suformuotas eilutes pavidalo skaicius.
+ */
 std::string formatIndex(int index, int maxLength) {
     std::string formatted = std::to_string(index);
     while (formatted.length() < maxLength) {
@@ -24,7 +29,12 @@ std::string formatIndex(int index, int maxLength) {
     return formatted;
 }
 
-//Suskirsto studentus i dvi grupes: "vargsiai" ir "kietiakai" pagal ju galutini bala
+/**
+ * @brief Skirsto studentus i dvi grupes: "vargsiai" ir "kietiakiai" pagal ju galutini bala.
+ * @param studentai Pradinis studentu sarasas.
+ * @param vargsiai Grupe studentu su galutiniu balu mazesniu nei 5.
+ * @param kietiakiai Grupe studentu su galutiniu balu 5 arba daugiau.
+ */
 void categorizeStudents(const std::list<Studentas>& studentai, std::list<Studentas>& vargsiai, std::list<Studentas>& kietiakiai) {
     for (const auto& studentas : studentai) {
         if (studentas.getGalutinisBalas() < 5.0) {
@@ -36,7 +46,10 @@ void categorizeStudents(const std::list<Studentas>& studentai, std::list<Student
     }
 }
 
-//Gauti vartotojo pasirinkima del rusiavimo tvarkos
+/**
+ * @brief Leidzia vartotojui pasirinkti rusiavimo tvarka.
+ * @return Vartotojo pasirinkimas: '1' - didejimo tvarka, '2' - mazejimo tvarka.
+ */
 char getSortingChoice() {
     char choice;
     while (true) {
@@ -53,7 +66,13 @@ char getSortingChoice() {
     }
 }
 
-//Iraso studentu duomenis i faila
+/**
+ * @brief Iraso studentu duomenis i faila.
+ * @param studentai Sarasas studentu.
+ * @param nd_rezultatai Namu darbu rezultatai.
+ * @param egzaminoBalai Egzamino balai.
+ * @param filename Failo pavadinimas.
+ */
 void writeToFile(const std::list<Studentas>& studentai, const std::vector<std::vector<double>>& nd_rezultatai, const std::vector<double>& egzaminoBalai, const std::string& filename) {
     std::ofstream file(filename);
     if (!file.is_open()) {
@@ -96,7 +115,11 @@ void writeToFile(const std::list<Studentas>& studentai, const std::vector<std::v
     file.close();
 }
 
-//Iraso studentu rezultatus i faila(suformuotas galutinis balas)
+/**
+ * @brief Iraso studentu rezultatus i faila suformavus galutini bala.
+ * @param studentai Sarasas studentu.
+ * @param filename Failo pavadinimas.
+ */
 void writeResultsToFile(const std::list<Studentas>& studentai, const std::string& filename) {
     std::ofstream file(filename + ".txt", std::ios::out | std::ios::trunc);
 
@@ -120,7 +143,12 @@ void writeResultsToFile(const std::list<Studentas>& studentai, const std::string
     file.close();
 }
 
-//Rusiuoja studentus ir iraso juos i kategorinius failus: vargsiai ir kietiakai.
+/**
+ * @brief Rusiuoja studentus ir iraso juos i kategorinius failus: "vargsiai" ir "kietiakiai".
+ * @param studentai Studentu sarasas.
+ * @param category Kategorija: "vargsiai" arba "kietiakiai".
+ * @param sortOrder Rusiavimo tvarka.
+ */
 void processAndWriteResults(std::list<Studentas>& studentai, const std::string& category, char sortOrder) {
 
     if (sortOrder == '1') {
@@ -146,7 +174,17 @@ void processAndWriteResults(std::list<Studentas>& studentai, const std::string& 
     }
 }
 
-//sugeneruoja studentu duomenis atsitiktinai
+/**
+ * @brief Sugeneruoja studentu duomenis atsitiktinai.
+ *
+ * Kiekvienam studentui priskiriami atsitiktiniai namu darbu balai ir egzamino balas.
+ * Sukuriamas failas su sugeneruotais studentu duomenimis.
+ *
+ * @param studentCount Studentu skaicius, kuriems bus sugeneruoti duomenys.
+ * @param studentai Vektorius, kuriame bus saugomi studentu objektai.
+ * @param nd_rezultatai Vektorius, kuriame bus saugomi studentu namu darbu balai.
+ * @param egzaminoBalai Vektorius, kuriame bus saugomi studentu egzamino balai.
+ */
 void generateStudents(int studentCount, std::list<Studentas>& studentai, std::vector<std::vector<double>>& nd_rezultatai, std::vector<double>& egzaminoBalai) {
     studentai.clear();
     nd_rezultatai.clear();
@@ -175,7 +213,16 @@ void generateStudents(int studentCount, std::list<Studentas>& studentai, std::ve
     std::cout << "Sugeneruotas failas: " << filename << " su " << studentCount << " studentais.\n";
 }
 
-//Leidizia vartotojui ivesti studentu duomenis rankiniu budu
+/**
+ * @brief Leidzia vartotojui ivesti studentu duomenis rankiniu budu.
+ *
+ * Vartotojas iveda studentu vardus, pavardes, namu darbu balus ir egzamino balus.
+ *
+ * @param studentCount Studentu skaicius, kuriems bus ivesti duomenys.
+ * @param studentai Vektorius, kuriame bus saugomi studentu objektai.
+ * @param nd_rezultatai Vektorius, kuriame bus saugomi studentu namu darbu balai.
+ * @param egzaminoBalai Vektorius, kuriame bus saugomi studentu egzamino balai.
+ */
 void inputStudentData(int studentCount, std::list<Studentas>& studentai, std::vector<std::vector<double>>& nd_rezultatai, std::vector<double>& egzaminoBalai) {
     studentai.resize(studentCount);
     nd_rezultatai.resize(studentCount);
@@ -222,7 +269,11 @@ void inputStudentData(int studentCount, std::list<Studentas>& studentai, std::ve
     }
 }
 
-//Generuoja atsitiktini bala tarp 1 ir 10
+/**
+ * @brief Generuoja atsitiktini bala tarp 1 ir 10.
+ *
+ * @return Atsitiktinis balas, kurio reiksme tarp 1 ir 10.
+ */
 double generuotiAtsitiktiniBala() {
     random_device rd;
     mt19937 gen(rd());
@@ -230,7 +281,17 @@ double generuotiAtsitiktiniBala() {
     return dist(gen);
 }
 
-//Nuskaito studentu duomenis is failo
+/**
+ * @brief Nuskaito studentu duomenis is failo.
+ *
+ * Nuskaito faila, kuriame yra studentu vardai, pavardes, namu darbu balai ir egzamino balas.
+ * Duomenys irasomi i atitinkamus vektorius.
+ *
+ * @param studentai Vektorius, kuriame bus saugomi studentu objektai.
+ * @param nd_rezultatai Vektorius, kuriame bus saugomi studentu namu darbu balai.
+ * @param egzaminoBalai Vektorius, kuriame bus saugomi studentu egzamino balai.
+ * @param filename Failo pavadinimas, is kurio bus skaitomi duomenys.
+ */
 void readFromFile(std::list<Studentas>& studentai, std::vector<std::vector<double>>& nd_rezultatai, std::vector<double>& egzaminoBalai, const std::string& filename) {
 
     std::ifstream file(filename);
@@ -274,7 +335,15 @@ void readFromFile(std::list<Studentas>& studentai, std::vector<std::vector<doubl
     file.close();
 }
 
-//Uztikrina, kad vartotojas ivestu teigiama bala
+/**
+ * @brief Uztikrina, kad vartotojas ivestu teigiama bala.
+ *
+ * Vartotojas iveda bala, ir funkcija tikrina, kad jis butu teigiamas.
+ * Jei ivestas neteisingas balas, prasoma ivesti dar karta.
+ *
+ * @param prompt zinute, kuria vartotojas matys pries ivedant bala.
+ * @return ivestas teigiamas balas.
+ */
 double getPositiveScore(const string& prompt) {
     double score;
     while (true) {
@@ -292,8 +361,15 @@ double getPositiveScore(const string& prompt) {
     }
 }
 
-//Funkcija vartotojo parinkimui ivesti duomenis, generuoti atsitiktinius duomenis, skaityti faila arba atlikti analize.
-//Ivesties kontrole uztikrina, kad pasirenkamos tik leistinos reiksmes.
+/**
+ * @brief Leidzia vartotojui pasirinkti duomenu ivedimo metoda.
+ *
+ * Vartotojas gali pasirinkti ivesti duomenis rankiniu budu, generuoti atsitiktinius duomenis, nuskaityti duomenis is failo,
+ * atlikti programos veikimo greicio analize arba parodyti "Triju metodu taisykle".
+ *
+ * @return Pasirinktas ivedimo tipas: '1' - ivesti duomenis, '2' - generuoti atsitiktinius duomenis, '3' - nuskaityti duomenis is failo,
+ * '4' - atlikti greicio analize, '5' - demonstruoti "Triju metodu taisykle".
+ */
 char getInputChoice() {
     char choice;
     while (true) {
@@ -310,8 +386,16 @@ char getInputChoice() {
     }
 }
 
-//Funkcija studentu skirstymui i "vargsius" ir "kietiakus" naudojant paprasta iteracija.
-//Tikrina kiekvieno studentu galutini bala, priklausomai nuo jo skirsto i atitinkamus sarasus. 
+/**
+ * @brief Skirsto studentus i "vargsius" ir "kietiakus" pagal galutini bala.
+ *
+ * Si funkcija naudoja paprasta iteracija ir tikrina kiekvieno studento galutini bala:
+ * jei balas mazesnis nei 5.0, studentas priskiriamas prie "vargsiu", kitaip prie "kietiaku".
+ *
+ * @param studentai Vektorius su visais studentais.
+ * @param vargsiai Vektorius, kuriame bus saugomi "vargsiu" studentai.
+ * @param kietiakiai Vektorius, kuriame bus saugomi "kietiaku" studentai.
+ */
 void strategija1(const std::list<Studentas>& studentai, std::list<Studentas>& vargsiai, std::list<Studentas>& kietiakiai) {
     for (const auto& studentas : studentai) {
         if (studentas.getGalutinisBalas() < 5.0) {
@@ -324,8 +408,15 @@ void strategija1(const std::list<Studentas>& studentai, std::list<Studentas>& va
     std::cout << "Strategija 1 taikyta: sukurti vargsiai ir kietiakiai sarasus." << std::endl;
 }
 
-//Funkcija "vargsiu" sarasui sukurti naudojant pasalinima is pradinio saraso.
-//Rezervuojama vieta "vargsiu" sarase, kad isvengti perskirstymo. Po iteracijos studentai, kuriu balai mazesni nei 5.0, pasalinami. 
+/**
+ * @brief Skirsto studentus i "vargsius" ir pasalina juos is pradinio saraso.
+ *
+ * Naudojama iteracija, kad pradiniame sarase butu pasalinti studentai su galutiniu balu mazesniu nei 5.0.
+ * Sukuriamas "vargsiu" sarasas, i kuri perkelti visi atitinkami studentai.
+ *
+ * @param studentai Vektorius su visais studentais, is kurio pasalinami "vargsiai".
+ * @param vargsiai Vektorius, kuriame bus saugomi "vargsiu" studentai.
+ */
 void strategija2(std::list<Studentas>& studentai, std::list<Studentas>& vargsiai) {
     for (auto it = studentai.begin(); it != studentai.end(); ) {
         if (it->getGalutinisBalas() < 5.0) {
@@ -339,8 +430,16 @@ void strategija2(std::list<Studentas>& studentai, std::list<Studentas>& vargsiai
     std::cout << "Strategija 2 taikyta: sukurti vargsiai ir pasalinti juos is pradinio saraso." << std::endl;
 }
 
-//Funkcija studentu skirstymui naudojant optimizuota "std::partition" metoda.
-//Skiria "vargsiu" ir "kietiaku" sarasus pagal balus. Po skirstymo pradiniai duomenys isvalomi.
+/**
+ * @brief Naudoja optimizuota metoda su `std::partition`, kad paskirstytu studentus i "vargsius" ir "kietiakus".
+ *
+ * `std::partition` yra naudojama efektyviai atskirti studentus i dvi grupes pagal ju galutinius balus.
+ * "Vargsiai" yra studentai, kuriu galutinis balas mazesnis nei 5.0, o "kietiakiai" – kiti.
+ *
+ * @param studentai Vektorius su visais studentais, kurie bus paskirstyti i dvi grupes.
+ * @param vargsiai Vektorius, kuriame bus saugomi "vargsiu" studentai.
+ * @param kietiakiai Vektorius, kuriame bus saugomi "kietiaku" studentai.
+ */
 void strategija3(std::list<Studentas>& studentai, std::list<Studentas>& vargsiai, std::list<Studentas>& kietiakiai) {
     auto it = std::partition(studentai.begin(), studentai.end(), [](const Studentas& studentas) {
         return studentas.getGalutinisBalas() < 5.0;
@@ -352,8 +451,19 @@ void strategija3(std::list<Studentas>& studentai, std::list<Studentas>& vargsiai
     std::cout << "Strategija 3 taikyta: 1 strategija sukurti vargsiai ir kietiakiai sarasus." << std::endl;
 }
 
-//Funkcija leidzia vartotojui pasirinkti skirstymo startegija ir ja taiko.
-//Priklausomai nuo pasirinkimo, iskvieciama viena is triju strategiju.
+/**
+ * @brief Leidzia vartotojui pasirinkti studentu skirstymo strategija ir ja taikyti.
+ *
+ * Vartotojas pasirenka skirstymo strategija (1, 2 arba 3), ir pagal pasirinkima taikoma viena is triju strategiju:
+ * 1. Bendro konteinerio skaidymas i du naujus konteinerius.
+ * 2. Tik vieno naujo konteinerio su studentu padalinimu is pradinio saraso sukurimas.
+ * 3. Efektyvi strategija su optimizuotais metodais.
+ *
+ * @param studentai Vektorius su visais studentais.
+ * @param vargsiai Vektorius, kuriame bus saugomi "vargsiu" studentai.
+ * @param kietiakiai Vektorius, kuriame bus saugomi "kietiaku" studentai.
+ * @return Pasirinkta skirstymo strategija (1-3).
+ */
 int selectStrategyAndCategorizeStudents(std::list<Studentas>& studentai, std::list<Studentas>& vargsiai, std::list<Studentas>& kietiakiai) {
     int strategyChoice;
     std::cout << "Pasirinkite skaidymo strategija:\n";
@@ -381,22 +491,18 @@ int selectStrategyAndCategorizeStudents(std::list<Studentas>& studentai, std::li
     return strategyChoice;
 }
 
-//Demonstracija "Triju metodu taisykles" veikimo, kuria ir kopijuoja objektus naudojant priskyrimo ir kopijavimo konstruktorius.
+/**
+ * @brief Demonstruoja "Triju metodu taisykles" veikims, kuri apima objektu kopijavima ir priskyrima.
+ *
+ * "Triju metodu taisykle" paaiskina, kaip tvarkyti objektu kopijas ir priskyrimus, kad isvengti nepageidaujamu efektu,
+ * kai objektai tvarko dinamiskai alokuojamus isteklius. Demonstruojami priskyrimo ir kopijavimo konstruktoriai.
+ */
 void RuleOfThree() {
-    Studentas studentas1("Jonas", "Jonaitis", 9.0, 8.0, { 10, 9, 8 }, 10);
-    std::cout << "Studentas1: " << studentas1;
-
-    cout << "Studentas2 nukopijuotas studentas1" << endl;
-    Studentas studentas2 = studentas1;
-    std::cout << "Studentas 2:" << studentas2;
-
-    cout << "Studentas3 priskiriamas studentas1" << endl;
-    Studentas studentas3(studentas2);
-    std::cout << "Studentas3 (pries priskyrima): " << studentas2;
-    studentas3 = studentas1;
-    std::cout << "Studentas3 (po priskyrimo): " << studentas3;
-
-    studentas1.~Studentas();
-    std::cout << "Studentas1 po destruktoriaus panaudojimo: " << studentas1 << endl;
-
+    Studentas a;
+    std::cout << "Iveskite studento varda pavarde namu darbus(norint baigti namu darbu ivedima iveskite -1) egzamino bala: " << endl;
+    std::cin >> a;
+    Studentas b;
+    b = a;
+    Studentas c(b);
+    std::cout << a << "\n" << b << c << std::endl;
 }
