@@ -6,47 +6,87 @@
 #include <iomanip>
 #include <vector> 
 
-//Bazine klase "Zmogus", skirta bendroms zmogaus savybes ir funkcionalumui aprasyti
+/**
+ * @brief Bazine klase, aprasanti zmogu su bendromis savybemis ir funkcionalumu.
+ */
 class Zmogus {
 public:
-    //Viesi atributai, apibudinantys asmens varda ir pavarde
+    /// Asmens vardas.
     std::string vardas;
+    /// Asmens pavarde.
+
     std::string pavarde;
 
-    //Konstruktorius su numatytomies reiksmemis vardui ir pavardei
+    /**
+     * @brief Sukuria Zmogus objekta su numatytuoju arba nurodytu vardu ir pavarde.
+     * @param v Vardas (numatytasis yra tuscias tekstas).
+     * @param p Pavarde (numatytasis yra tuscias tekstas).
+     */
     Zmogus(const std::string v = "", const std::string p = ""):
         vardas (v), pavarde(p) {}
 
-    //Funkcijos grazinancios objekto varda ir pavarde
+    /**
+     * @brief Grazina varda.
+     * @return Asmens vardas.
+     */
     std::string getVardas() const { return vardas; }
+
+    /**
+     * @brief Grazina pavarde.
+     * @return Asmens pavarde.
+     */
     std::string getPavarde() const { return pavarde; }
 
-    //Grynai virtuali funkcija, kuri turi buti igyvendinta paveldetose klasese
+    /**
+     * @brief Grynai virtuali funkcija, skirta asmens informacijai spausdinti. Turi buti igyvendinta paveldetose klasese.
+     */
     virtual void spausdintiInfo() const = 0;
 
-    //Virtualus destruktorius, uztikrinantis teisinga istekliu atlaisvinima paveldetose klasese
+    /**
+     * @brief Virtualus destruktorius, uztikrinantis teisinga resursu atlaisvinima paveldetose klasese.
+     */
     virtual ~Zmogus() = default;
 };
 
-//Klase "Studentas", paveldinti "Zmogus". Skiria studento informacijai ir funkcijoms apdoroti
+
+/**
+ * @brief Klase, aprasanti studenta, paveldima is Zmogus.
+ */
 class Studentas : public Zmogus {
 private:
-    //Privatus atributai, apibudinantys studento rezultatus
+    /// Studentu galutinis balas.
     double galutinisBalas;
+    /// Studentu galutine mediana.
     double galutinisMediana;
+    /// Namu darbu rezultatai.
     std::vector<double> nd_rezultatai;
+    /// Egzamino balas.
     double egzaminoBalai;
 
 public:
-    //Numatytojo kostruktoriaus aprasymas. Inicializuoja tuscia studenta
+    /**
+     * @brief Numatytojo konstruktoriaus aprasymas.
+     */
     Studentas() : Zmogus(), galutinisBalas(0), galutinisMediana(0), egzaminoBalai(0) {}
 
-    //Pilnas konstruktorius. Inicializuoja visus studento atributus.
+    /**
+     * @brief Sukuria Studentas objekta su nurodytais atributais.
+     * @param v Studentu vardas.
+     * @param p Studentu pavarde.
+     * @param gBalas Galutinis balas.
+     * @param gMediana Galutine mediana.
+     * @param nd Namu darbu rezultatai.
+     * @param egz Egzamino balas.
+     */
     Studentas(const std::string& v, const std::string& p, double gBalas, double gMediana, 
               const std::vector<double>& nd, double egz)
         : Zmogus(v, p), galutinisBalas(gBalas), galutinisMediana(gMediana), nd_rezultatai(nd), egzaminoBalai(egz) {}
 
-    //Kopijavimo konstruktorius. Kuria nauja objekta kopijuojant kita "Studentas" objekta
+    /**
+     * @brief Kopijavimo konstruktorius, skirtas sukurti nauja objekta, nukopijuojant kita.
+     * @param other Kitas Studentas objektas, is kurio kopijuojama.
+     */
+
     Studentas(const Studentas& other)
         : Zmogus(other.vardas, other.pavarde),
           galutinisBalas(other.galutinisBalas),
@@ -54,7 +94,11 @@ public:
           nd_rezultatai(other.nd_rezultatai),
           egzaminoBalai(other.egzaminoBalai) {}
 
-    //Perrasytas priskyrimo operatorius, skirtas kopijuoti vieno objekto reiksmes kitam
+    /**
+     * @brief Priskyrimo operatorius, skirtas kopijuoti vieno Studentas objekto reiksmes kitam.
+     * @param other Kitas Studentas objektas.
+     * @return Nuoroda i priskirta objekta.
+     */
     Studentas& operator=(const Studentas& other) {
         if (this == &other) return *this; // Apsauga nuo saves priskyrimo
         vardas = other.vardas;
@@ -66,22 +110,32 @@ public:
         return *this;
     }
 
-    //Viesos funkcijos, skirtos grazinti arba nustatyti objektu atributus
+    // Getteriai ir setteriai
     std::string getVardas() const { return vardas; }
     std::string getPavarde() const { return pavarde; }
+    /// @brief Grazina galutini bala.
     double getGalutinisBalas() const { return galutinisBalas; }
+    /// @brief Grazina galutine mediana.
     double getGalutinisMediana() const { return galutinisMediana; }
+    /// @brief Grazina namu darbu rezultatus.
     std::vector<double> getNd_rezultatai() const { return nd_rezultatai; }
+    /// @brief Grazina egzamino bala.
     double getEgzaminoBalai() const { return egzaminoBalai; }
 
     void setVardas(const std::string& v) { vardas = v; }
     void setPavarde(const std::string& p) { pavarde = p; }
+    /// @brief Nustato galutini bala.
     void setGalutinisBalas(double gBalas) { galutinisBalas = gBalas; }
+    /// @brief Nustato galutine mediana.
     void setGalutinisMediana(double gMediana) { galutinisMediana = gMediana; }
+    /// @brief Nustato namu darbu rezultatus.
     void setNd_Rezultatai(const std::vector<double>& nd) { nd_rezultatai = nd; }
+    /// @brief Nustato egzamino bala.
     void setEgzaminoBalai(double egz) { egzaminoBalai = egz; }
 
-    //Destruktorius. Atlaisvina dinamiskai rezervuotus isteklius ir nustato reiksmes i numatytasias
+    /**
+     * @brief Destruktorius, skirtas atlaisvinti resursus.
+     */
     ~Studentas() {
 
         nd_rezultatai.clear();
@@ -90,13 +144,21 @@ public:
         egzaminoBalai = 0;
     }
 
-    //Virtualios funkcijos implementacija, skirta studento informacijos spausdinimui
+    /**
+     * @brief Spausdina studento informacija.
+     */
     void spausdintiInfo() const override {
         std::cout << "Vardas: " << vardas << ", Pavarde: " << pavarde << std::endl;
     }
 
-    //Draugiski operatoriai, leidziantys patogiai ivesti ir isvesti objektus
+    /**
+     * @brief Perkrautas operatorius objektu spausdinimui.
+     */
     friend std::ostream& operator<<(std::ostream& os, const Studentas& studentas);
+    
+    /**
+     * @brief Perkrautas operatorius objektu nuskaitymui.
+     */
     friend std::istream& operator>>(std::istream& is, Studentas& studentas);
 };
 
