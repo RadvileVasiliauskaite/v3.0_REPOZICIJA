@@ -5,6 +5,12 @@
 *.userosscache
 *.sln.docstates
 
+# Ignore visual Studio files
+*.sln
+*.vcxproj
+*.vcxproj.filters
+*.vcxproj.user
+
 # Build results
 [Dd]ebug/
 [Rr]elease/

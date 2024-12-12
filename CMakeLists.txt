@@ -5,15 +5,14 @@ project(v.pradinee)
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 
-add_executable(v.pradinee 
-    v.pradinee.cpp      
-    data_handling.cpp
-    data_handling.h
-    studentas.cpp
-    studentas.h
-    rezultatai.cpp
-    rezultatai.h
+set(SOURCES
+	src/v.pradinee.cpp
+	src/rezultatai.cpp
+	src/studentas.cpp
+	src/data_handling.cpp
 )
 
-target_include_directories(v.pradinee PRIVATE ${CMAKE_SOURCE_DIR})
+add_executable(v.pradinee ${SOURCES})
+
+target_include_directories(v.pradinee PRIVATE ${CMAKE_SOURCE_DIR}/headers)
 
