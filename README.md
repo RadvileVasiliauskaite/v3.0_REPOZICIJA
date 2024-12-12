@@ -33,27 +33,27 @@ Testų išvedimo pvz.:
 [==========] 5 tests from 1 test case ran. (2 ms total)
 [  PASSED  ] 5 tests.
 
-Rankinis Duomenų Įvedimas:
+1.Rankinis Duomenų Įvedimas:
 * Vartotojas pats įveda studento vardą, pavardę, namų darbų ir egzamino balus.
 * Programa leidžia įvesti kelis studentus ir patikrina balų teisingumą.
 
-Automatinis Duomenų Generavimas:
+2.Automatinis Duomenų Generavimas:
 * Naudojant funkciją generuotiAtsitiktiniBala(), sugeneruojami vardai, pavardės, atsitiktiniai namų darbų balai ir egzamino rezultatai.
 * Sugeneruoti studentai saugomi faile (studentai_[kiekis].txt).
 
-Duomenų Nuskaitymas Iš Failo:
+3.Duomenų Nuskaitymas Iš Failo:
 * Programa priima .txt failus su struktūrizuotais duomenimis.
 * Failo formatas:
 Vardas      Pavarde      ND1  ND2  ND3  ND4  ND5  Egzaminas
 Jonas       Jonaitis     8    7    6    9    8    10
 
-Duomenų išvestis į ekraną:
+4.Duomenų išvestis į ekraną:
 * Naudojant operator<<, rezultatai pateikiami formatuotai.
 * Formatas:
 Vardas          Pavarde         Galutinis (Vid.)   Galutinis (Med.)
 Jonas           Jonaitis        8.50              8.00
 
-Duomenų išvedimas į failus:
+5.Duomenų išvedimas į failus:
 * Rezultatai gali būti išsaugomi į failus:
     * vargsiai.txt – studentai, kurių balas mažesnis nei 5.0.
     * kietiakiai.txt – studentai, kurių balas didesnis arba lygus 5.0.
@@ -84,27 +84,27 @@ Programoje išpildyta "rule of three' ir pridėtas išvesties ir įvesties opera
 Išvesties operatorius leidžia patogiai išvesti Studentas objektą į srautą, išsaugant aiškų ir tvarkingą formatavimą.
 Įvesties operatorius leidžia lengvai nuskaityti Studentas objektą iš srauto. Jis užtikrina, kad duomenys būtų teisingai nustatyti klasės atributams.
 
-Rankinis Duomenų Įvedimas:
+1.Rankinis Duomenų Įvedimas:
 * Vartotojas pats įveda studento vardą, pavardę, namų darbų ir egzamino balus.
 * Programa leidžia įvesti kelis studentus ir patikrina balų teisingumą.
 
-Automatinis Duomenų Generavimas:
+2.Automatinis Duomenų Generavimas:
 * Naudojant funkciją generuotiAtsitiktiniBala(), sugeneruojami vardai, pavardės, atsitiktiniai namų darbų balai ir egzamino rezultatai.
 * Sugeneruoti studentai saugomi faile (studentai_[kiekis].txt).
 
-Duomenų Nuskaitymas Iš Failo:
+3.Duomenų Nuskaitymas Iš Failo:
 * Programa priima .txt failus su struktūrizuotais duomenimis.
 * Failo formatas:
 Vardas      Pavarde      ND1  ND2  ND3  ND4  ND5  Egzaminas
 Jonas       Jonaitis     8    7    6    9    8    10
 
-Duomenų išvestis į ekraną:
+4.Duomenų išvestis į ekraną:
 * Naudojant operator<<, rezultatai pateikiami formatuotai.
 * Formatas:
 Vardas          Pavarde         Galutinis (Vid.)   Galutinis (Med.)
 Jonas           Jonaitis        8.50              8.00
 
-Duomenų išvedimas į failus:
+5.Duomenų išvedimas į failus:
 * Rezultatai gali būti išsaugomi į failus:
     * vargsiai.txt – studentai, kurių balas mažesnis nei 5.0.
     * kietiakiai.txt – studentai, kurių balas didesnis arba lygus 5.0.
