@@ -13,25 +13,9 @@ Klonuokite projektą į savo kompiuterį, paleidimas su run.bat atliks visus rei
 <h1>V2.0</h1>
 Šis C++ projektas skirtas studentų vardų, pavardžių ir balų tvarkymui. Programa leidžia įvesti studentų duomenis, apskaičiuoti galutinį balą naudojant vidurkį arba medianą, rūšiuoti studentus pagal jų balus, ir generuoti atsitiktinius studentų sąrašus su įvairiais duomenų kiekiais. Projektas apima optimizaciją ir testavimą naudojant įvairius kompiliatoriaus optimizacijos lygmenis. Pridėta dokumentacija HTML formatu (pateiktas HTML katalogas) bei parašyti Unit testai.
 
-Unit testų išvedimo pvz.:
-[==========] Running 5 tests from 1 test case.
-[----------] Global test environment set-up.
-[----------] 5 tests from StudentasTest
-[ RUN      ] StudentasTest.ConstructorAndGetters
-[       OK ] StudentasTest.ConstructorAndGetters (0 ms)
-[ RUN      ] StudentasTest.Setters
-[       OK ] StudentasTest.Setters (0 ms)
-[ RUN      ] StudentasTest.CopyConstructor
-[       OK ] StudentasTest.CopyConstructor (0 ms)
-[ RUN      ] StudentasTest.AssignmentOperator
-[       OK ] StudentasTest.AssignmentOperator (0 ms)
-[ RUN      ] StudentasTest.DestructorClearsResources
-[       OK ] StudentasTest.DestructorClearsResources (0 ms)
-[----------] 5 tests from StudentasTest (1 ms total)
+Unit testų išvedimo pvz.: 
 
-[----------] Global test environment tear-down
-[==========] 5 tests from 1 test case ran. (2 ms total)
-[  PASSED  ] 5 tests.
+![Screenshot 2024-12-12 185710](https://github.com/user-attachments/assets/5f952853-80d8-40db-8423-05c04f8e3c54)
 
 1.Rankinis Duomenų Įvedimas:
 * Vartotojas pats įveda studento vardą, pavardę, namų darbų ir egzamino balus.
