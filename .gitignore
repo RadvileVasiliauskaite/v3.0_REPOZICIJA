@@ -92,6 +92,7 @@ wwwroot/lib/
 # Ignore generated files
 *.dll
 *.exe
+!SetUp/setup.exe
 *.appx
 *.appxbundle
 
