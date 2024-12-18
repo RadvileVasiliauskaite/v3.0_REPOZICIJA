@@ -1,3 +1,65 @@
+<h1>Įdiegimas</h1>
+Atsisiųskite diegimo failą pavadinimu setup.exe failą.
+Dukart spustelėdami paleiskite įdiegimo programą t.y. setup.exe failą, kad pradėtumėte diegimo procesą.
+Diegimo vedlys padės atlikti visus žingsnius. Jums reikės priimti licencijos sutartį ir paspausti "Next" (Kitas), kad tęstumėte diegimą.
+Baigus diegimą, paspauskite "Finish" (Baigti), kad užbaigtumėte diegimo vedlį.
+Viską užbaigę galite paleisti programą pasirinkdami ją iš pradžios meniu arba darbalaukio.
+
+<h1>Naudojimo instrukcija</h1>
+CMake: Įdiegta CMake (versija 3.25 ar vėlesnė)
+Kompiliatorius: Turėti C++ kompiliatorių, kad galėtumėte sukompiliuoti projektą.
+CMake ir run.bat failas buvo išbandyti Windows aplinkoje
+
+<h1>Projekto struktūra</h1>
+CMakeLists.txt: failas naudojamas CMake projekto konfigūracijai ir kompiliavimui
+run.bat: Windows .bat failas, skirtas paleisti programą.
+
+<h1>Programos diegimas ir paleidimas</h1>
+Klonuokite projektą į savo kompiuterį, paleidimas su run.bat atliks visus reikalingus veiksmus, t.y. sukompiliuos ir paleis programą
+
+<h1>V3.0</h1>
+
+Sukurtas programos įdiegimo failas setup.exe, remiantis v1.5 versija.
+
+<h1>V2.0</h1>
+Šis C++ projektas skirtas studentų vardų, pavardžių ir balų tvarkymui. Programa leidžia įvesti studentų duomenis, apskaičiuoti galutinį balą naudojant vidurkį arba medianą, rūšiuoti studentus pagal jų balus, ir generuoti atsitiktinius studentų sąrašus su įvairiais duomenų kiekiais. Projektas apima optimizaciją ir testavimą naudojant įvairius kompiliatoriaus optimizacijos lygmenis. Pridėta dokumentacija HTML formatu (pateiktas HTML katalogas) bei parašyti Unit testai.
+
+Unit testų išvedimo pvz.: 
+
+![Screenshot 2024-12-12 185710](https://github.com/user-attachments/assets/5f952853-80d8-40db-8423-05c04f8e3c54)
+
+1.Rankinis Duomenų Įvedimas:
+* Vartotojas pats įveda studento vardą, pavardę, namų darbų ir egzamino balus.
+* Programa leidžia įvesti kelis studentus ir patikrina balų teisingumą.
+
+2.Automatinis Duomenų Generavimas:
+* Naudojant funkciją generuotiAtsitiktiniBala(), sugeneruojami vardai, pavardės, atsitiktiniai namų darbų balai ir egzamino rezultatai.
+* Sugeneruoti studentai saugomi faile (studentai_[kiekis].txt).
+
+3.Duomenų Nuskaitymas Iš Failo:
+* Programa priima .txt failus su struktūrizuotais duomenimis.
+* Failo formatas:
+Vardas      Pavarde      ND1  ND2  ND3  ND4  ND5  Egzaminas
+Jonas       Jonaitis     8    7    6    9    8    10
+
+4.Duomenų išvestis į ekraną:
+* Naudojant operator<<, rezultatai pateikiami formatuotai.
+* Formatas:
+Vardas          Pavarde         Galutinis (Vid.)   Galutinis (Med.)
+Jonas           Jonaitis        8.50              8.00
+
+5.Duomenų išvedimas į failus:
+* Rezultatai gali būti išsaugomi į failus:
+    * vargsiai.txt – studentai, kurių balas mažesnis nei 5.0.
+    * kietiakiai.txt – studentai, kurių balas didesnis arba lygus 5.0.
+* Rezultatai, kurie sugeneruoti atsitiktiniu būdu išvedami į failą (studentai_[kiekis].txt). Formatas:
+Vardas         Pavarde        ND1       ND2       ND3       ND4       ND5       EgzaminoBalas  
+Vardas0001     Pavarde0001    7         5         7         1         8         6              
+Vardas0002     Pavarde0002    9         3         3         2         9         8              
+Vardas0003     Pavarde0003    4         1         9         9         7         8    
+
+
+
 <h1>V1.5</h1>
 Programoje sukurtos dvi klasės: abstrakti klasė Zmogus ir jos išvestinė klasė Studentas.
 
