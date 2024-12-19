@@ -19,7 +19,7 @@ Klonuokite projektą į savo kompiuterį, paleidimas su run.bat atliks visus rei
 
 <h1>V3.0</h1>
 
-Sukurtas programos įdiegimo failas setup.exe, remiantis v1.5 versija.
+Sukurtas programos įdiegimo failas setup.exe, ProgramInstallSetup.msi, remiantis v1.5 versija.
 
 <h1>V2.0</h1>
 Šis C++ projektas skirtas studentų vardų, pavardžių ir balų tvarkymui. Programa leidžia įvesti studentų duomenis, apskaičiuoti galutinį balą naudojant vidurkį arba medianą, rūšiuoti studentus pagal jų balus, ir generuoti atsitiktinius studentų sąrašus su įvairiais duomenų kiekiais. Projektas apima optimizaciją ir testavimą naudojant įvairius kompiliatoriaus optimizacijos lygmenis. Pridėta dokumentacija HTML formatu (pateiktas HTML katalogas) bei parašyti Unit testai.
